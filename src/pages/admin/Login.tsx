@@ -72,7 +72,7 @@ const AdminLogin = () => {
           
           <Button 
             type="submit" 
-            className="w-full bg-chromatique-deep hover:bg-chromatique-deep/90"
+            className="w-full bg-chromatique-shallow hover:bg-chromatique-shallow/90"
             disabled={isLoading}
           >
             {isLoading ? "Signing in..." : "Sign In"}
@@ -83,7 +83,7 @@ const AdminLogin = () => {
           <Button 
             variant="link" 
             onClick={() => navigate("/")}
-            className="text-chromatique-deep"
+            className="text-chromatique-shallow"
           >
             Return to Main Site
           </Button>
