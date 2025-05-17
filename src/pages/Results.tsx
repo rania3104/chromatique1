@@ -67,7 +67,7 @@ const Results = () => {
       <main className="container px-4 py-8 animate-in">
         <div className="max-w-3xl mx-auto">
           <div className="bg-gradient-to-r from-chromatique-cream to-chromatique-cream/30 p-6 rounded-lg mb-8 text-center">
-            <h1 className="text-3xl md:text-4xl font-serif font-medium mb-2 text-chromatique-deep">
+            <h1 className="text-3xl md:text-4xl font-serif font-medium mb-2 text-chromatique-shallow">
               Your Color Analysis Results
             </h1>
             <p className="text-chromatique-taupe">
@@ -144,7 +144,7 @@ const Results = () => {
                 </div>
                 <Button 
                   onClick={() => navigate("/subscription")}
-                  className="bg-chromatique-rose hover:bg-chromatique-deep whitespace-nowrap"
+                  className="bg-chromatique-rose hover:bg-chromatique-shallow whitespace-nowrap"
                 >
                   Upgrade to Premium
                 </Button>
@@ -155,7 +155,7 @@ const Results = () => {
           <div className="flex flex-col md:flex-row gap-4 justify-center mt-12">
             <Button
               onClick={() => navigate("/home")}
-              className="bg-chromatique-rose hover:bg-chromatique-deep"
+              className="bg-chromatique-rose hover:bg-chromatique-shallow"
               size="lg"
             >
               See Clothing Recommendations

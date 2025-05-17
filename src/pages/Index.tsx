@@ -11,7 +11,7 @@ const Index = () => {
         <div className="flex-1 flex items-center justify-center p-6 lg:p-12">
           <div className="w-full max-w-md space-y-8 animate-fade-in">
             <div className="text-center">
-              <h1 className="text-4xl font-serif font-medium tracking-tight text-chromatique-deep">
+              <h1 className="text-4xl font-serif font-medium tracking-tight text-chromatique-shallow">
                 Chromatique
               </h1>
               <p className="mt-3 text-chromatique-taupe">
@@ -23,11 +23,11 @@ const Index = () => {
             
             <div className="text-center text-sm text-muted-foreground">
               By continuing, you agree to our{" "}
-              <span className="text-chromatique-deep">
+              <span className="text-chromatique-shallow">
                 Terms of Service
               </span>{" "}
               and{" "}
-              <span className="text-chromatique-deep">
+              <span className="text-chromatique-shallow">
                 Privacy Policy
               </span>
             </div>
@@ -35,7 +35,7 @@ const Index = () => {
             <div className="text-center mt-6">
               <Button 
                 variant="link" 
-                className="text-chromatique-deep opacity-70 hover:opacity-100"
+                className="text-chromatique-shallow opacity-70 hover:opacity-100"
                 asChild
               >
                 <Link to="/admin/login">Admin Login</Link>
@@ -47,7 +47,7 @@ const Index = () => {
         <div className="hidden md:block flex-1 bg-chromatique-cream">
           <div className="h-full w-full bg-cover bg-center" 
             style={{ 
-              backgroundImage: "url('https://images.unsplash.com/photo-1485968579580-b6d095142e6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80')",
+              backgroundImage: "url('https://plus.unsplash.com/premium_photo-1664202526559-e21e9c0fb46a?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
               backgroundBlendMode: "soft-light"
             }}>
             <div className="h-full w-full flex items-center justify-center p-6 bg-chromatique-rose/5">

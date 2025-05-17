@@ -61,7 +61,7 @@ const Wishlist = () => {
               </div>
               <Button
                 onClick={() => navigate("/home")}
-                className="bg-chromatique-rose hover:bg-chromatique-deep"
+                className="bg-chromatique-rose hover:bg-chromatique-shallow"
               >
                 Browse Categories
               </Button>
