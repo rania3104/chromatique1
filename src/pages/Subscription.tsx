@@ -294,7 +294,7 @@ const Subscription = () => {
       <Header />
       <main className="container px-4 py-8 animate-in">
         {currentPlan !== "free" && (
-          <div className="bg-gradient-to-r from-chromatique-rose/80 to-chromatique-deep/80 text-white p-4 rounded-lg mb-10 text-center">
+          <div className="bg-gradient-to-r from-chromatique-rose/80 to-chromatique-shallow/80 text-white p-4 rounded-lg mb-10 text-center">
             <h2 className="text-xl font-medium">
               You're currently on Chromatique {currentPlan === "premium" ? "Premium" : "VIP"}
             </h2>
@@ -486,7 +486,7 @@ const Subscription = () => {
                   <div className="text-center mt-8">
                     <Button 
                       onClick={() => handleSelectPlan("premium")}
-                      className="bg-chromatique-rose hover:bg-chromatique-deep"
+                      className="bg-chromatique-rose hover:bg-chromatique-shallow"
                     >
                       Upgrade to Premium
                     </Button>
@@ -495,7 +495,7 @@ const Subscription = () => {
               </TabsContent>
               
               <TabsContent value="consultation" className="animate-in">
-                <div className="max-w-2xl mx-auto bg-gradient-to-r from-chromatique-rose/10 to-chromatique-deep/10 p-6 rounded-lg text-center">
+                <div className="max-w-2xl mx-auto bg-gradient-to-r from-chromatique-rose/10 to-chromatique-shallow/10 p-6 rounded-lg text-center">
                   <h3 className="text-xl font-medium mb-3">Personal Style Consultation</h3>
                   <p className="mb-6">
                     Connect with our professional stylists for a personalized 1-on-1 consultation session
@@ -509,7 +509,7 @@ const Subscription = () => {
                   ) : (
                     <Button 
                       onClick={() => handleSelectPlan("vip")}
-                      className="bg-chromatique-rose hover:bg-chromatique-deep"
+                      className="bg-chromatique-rose hover:bg-chromatique-shallow"
                     >
                       Upgrade to VIP for Consultations
                     </Button>
@@ -545,7 +545,7 @@ const Subscription = () => {
               <div 
                 key={stylist.id}
                 className={`p-4 border rounded-lg transition-all cursor-pointer ${
-                  selectedStylist === stylist.id ? 'border-chromatique-deep bg-chromatique-rose/10' : 'hover:border-chromatique-rose'
+                  selectedStylist === stylist.id ? 'border-chromatique-shallow bg-chromatique-rose/10' : 'hover:border-chromatique-rose'
                 }`}
                 onClick={() => setSelectedStylist(stylist.id)}
               >
@@ -567,7 +567,7 @@ const Subscription = () => {
             <Button 
               onClick={handleBookConsultation}
               disabled={selectedStylist === null}
-              className="bg-chromatique-rose hover:bg-chromatique-deep"
+              className="bg-chromatique-rose hover:bg-chromatique-shallow"
             >
               Book Consultation
             </Button>

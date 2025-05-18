@@ -36,7 +36,7 @@ export function PlanCard({
   return (
     <Card className={cn(
       "relative",
-      isActive && "border-2 border-chromatique-deep ring-2 ring-chromatique-rose/30",
+      isActive && "border-2 border-chromatique-shallow ring-2 ring-chromatique-rose/30",
       className
     )}>
       {isPopular && !isActive && (
@@ -46,7 +46,7 @@ export function PlanCard({
       )}
       
       {isActive && (
-        <Badge className="absolute top-4 right-4 bg-chromatique-deep hover:bg-chromatique-deep">
+        <Badge className="absolute top-4 right-4 bg-chromatique-shallow hover:bg-chromatique-shallow">
           Your Plan
         </Badge>
       )}
@@ -82,7 +82,7 @@ export function PlanCard({
           <Button 
             onClick={onCancel}
             variant="outline"
-            className="w-full border-chromatique-deep text-chromatique-deep hover:bg-chromatique-deep/10"
+            className="w-full border-chromatique-shallow text-chromatique-shallow hover:bg-chromatique-shallow/10"
           >
             Cancel Plan
           </Button>
@@ -91,7 +91,7 @@ export function PlanCard({
             onClick={onSelect} 
             className={cn(
               "w-full", 
-              isPopular ? "bg-chromatique-rose hover:bg-chromatique-deep" : ""
+              isPopular ? "bg-chromatique-rose hover:bg-chromatique-shallow" : ""
             )}
           >
             Choose Plan

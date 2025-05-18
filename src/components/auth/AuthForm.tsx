@@ -152,7 +152,7 @@ const [eyeColor, setEyeColor] = useState<EyeColor | undefined>();
             <CardFooter>
               <Button
                 type="submit"
-                className="w-full bg-chromatique-rose hover:bg-chromatique-deep"
+                className="w-full bg-chromatique-rose hover:bg-chromatique-shallow"
                 disabled={isLoading}
               >
                 {isLoading ? "Signing in..." : "Sign In"}
@@ -195,7 +195,7 @@ const [eyeColor, setEyeColor] = useState<EyeColor | undefined>();
             <CardFooter>
               <Button
                 type="submit"
-                className="w-full bg-chromatique-rose hover:bg-chromatique-deep"
+                className="w-full bg-chromatique-rose hover:bg-chromatique-shallow"
                 disabled={isLoading}
               >
                 {isLoading ? "Creating account..." : "Create Account"}
