@@ -89,7 +89,7 @@ const UndertonePage = () => {
         <Button 
           onClick={handleNext}
           disabled={!selectedUndertone}
-          className="bg-chromatique-rose hover:bg-chromatique-shallow"
+          className="bg-chromatique-rose hover:bg-chromatique-deep"
         >
           Continue
         </Button>

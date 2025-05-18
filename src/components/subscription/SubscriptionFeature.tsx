@@ -22,8 +22,25 @@ export function SubscriptionFeature({
 }: SubscriptionFeatureProps) {
   const { isPremiumUser } = useChromatique();
   
-  // Get subscription details from localStorage to check if user is VIP
-  const storedSubscription = localStorage.getItem("chromatique-subscription");
+  // Get user email for per-user subscription data
+  const currentUserData = localStorage.getItem("chromatique-user");
+  let currentUserEmail = "";
+  
+  if (currentUserData) {
+    try {
+      const userData = JSON.parse(currentUserData);
+      currentUserEmail = userData.email || "";
+    } catch (error) {
+      console.error("Error parsing user data", error);
+    }
+  }
+  
+  // Use user-specific subscription key
+  const subscriptionKey = currentUserEmail 
+    ? `chromatique-subscription-${currentUserEmail}`
+    : "chromatique-subscription";
+  
+  const storedSubscription = localStorage.getItem(subscriptionKey);
   const currentPlan = storedSubscription ? JSON.parse(storedSubscription).planId : "free";
   
   const isVipFeature = vipOnly || title.toLowerCase().includes("consultation");
@@ -42,7 +59,7 @@ export function SubscriptionFeature({
     )}>
       <div className={cn(
         "mb-4 p-3 rounded-full", 
-        isFeatureAvailable ? "bg-chromatique-shallow text-white" : "bg-chromatique-cream text-chromatique-rose"
+        isFeatureAvailable ? "bg-chromatique-deep text-white" : "bg-chromatique-cream text-chromatique-rose"
       )}>
         {icon}
       </div>
@@ -51,7 +68,7 @@ export function SubscriptionFeature({
         {isPremiumFeature && !isVipFeature && (
           <Badge className={cn(
             "ml-2", 
-            isFeatureAvailable ? "bg-chromatique-shallow" : "bg-chromatique-taupe"
+            isFeatureAvailable ? "bg-chromatique-deep" : "bg-chromatique-taupe"
           )}>
             {isFeatureAvailable ? "Unlocked" : "Premium"}
           </Badge>
@@ -59,7 +76,7 @@ export function SubscriptionFeature({
         {isVipFeature && (
           <Badge className={cn(
             "ml-2", 
-            currentPlan === "vip" ? "bg-chromatique-shallow" : "bg-chromatique-taupe"
+            currentPlan === "vip" ? "bg-chromatique-deep" : "bg-chromatique-taupe"
           )}>
             VIP
           </Badge>
@@ -69,7 +86,7 @@ export function SubscriptionFeature({
       
       {!isFeatureAvailable && (
         <div className="absolute inset-0 flex items-center justify-center bg-background/50 backdrop-blur-[1px] rounded-lg">
-          <Badge variant="outline" className="border-chromatique-rose text-chromatique-shallow px-3 py-2">
+          <Badge variant="outline" className="border-chromatique-rose text-chromatique-deep px-3 py-2">
             {isVipFeature ? "VIP Feature" : "Premium Feature"}
           </Badge>
         </div>

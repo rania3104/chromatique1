@@ -24,12 +24,14 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Plus, Shirt, Scissors, Tag } from "lucide-react";
 import { useMobile } from "@/hooks/use-mobile";
+import { findAll, insert, deleteOne, COLLECTIONS } from "@/lib/mongodb";
 
 export default function Outfits() {
   const { toast } = useToast();
   const isMobile = useMobile();
   const [items, setItems] = useState<UserClothingItem[]>([]);
   const [outfits, setOutfits] = useState<Outfit[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [outfitType, setOutfitType] = useState<"dress" | "separates">("dress");
   const [selectedItems, setSelectedItems] = useState<Record<ClothingItemType, UserClothingItem | null>>({
     tops: null,
@@ -44,13 +46,31 @@ export default function Outfits() {
   const [selectedOutfit, setSelectedOutfit] = useState<Outfit | null>(null);
   const [outfitDialogOpen, setOutfitDialogOpen] = useState(false);
   
-  // Load items and outfits from localStorage
+  // Load items and outfits from MongoDB
   useEffect(() => {
-    const savedItems = JSON.parse(localStorage.getItem("user-clothing-items") || "[]");
-    const savedOutfits = JSON.parse(localStorage.getItem("user-outfits") || "[]");
-    setItems(savedItems);
-    setOutfits(savedOutfits);
-  }, []);
+    async function fetchData() {
+      try {
+        setIsLoading(true);
+        const [clothingItems, savedOutfits] = await Promise.all([
+          findAll(COLLECTIONS.CLOTHING_ITEMS),
+          findAll(COLLECTIONS.OUTFITS)
+        ]);
+        setItems(clothingItems);
+        setOutfits(savedOutfits);
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+        toast({
+          title: "Error",
+          description: "Failed to load your wardrobe and outfits",
+          variant: "destructive",
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchData();
+  }, [toast]);
   
   const itemsByType = (type: ClothingItemType) => {
     return items.filter(item => item.type === type);
@@ -66,8 +86,8 @@ export default function Outfits() {
     setSelectedItems(prev => ({...prev, [type]: null}));
   };
   
-  // Save outfit
-  const saveOutfit = () => {
+  // Save outfit to MongoDB
+  const saveOutfit = async () => {
     if (!newOutfitName.trim()) {
       toast({
         title: "Name required",
@@ -89,45 +109,65 @@ export default function Outfits() {
       return;
     }
     
-    const newOutfit: Outfit = {
-      id: `outfit-${Date.now()}`,
-      name: newOutfitName,
-      items: outfitItems,
-      createdAt: new Date().toISOString(),
-    };
-    
-    const updatedOutfits = [...outfits, newOutfit];
-    setOutfits(updatedOutfits);
-    localStorage.setItem("user-outfits", JSON.stringify(updatedOutfits));
-    
-    // Reset state
-    setNewOutfitName("");
-    setSaveDialogOpen(false);
-    setSelectedItems({
-      tops: null,
-      bottoms: null,
-      dresses: null,
-      outerwear: null,
-      accessories: null,
-      jewelry: null
-    });
-    
-    toast({
-      title: "Outfit saved",
-      description: "Your outfit has been saved to your collection",
-    });
+    try {
+      const newOutfit: Outfit = {
+        id: `outfit-${Date.now()}`,
+        name: newOutfitName,
+        items: outfitItems,
+        createdAt: new Date().toISOString(),
+      };
+      
+      // Save to MongoDB
+      await insert(COLLECTIONS.OUTFITS, newOutfit);
+      
+      // Update state
+      setOutfits(prev => [...prev, newOutfit]);
+      
+      // Reset state
+      setNewOutfitName("");
+      setSaveDialogOpen(false);
+      setSelectedItems({
+        tops: null,
+        bottoms: null,
+        dresses: null,
+        outerwear: null,
+        accessories: null,
+        jewelry: null
+      });
+      
+      toast({
+        title: "Outfit saved",
+        description: "Your outfit has been saved to your collection",
+      });
+    } catch (error) {
+      console.error("Error saving outfit:", error);
+      toast({
+        title: "Save failed",
+        description: "There was an error saving your outfit",
+        variant: "destructive",
+      });
+    }
   };
   
-  // Delete outfit
-  const deleteOutfit = (id: string) => {
-    const updatedOutfits = outfits.filter(outfit => outfit.id !== id);
-    setOutfits(updatedOutfits);
-    localStorage.setItem("user-outfits", JSON.stringify(updatedOutfits));
-    
-    toast({
-      title: "Outfit deleted",
-      description: "Your outfit has been removed from your collection",
-    });
+  // Delete outfit from MongoDB
+  const deleteOutfit = async (id: string) => {
+    try {
+      await deleteOne(COLLECTIONS.OUTFITS, id);
+      const updatedOutfits = outfits.filter(outfit => outfit.id !== id);
+      setOutfits(updatedOutfits);
+      
+      toast({
+        title: "Outfit deleted",
+        description: "Your outfit has been removed from your collection",
+      });
+    } catch (error) {
+      console.error("Error deleting outfit:", error);
+      toast({
+        title: "Delete failed", 
+        description: "There was an error deleting your outfit",
+        variant: "destructive",
+      });
+    }
   };
   
   // Calculate if the outfit has any items
@@ -339,7 +379,11 @@ export default function Outfits() {
             <div className="border rounded-lg p-6 bg-white h-full">
               <h2 className="text-xl font-semibold mb-6">Saved Outfits</h2>
               
-              {outfits.length === 0 ? (
+              {isLoading ? (
+                <div className="flex justify-center items-center py-16">
+                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+                </div>
+              ) : outfits.length === 0 ? (
                 <div className="text-center py-12 border-2 border-dashed rounded-lg">
                   <Tag className="h-12 w-12 text-gray-400 mx-auto mb-3" />
                   <h3 className="text-lg font-medium">No outfits saved yet</h3>

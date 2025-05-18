@@ -63,7 +63,7 @@ export function ChromatiqueProvider({ children }: { children: ReactNode }) {
       setSavedItems([]); // Reset saved items if none found
     }
     
-    // Simulate subscription check
+    // Subscription check - now uses user-specific key
     const subscriptionKey = currentUserEmail
       ? `chromatique-subscription-${currentUserEmail}`
       : "chromatique-subscription";

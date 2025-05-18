@@ -89,7 +89,7 @@ export function AuthForm() {
                 />
               </div>
               <div className="text-right">
-                <Button variant="link" className="text-chromatique-rose hover:text-chromatique-shallow p-0">
+                <Button variant="link" className="text-chromatique-rose hover:text-chromatique-deep p-0">
                   Forgot your password?
                 </Button>
               </div>
@@ -97,7 +97,7 @@ export function AuthForm() {
             <CardFooter>
               <Button 
                 type="submit" 
-                className="w-full bg-chromatique-rose hover:bg-chromatique-shallow" 
+                className="w-full bg-chromatique-rose hover:bg-chromatique-deep" 
                 disabled={isLoading}
               >
                 {isLoading ? "Signing in..." : "Sign In"}
@@ -146,7 +146,7 @@ export function AuthForm() {
             <CardFooter>
               <Button 
                 type="submit" 
-                className="w-full bg-chromatique-rose hover:bg-chromatique-shallow" 
+                className="w-full bg-chromatique-rose hover:bg-chromatique-deep" 
                 disabled={isLoading}
               >
                 {isLoading ? "Creating account..." : "Create Account"}

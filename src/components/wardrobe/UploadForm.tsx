@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/hooks/use-toast";
@@ -14,6 +15,7 @@ import {
   SelectValue 
 } from "@/components/ui/select";
 import { Upload } from "lucide-react";
+import { insert, COLLECTIONS } from "@/lib/mongodb";
 
 type UploadFormProps = {
   onSuccess: (item: UserClothingItem) => void;
@@ -32,7 +34,7 @@ export function UploadForm({ onSuccess }: UploadFormProps) {
     image: FileList;
   }>({
     defaultValues: {
-      type: "tops" // Set default value to tops
+      type: "tops"
     }
   });
   
@@ -63,14 +65,12 @@ export function UploadForm({ onSuccess }: UploadFormProps) {
     setIsUploading(true);
     
     try {
-      // In a real app, this would upload to a server
-      // Here we'll just create a local storage entry
       const imageFile = data.image[0];
       
       // Convert image to base64 for storage
       const reader = new FileReader();
       reader.readAsDataURL(imageFile);
-      reader.onloadend = () => {
+      reader.onloadend = async () => {
         const base64Image = reader.result as string;
         
         // Create new clothing item
@@ -84,22 +84,26 @@ export function UploadForm({ onSuccess }: UploadFormProps) {
           uploadedAt: new Date().toISOString(),
         };
         
-        // Save to localStorage
-        const existingItems = JSON.parse(localStorage.getItem("user-clothing-items") || "[]");
-        localStorage.setItem("user-clothing-items", JSON.stringify([...existingItems, newItem]));
-        
-        // Reset form
-        setImagePreview(null);
-        reset();
-        
-        // Notify success
-        toast({
-          title: "Item uploaded",
-          description: "Your clothing item has been added to your wardrobe",
-        });
-        
-        // Call success callback
-        onSuccess(newItem);
+        try {
+          // Save to mock MongoDB (localStorage)
+          await insert(COLLECTIONS.CLOTHING_ITEMS, newItem);
+          
+          // Reset form
+          setImagePreview(null);
+          reset();
+          
+          // Notify success
+          toast({
+            title: "Item uploaded",
+            description: "Your clothing item has been added to your wardrobe",
+          });
+          
+          // Call success callback
+          onSuccess(newItem);
+        } catch (error) {
+          console.error("Error saving item:", error);
+          throw error;
+        }
       };
     } catch (error) {
       console.error("Error uploading item:", error);

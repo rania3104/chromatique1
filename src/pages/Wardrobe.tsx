@@ -10,21 +10,41 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Search, Upload } from "lucide-react";
 import { useChromatique } from "@/lib/context";
 import { Header } from "@/components/layout/Header";
+import { findAll, deleteOne, COLLECTIONS } from "@/lib/mongodb";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Wardrobe() {
   const { isQuizComplete } = useChromatique();
+  const { toast } = useToast();
   const [items, setItems] = useState<UserClothingItem[]>([]);
   const [filteredItems, setFilteredItems] = useState<UserClothingItem[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState<ClothingItemType | "all">("all");
   const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Load items from localStorage
+  // Load items from MongoDB
   useEffect(() => {
-    const savedItems = JSON.parse(localStorage.getItem("user-clothing-items") || "[]");
-    setItems(savedItems);
-    setFilteredItems(savedItems);
-  }, []);
+    async function fetchClothingItems() {
+      try {
+        setIsLoading(true);
+        const clothingItems = await findAll(COLLECTIONS.CLOTHING_ITEMS);
+        setItems(clothingItems);
+        setFilteredItems(clothingItems);
+      } catch (error) {
+        console.error("Failed to fetch clothing items:", error);
+        toast({
+          title: "Error",
+          description: "Failed to load your wardrobe items",
+          variant: "destructive",
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchClothingItems();
+  }, [toast]);
 
   // Filter items based on search and type
   useEffect(() => {
@@ -52,10 +72,24 @@ export default function Wardrobe() {
   };
 
   // Delete item
-  const handleDeleteItem = (id: string) => {
-    const updatedItems = items.filter(item => item.id !== id);
-    setItems(updatedItems);
-    localStorage.setItem("user-clothing-items", JSON.stringify(updatedItems));
+  const handleDeleteItem = async (id: string) => {
+    try {
+      await deleteOne(COLLECTIONS.CLOTHING_ITEMS, id);
+      const updatedItems = items.filter(item => item.id !== id);
+      setItems(updatedItems);
+      
+      toast({
+        title: "Item deleted",
+        description: "The clothing item has been removed from your wardrobe",
+      });
+    } catch (error) {
+      console.error("Error deleting item:", error);
+      toast({
+        title: "Error",
+        description: "Failed to delete the item",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -119,13 +153,16 @@ export default function Wardrobe() {
           </div>
         </div>
 
-        {items.length === 0 ? (
+        {isLoading ? (
+          <div className="flex justify-center items-center py-16">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+          </div>
+        ) : items.length === 0 ? (
           <div className="text-center py-16 border rounded-lg bg-muted/30">
             <h3 className="text-xl font-medium mb-2">Your wardrobe is empty</h3>
             <p className="text-muted-foreground mb-6">
               Start by uploading your first clothing item
             </p>
-            {/* Removing the duplicate upload button here since we already have one in the top menu */}
           </div>
         ) : (
           <Tabs defaultValue="grid" className="w-full">

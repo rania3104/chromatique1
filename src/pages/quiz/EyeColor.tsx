@@ -43,7 +43,7 @@ const EyeColorPage = () => {
         <Button 
           onClick={handleComplete}
           disabled={!selectedColor}
-          className="bg-chromatique-rose hover:bg-chromatique-shallow"
+          className="bg-chromatique-rose hover:bg-chromatique-deep"
         >
           View My Results
         </Button>

@@ -44,7 +44,7 @@ const SkinTonePage = () => {
         <Button 
           onClick={handleNext}
           disabled={!selectedTone}
-          className="bg-chromatique-rose hover:bg-chromatique-shallow"
+          className="bg-chromatique-rose hover:bg-chromatique-deep"
         >
           Continue
         </Button>

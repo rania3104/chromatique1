@@ -45,7 +45,7 @@ export function QuizLayout({
             variant="ghost"
             size="sm"
             onClick={handleBack}
-            className="text-chromatique-taupe hover:text-chromatique-shallow mb-2"
+            className="text-chromatique-taupe hover:text-chromatique-deep mb-2"
           >
             <ChevronLeft className="mr-1 h-4 w-4" />
             Back

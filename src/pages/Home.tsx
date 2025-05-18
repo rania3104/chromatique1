@@ -136,7 +136,7 @@ const Home = () => {
                 className="bg-white shadow-sm rounded-lg p-6 hover:shadow-md transition-shadow border border-chromatique-cream"
               >
                 <div className="w-12 h-12 bg-chromatique-rose/10 rounded-full flex items-center justify-center mb-4 mx-auto">
-                  <span className="text-chromatique-shallow font-medium">{index + 1}</span>
+                  <span className="text-chromatique-deep font-medium">{index + 1}</span>
                 </div>
                 <h3 className="text-xl font-serif mb-2 text-center">{tip.title}</h3>
                 <p className="text-chromatique-taupe text-center">{tip.description}</p>
@@ -152,7 +152,7 @@ const Home = () => {
           </p>
           <Button 
             onClick={() => navigate("/results")}
-            className="bg-chromatique-rose hover:bg-chromatique-shallow"
+            className="bg-chromatique-rose hover:bg-chromatique-deep"
           >
             View My Results
           </Button>
