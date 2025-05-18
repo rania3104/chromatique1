@@ -10,6 +10,8 @@ import { Season } from "@/lib/types";
 import { useChromatique } from "@/lib/context";
 import { Header } from "@/components/layout/Header";
 import { Sparkles } from "lucide-react";
+import { supabase } from "@/lib/supabaseClient"; // or wherever your Supabase client is set up
+
 
 const Results = () => {
   const navigate = useNavigate();
@@ -22,6 +24,25 @@ const Results = () => {
     refreshUserData();
   }, []);
   
+const saveUserColorProfile = async () => {
+  if (!user?.id || !user?.skinTone || !user?.undertone || !user?.eyeColor || !user?.season) return;
+
+  const { error } = await supabase
+    .from("user_profiles") // updated to match your login logic
+    .update({
+      skin_tone: user.skinTone,       // match DB column name
+      undertone: user.undertone,
+      eye_color: user.eyeColor,
+      season: user.season,
+    })
+    .eq("id", user.id);
+
+  if (error) {
+    console.error("Failed to save user color profile:", error.message);
+  }
+};
+
+
   useEffect(() => {
     // If quiz isn't complete, redirect to start
     if (!isQuizComplete) {
@@ -41,13 +62,15 @@ const Results = () => {
       return;
     }
     
-    // Get season data - we need to fetch fresh data for the current user
     if (user?.season) {
       setIsLoading(true);
       getSeasonInfo(user.season).then((data) => {
         setSeasonData(data);
         setIsLoading(false);
       });
+
+      // Save to Supabase
+      saveUserColorProfile();
     }
   }, [isQuizComplete, user, navigate, refreshUserData]);
   

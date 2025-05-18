@@ -1,18 +1,30 @@
+import {
+  SkinTone,
+  Undertone,
+  EyeColor,
+  Season,
+  HairColor,
+} from "./types";
+import {
+  categories,
+  clothingItems,
+  seasons,
+  subscriptionPlans,
+} from "./data";
 
-import { SkinTone, Undertone, EyeColor, Season, HairColor } from "./types";
-import { categories, clothingItems, seasons, subscriptionPlans } from "./data";
-
-// This is a mock API service that simulates backend calls
-// In a real app, you would replace these functions with actual API calls
-
+// === CATEGORY API ===
 export const getCategories = () => {
   return Promise.resolve(categories);
 };
 
-export const getClothingItemsByCategory = (categoryId: string, season?: Season) => {
+// === CLOTHING ITEM API ===
+export const getClothingItemsByCategory = (
+  categoryId: string,
+  season?: Season
+) => {
   const filteredItems = clothingItems.filter(
-    (item) => 
-      item.styleCategories.includes(categoryId) && 
+    (item) =>
+      item.styleCategories.includes(categoryId) &&
       (!season || item.seasons.includes(season))
   );
   return Promise.resolve(filteredItems);
@@ -24,27 +36,34 @@ export const getClothingItemById = (id: string) => {
 };
 
 export const getSavedItems = (userProvidedItems?: string[]) => {
-  // In a real app, this would fetch from user's saved items
-  // For now, just return a subset of clothing items
-  const savedItemIds = userProvidedItems || ["item-1", "item-3", "item-6", "item-9"];
+  const savedItemIds = userProvidedItems || [
+    "item-1",
+    "item-3",
+    "item-6",
+    "item-9",
+  ];
   return Promise.resolve(
     clothingItems.filter((item) => savedItemIds.includes(item.id))
   );
 };
 
+// === SEASON API ===
 export const getSeasonInfo = (seasonId: Season) => {
-  return Promise.resolve(seasons[seasonId]);
+  const season = seasons[seasonId];
+  if (!season) {
+    console.warn(`No season data found for ID: ${seasonId}`);
+    return Promise.resolve(null);
+  }
+  return Promise.resolve(season);
 };
 
+// === COLOR ANALYSIS ===
 export const determineColorSeason = (
   skinTone: SkinTone,
   undertone: Undertone,
   eyeColor: EyeColor,
   hairColor?: HairColor
 ): Promise<Season> => {
-  // This is a simplified algorithm for determining color season
-  // A real implementation would be more nuanced
-  
   if (undertone === "warm") {
     if (["dark", "medium-dark", "very-dark"].includes(skinTone)) {
       return Promise.resolve("deep-autumn");
@@ -85,15 +104,16 @@ export const determineColorSeason = (
   }
 };
 
+// === SUBSCRIPTION API ===
 export const getSubscriptionPlans = () => {
   return Promise.resolve(subscriptionPlans);
 };
 
 export const getCurrentSubscription = () => {
-  // In a real app, this would get the user's current subscription from the backend
   return Promise.resolve({
     planId: "free",
     status: "active",
     expiresAt: new Date().setMonth(new Date().getMonth() + 1),
   });
 };
+export type { SkinTone, Undertone, EyeColor };

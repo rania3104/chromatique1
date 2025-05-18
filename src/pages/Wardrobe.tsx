@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { UserClothingItem, ClothingItemType } from "@/lib/types";
 import { UploadForm } from "@/components/wardrobe/UploadForm";
@@ -10,11 +9,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Search, Upload } from "lucide-react";
 import { useChromatique } from "@/lib/context";
 import { Header } from "@/components/layout/Header";
-import { findAll, deleteOne, COLLECTIONS } from "@/lib/mongodb";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabaseClient";
 
 export default function Wardrobe() {
-  const { isQuizComplete } = useChromatique();
+  // const { isQuizComplete } = useChromatique();
   const { toast } = useToast();
   const [items, setItems] = useState<UserClothingItem[]>([]);
   const [filteredItems, setFilteredItems] = useState<UserClothingItem[]>([]);
@@ -23,61 +22,65 @@ export default function Wardrobe() {
   const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load items from MongoDB
-  useEffect(() => {
-    async function fetchClothingItems() {
-      try {
-        setIsLoading(true);
-        const clothingItems = await findAll(COLLECTIONS.CLOTHING_ITEMS);
-        setItems(clothingItems);
-        setFilteredItems(clothingItems);
-      } catch (error) {
-        console.error("Failed to fetch clothing items:", error);
-        toast({
-          title: "Error",
-          description: "Failed to load your wardrobe items",
-          variant: "destructive",
-        });
-      } finally {
-        setIsLoading(false);
-      }
+useEffect(() => {
+  async function fetchClothingItems() {
+    try {
+      setIsLoading(true);
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      if (userError || !user) throw new Error("User not authenticated");
+
+      const { data, error } = await supabase
+        .from("userclothing_items")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+
+      setItems(data || []);
+    } catch (error) {
+      console.error("Failed to fetch clothing items:", error);
+      toast({
+        title: "Error",
+        description: "Failed to load your wardrobe items",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
     }
+  }
 
-    fetchClothingItems();
-  }, [toast]);
+  fetchClothingItems();
+}, [toast]);
 
-  // Filter items based on search and type
+
   useEffect(() => {
     let filtered = [...items];
-    
     if (searchTerm) {
-      filtered = filtered.filter(item => 
+      filtered = filtered.filter(item =>
         item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
       );
     }
-    
     if (filterType !== "all") {
       filtered = filtered.filter(item => item.type === filterType);
     }
-    
     setFilteredItems(filtered);
   }, [items, searchTerm, filterType]);
 
-  // Add new item
   const handleItemAdded = (newItem: UserClothingItem) => {
-    setItems(prev => [...prev, newItem]);
+    const updated = [...items, newItem];
+    setItems(updated);
+    localStorage.setItem("wardrobe-items", JSON.stringify(updated));
     setUploadDialogOpen(false);
   };
 
-  // Delete item
   const handleDeleteItem = async (id: string) => {
     try {
-      await deleteOne(COLLECTIONS.CLOTHING_ITEMS, id);
       const updatedItems = items.filter(item => item.id !== id);
       setItems(updatedItems);
-      
+      localStorage.setItem("wardrobe-items", JSON.stringify(updatedItems));
       toast({
         title: "Item deleted",
         description: "The clothing item has been removed from your wardrobe",
@@ -98,9 +101,7 @@ export default function Wardrobe() {
       <div className="container py-8">
         <header className="mb-8">
           <h1 className="text-3xl font-bold mb-2">My Wardrobe</h1>
-          <p className="text-muted-foreground">
-            Upload and manage your clothing items to create outfits
-          </p>
+          <p className="text-muted-foreground">Upload and manage your clothing items to create outfits</p>
         </header>
 
         <div className="flex flex-col md:flex-row justify-between gap-4 mb-8">
@@ -146,7 +147,6 @@ export default function Wardrobe() {
                 <UploadForm onSuccess={handleItemAdded} />
               </DialogContent>
             </Dialog>
-            
             <Button variant="outline" asChild>
               <a href="/outfits">Create Outfit</a>
             </Button>
@@ -170,33 +170,29 @@ export default function Wardrobe() {
               <TabsTrigger value="grid">Grid View</TabsTrigger>
               <TabsTrigger value="list">List View</TabsTrigger>
             </TabsList>
-            
+
             <TabsContent value="grid">
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                 {filteredItems.map(item => (
-                  <div 
-                    key={item.id} 
-                    className="border rounded-lg overflow-hidden bg-white hover:shadow-md transition-shadow"
-                  >
+                  <div key={item.id} className="border rounded-lg overflow-hidden bg-white hover:shadow-md transition-shadow">
                     <div className="aspect-square relative">
-                      <img 
-                        src={item.image} 
-                        alt={item.name} 
+                      <img
+                        src={item.image_url && item.image_url !== "" ? item.image_url : "/placeholder.png"}
+                        alt={item.name}
                         className="w-full h-full object-cover"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = "/placeholder.png";
+                        }}
                       />
                       <div className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
                         {item.type}
                       </div>
                     </div>
-                    
                     <div className="p-3">
                       <h3 className="font-medium text-sm line-clamp-1">{item.name}</h3>
                       <div className="flex flex-wrap gap-1 mt-2">
                         {item.tags.slice(0, 3).map((tag, i) => (
-                          <span 
-                            key={i} 
-                            className="bg-muted text-xs px-2 py-0.5 rounded"
-                          >
+                          <span key={i} className="bg-muted text-xs px-2 py-0.5 rounded">
                             {tag}
                           </span>
                         ))}
@@ -206,13 +202,8 @@ export default function Wardrobe() {
                           </span>
                         )}
                       </div>
-                      
                       <div className="flex justify-between mt-3">
-                        <Button 
-                          variant="ghost" 
-                          size="sm"
-                          onClick={() => handleDeleteItem(item.id)}
-                        >
+                        <Button variant="ghost" size="sm" onClick={() => handleDeleteItem(item.id)}>
                           Delete
                         </Button>
                       </div>
@@ -221,7 +212,7 @@ export default function Wardrobe() {
                 ))}
               </div>
             </TabsContent>
-            
+
             <TabsContent value="list">
               <div className="border rounded-lg overflow-hidden">
                 <table className="w-full">
@@ -239,11 +230,7 @@ export default function Wardrobe() {
                       <tr key={item.id} className="border-t">
                         <td className="p-3">
                           <div className="w-12 h-12">
-                            <img 
-                              src={item.image} 
-                              alt={item.name} 
-                              className="w-full h-full object-cover rounded"
-                            />
+                            <img src={item.image_url} alt={item.name} className="w-full h-full object-cover rounded" />
                           </div>
                         </td>
                         <td className="p-3">{item.name}</td>
@@ -251,12 +238,7 @@ export default function Wardrobe() {
                         <td className="p-3">
                           <div className="flex flex-wrap gap-1">
                             {item.tags.slice(0, 3).map((tag, i) => (
-                              <span 
-                                key={i} 
-                                className="bg-muted text-xs px-2 py-0.5 rounded"
-                              >
-                                {tag}
-                              </span>
+                              <span key={i} className="bg-muted text-xs px-2 py-0.5 rounded">{tag}</span>
                             ))}
                             {item.tags.length > 3 && (
                               <span className="text-xs text-muted-foreground">
@@ -266,11 +248,7 @@ export default function Wardrobe() {
                           </div>
                         </td>
                         <td className="p-3">
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            onClick={() => handleDeleteItem(item.id)}
-                          >
+                          <Button variant="ghost" size="sm" onClick={() => handleDeleteItem(item.id)}>
                             Delete
                           </Button>
                         </td>

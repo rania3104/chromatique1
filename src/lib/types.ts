@@ -99,12 +99,13 @@ export type UserClothingItem = {
   id: string;
   name: string;
   description: string;
-  image: string;
   type: ClothingItemType;
   tags: string[];
-  uploadedAt: string;
-  userId?: string;
+  image_url: string; // not `image`
+  user_id: string;
+  created_at: string;
 };
+
 
 export type Outfit = {
   id: string;

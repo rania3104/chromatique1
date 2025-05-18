@@ -1,57 +1,120 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
 import { useChromatique } from "@/lib/context";
+import { supabase } from "@/lib/supabaseClient";
+import { determineColorSeason } from "@/lib/api";
+import type { SkinTone, Undertone, EyeColor } from "@/lib/api";
 
 export function AuthForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+
+const [skinTone, setSkinTone] = useState<SkinTone | undefined>();
+const [undertone, setUndertone] = useState<Undertone | undefined>();
+const [eyeColor, setEyeColor] = useState<EyeColor | undefined>();
+
+
   const { toast } = useToast();
   const navigate = useNavigate();
-  const { isQuizComplete, setUserQuizData } = useChromatique();
-  
-  const handleSubmit = (e: React.FormEvent, isLogin: boolean) => {
+  const { setUserQuizData } = useChromatique();
+
+  const handleSubmit = async (e: React.FormEvent, isLogin: boolean) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // Simulate authentication
-    setTimeout(() => {
-      setIsLoading(false);
-      
-      // Save user data
-      const userData = {
-        id: "user-1",
-        email,
-        name: isLogin ? "User" : name,
-        hasCompletedQuiz: isLogin && isQuizComplete,
-      };
-      
-      localStorage.setItem("chromatique-user", JSON.stringify(userData));
-      
-      // Show success toast
-      toast({
-        title: isLogin ? "Welcome back!" : "Account created successfully!",
-        description: isLogin 
-          ? isQuizComplete 
-            ? "You've been signed in." 
-            : "Please complete your color profile."
-          : "Please complete your color profile.",
-      });
-      
-      // Navigate to appropriate page
-      if (isLogin && isQuizComplete) {
-        navigate("/home");
+
+    try {
+      if (isLogin) {
+        const authResponse = await supabase.auth.signInWithPassword({ email, password });
+        if (authResponse.error) throw authResponse.error;
+
+        const { data: profile } = await supabase
+          .from("user_profiles")
+          .select("*")
+          .eq("email", email)
+          .single();
+
+        if (!profile) throw new Error("User profile not found");
+
+        localStorage.setItem("chromatique-user", JSON.stringify(profile));
+
+        await setUserQuizData({
+          id: profile.id,
+          skinTone: profile.skin_tone,
+          undertone: profile.undertone,
+          eyeColor: profile.eye_color,
+          season: profile.season,
+        });
+
+        toast({ title: "Signed in", description: "Welcome back!" });
+        navigate(profile.season ? "/home" : "/quiz/skin-tone");
+
       } else {
+        const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+          email,
+          password,
+        });
+
+        if (signUpError) throw signUpError;
+
+        const userId = signUpData.user?.id;
+        if (!userId) throw new Error("Sign up failed — no user returned.");
+
+        const { data: sessionData } = await supabase.auth.getSession();
+        if (!sessionData.session) throw new Error("No session found after signup.");
+
+        const season = await determineColorSeason(skinTone, undertone, eyeColor);
+
+        const { error: insertError } = await supabase.from("user_profiles").insert([
+          {
+            id: userId,
+            email,
+            name,
+            password,
+            skin_tone: skinTone,
+            undertone,
+            eye_color: eyeColor,
+            season,
+          },
+        ]);
+
+        if (insertError) throw insertError;
+
+        const profile = {
+          id: userId,
+          email,
+          name,
+          password,
+          skinTone,
+          undertone,
+          eyeColor,
+          season,
+        };
+
+        localStorage.setItem("chromatique-user", JSON.stringify(profile));
+        await setUserQuizData(profile);
+
+        toast({ title: "Account created", description: "Complete your profile." });
         navigate("/quiz/skin-tone");
       }
-    }, 1000);
+    } catch (error: any) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -61,43 +124,35 @@ export function AuthForm() {
           <TabsTrigger value="login">Login</TabsTrigger>
           <TabsTrigger value="signup">Sign Up</TabsTrigger>
         </TabsList>
+
         <TabsContent value="login">
           <form onSubmit={(e) => handleSubmit(e, true)}>
             <CardHeader>
               <CardTitle className="text-2xl">Welcome back</CardTitle>
-              <CardDescription>Enter your credentials to access your account</CardDescription>
+              <CardDescription>
+                Enter your credentials to access your account
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Input 
-                  type="email" 
-                  placeholder="Email" 
-                  required 
-                  className="border-chromatique-taupe/40"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="space-y-2">
-                <Input 
-                  type="password" 
-                  placeholder="Password" 
-                  required 
-                  className="border-chromatique-taupe/40"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div className="text-right">
-                <Button variant="link" className="text-chromatique-rose hover:text-chromatique-deep p-0">
-                  Forgot your password?
-                </Button>
-              </div>
+              <Input
+                type="email"
+                placeholder="Email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <Input
+                type="password"
+                placeholder="Password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </CardContent>
             <CardFooter>
-              <Button 
-                type="submit" 
-                className="w-full bg-chromatique-rose hover:bg-chromatique-deep" 
+              <Button
+                type="submit"
+                className="w-full bg-chromatique-rose hover:bg-chromatique-deep"
                 disabled={isLoading}
               >
                 {isLoading ? "Signing in..." : "Sign In"}
@@ -105,48 +160,42 @@ export function AuthForm() {
             </CardFooter>
           </form>
         </TabsContent>
+
         <TabsContent value="signup">
           <form onSubmit={(e) => handleSubmit(e, false)}>
             <CardHeader>
               <CardTitle className="text-2xl">Create an account</CardTitle>
-              <CardDescription>Enter your details to get started</CardDescription>
+              <CardDescription>
+                Enter your details to get started
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Input 
-                  type="text" 
-                  placeholder="Name" 
-                  required 
-                  className="border-chromatique-taupe/40"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div className="space-y-2">
-                <Input 
-                  type="email" 
-                  placeholder="Email" 
-                  required 
-                  className="border-chromatique-taupe/40"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="space-y-2">
-                <Input 
-                  type="password" 
-                  placeholder="Password" 
-                  required 
-                  className="border-chromatique-taupe/40"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
+              <Input
+                type="text"
+                placeholder="Name"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <Input
+                type="email"
+                placeholder="Email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <Input
+                type="password"
+                placeholder="Password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </CardContent>
             <CardFooter>
-              <Button 
-                type="submit" 
-                className="w-full bg-chromatique-rose hover:bg-chromatique-deep" 
+              <Button
+                type="submit"
+                className="w-full bg-chromatique-rose hover:bg-chromatique-deep"
                 disabled={isLoading}
               >
                 {isLoading ? "Creating account..." : "Create Account"}

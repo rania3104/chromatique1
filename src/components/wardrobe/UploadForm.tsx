@@ -1,32 +1,26 @@
-
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/hooks/use-toast";
-import { ClothingItemType, UserClothingItem } from "@/lib/types";
+import { ClothingItemType } from "@/lib/types";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Upload } from "lucide-react";
-import { insert, COLLECTIONS } from "@/lib/mongodb";
+import { supabase } from "@/lib/supabaseClient";
+import { UserClothingItem } from "@/lib/types";
 
 type UploadFormProps = {
-  onSuccess: (item: UserClothingItem) => void;
+  onSuccess: (newItem: UserClothingItem) => void;
 };
 
 export function UploadForm({ onSuccess }: UploadFormProps) {
   const { toast } = useToast();
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
-  
-  const { register, handleSubmit, formState: { errors }, reset, setValue, watch } = useForm<{
+
+  const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<{
     name: string;
     description: string;
     type: ClothingItemType;
@@ -37,14 +31,11 @@ export function UploadForm({ onSuccess }: UploadFormProps) {
       type: "tops"
     }
   });
-  
-  const watchType = watch("type");
-  
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    
-    // Check file size (limit to 5MB)
+
     if (file.size > 5 * 1024 * 1024) {
       toast({
         title: "File too large",
@@ -53,7 +44,7 @@ export function UploadForm({ onSuccess }: UploadFormProps) {
       });
       return;
     }
-    
+
     const reader = new FileReader();
     reader.onloadend = () => {
       setImagePreview(reader.result as string);
@@ -61,74 +52,91 @@ export function UploadForm({ onSuccess }: UploadFormProps) {
     reader.readAsDataURL(file);
   };
 
-  const onSubmit = handleSubmit(async (data) => {
-    setIsUploading(true);
-    
-    try {
-      const imageFile = data.image[0];
-      
-      // Convert image to base64 for storage
-      const reader = new FileReader();
-      reader.readAsDataURL(imageFile);
-      reader.onloadend = async () => {
-        const base64Image = reader.result as string;
-        
-        // Create new clothing item
-        const newItem: UserClothingItem = {
-          id: `item-${Date.now()}`,
-          name: data.name,
-          description: data.description,
-          image: base64Image,
-          type: data.type,
-          tags: data.tags.split(",").map(tag => tag.trim()).filter(tag => tag),
-          uploadedAt: new Date().toISOString(),
-        };
-        
-        try {
-          // Save to mock MongoDB (localStorage)
-          await insert(COLLECTIONS.CLOTHING_ITEMS, newItem);
-          
-          // Reset form
-          setImagePreview(null);
-          reset();
-          
-          // Notify success
-          toast({
-            title: "Item uploaded",
-            description: "Your clothing item has been added to your wardrobe",
-          });
-          
-          // Call success callback
-          onSuccess(newItem);
-        } catch (error) {
-          console.error("Error saving item:", error);
-          throw error;
-        }
-      };
-    } catch (error) {
-      console.error("Error uploading item:", error);
-      toast({
-        title: "Upload failed",
-        description: "There was an error uploading your item",
-        variant: "destructive",
-      });
-    } finally {
-      setIsUploading(false);
+ const onSubmit = handleSubmit(async (data) => {
+  setIsUploading(true);
+
+  const imageFile = data.image?.[0];
+  if (!imageFile) {
+    toast({
+      title: "No image selected",
+      description: "Please select an image before uploading",
+      variant: "destructive",
+    });
+    setIsUploading(false);
+    return;
+  }
+
+  try {
+    // 1. Get current user
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (userError || !user) throw new Error("Not authenticated");
+
+    // 2. Create safe filename and path
+    const ext = imageFile.name.split(".").pop();
+    const baseName = imageFile.name
+      .replace(/\.[^/.]+$/, "")
+      .replace(/[^a-z0-9]/gi, "_")
+      .toLowerCase();
+    const fileName = `${Date.now()}_${baseName}.${ext}`;
+    const filePath = `user_${user.id}/${fileName}`;
+
+    // 3. Upload image
+    const { error: uploadError } = await supabase.storage
+      .from("clothing_images")
+      .upload(filePath, imageFile);
+    if (uploadError) throw uploadError;
+
+// 4. Generate public URL
+const imageUrl = `https://ookegebzsduvzvfjbjjs.supabase.co/storage/v1/object/public/clothing_images/${filePath}`;
+
+    // 5. Insert into database
+const { data: insertedItems, error: insertError } = await supabase
+  .from("userclothing_items")
+  .insert({
+    user_id: user.id, // this is crucial for per-user filtering
+    name: data.name,
+    description: data.description,
+    image_url: imageUrl, // make sure this key matches your DB schema
+    type: data.type,
+    tags: data.tags.split(",").map((t) => t.trim()).filter(Boolean),
+  })
+  .select()
+  .single();
+
+    if (insertError) throw insertError;
+
+    toast({
+      title: "Item uploaded",
+      description: "Your clothing item has been added to your wardrobe",
+    });
+
+    reset();
+    setImagePreview(null);
+    if (insertedItems) {
+      onSuccess(insertedItems as UserClothingItem);
     }
-  });
+
+  } catch (error: any) {
+    console.error("Upload error:", error);
+    toast({
+      title: "Upload failed",
+      description: error.message || "There was an error uploading your item",
+      variant: "destructive",
+    });
+  } finally {
+    setIsUploading(false);
+  }
+});
 
   return (
     <form onSubmit={onSubmit} className="space-y-4 max-h-[70vh] overflow-y-auto px-1">
+      {/* Image Upload */}
       <div className="space-y-2">
         <Label htmlFor="image">Image</Label>
         <div className="flex flex-col items-center p-4 border-2 border-dashed rounded-md border-gray-300 bg-gray-50 hover:bg-gray-100 transition-colors">
           {imagePreview ? (
             <div className="relative w-full max-h-48 mx-auto mb-4">
-              <img 
-                src={imagePreview} 
-                alt="Preview" 
-                className="w-full h-full object-contain max-h-48" 
-              />
+              <img src={imagePreview} alt="Preview" className="w-full h-full object-contain max-h-48" />
               <Button
                 type="button"
                 variant="outline"
@@ -149,7 +157,7 @@ export function UploadForm({ onSuccess }: UploadFormProps) {
               <p className="text-xs text-gray-400">PNG, JPG, GIF up to 5MB</p>
             </div>
           )}
-          
+
           <input
             id="image"
             type="file"
@@ -161,7 +169,7 @@ export function UploadForm({ onSuccess }: UploadFormProps) {
               handleImageChange(e);
             }}
           />
-          
+
           <Button 
             type="button" 
             variant="outline"
@@ -170,13 +178,14 @@ export function UploadForm({ onSuccess }: UploadFormProps) {
           >
             Select Image
           </Button>
-          
+
           {errors.image && (
             <p className="text-red-500 text-sm mt-1">{errors.image.message}</p>
           )}
         </div>
       </div>
-      
+
+      {/* Name */}
       <div className="space-y-2">
         <Label htmlFor="name">Name</Label>
         <Input
@@ -188,7 +197,8 @@ export function UploadForm({ onSuccess }: UploadFormProps) {
           <p className="text-red-500 text-sm">{errors.name.message}</p>
         )}
       </div>
-      
+
+      {/* Description */}
       <div className="space-y-2">
         <Label htmlFor="description">Description</Label>
         <Textarea
@@ -197,7 +207,8 @@ export function UploadForm({ onSuccess }: UploadFormProps) {
           className="min-h-[80px]"
         />
       </div>
-      
+
+      {/* Type */}
       <div className="space-y-2">
         <Label htmlFor="type">Type</Label>
         <Select 
@@ -217,7 +228,8 @@ export function UploadForm({ onSuccess }: UploadFormProps) {
           </SelectContent>
         </Select>
       </div>
-      
+
+      {/* Tags */}
       <div className="space-y-2">
         <Label htmlFor="tags">Tags (Comma separated)</Label>
         <Input
@@ -226,7 +238,7 @@ export function UploadForm({ onSuccess }: UploadFormProps) {
           {...register("tags")}
         />
       </div>
-      
+
       <Button 
         type="submit" 
         className="w-full"

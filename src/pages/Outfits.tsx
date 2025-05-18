@@ -24,7 +24,8 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Plus, Shirt, Scissors, Tag } from "lucide-react";
 import { useMobile } from "@/hooks/use-mobile";
-import { findAll, insert, deleteOne, COLLECTIONS } from "@/lib/mongodb";
+import { supabase } from "@/lib/supabaseClient";
+
 
 export default function Outfits() {
   const { toast } = useToast();
@@ -47,30 +48,43 @@ export default function Outfits() {
   const [outfitDialogOpen, setOutfitDialogOpen] = useState(false);
   
   // Load items and outfits from MongoDB
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        setIsLoading(true);
-        const [clothingItems, savedOutfits] = await Promise.all([
-          findAll(COLLECTIONS.CLOTHING_ITEMS),
-          findAll(COLLECTIONS.OUTFITS)
-        ]);
-        setItems(clothingItems);
-        setOutfits(savedOutfits);
-      } catch (error) {
-        console.error("Failed to fetch data:", error);
-        toast({
-          title: "Error",
-          description: "Failed to load your wardrobe and outfits",
-          variant: "destructive",
-        });
-      } finally {
-        setIsLoading(false);
-      }
-    }
+useEffect(() => {
+  async function fetchData() {
+    try {
+      setIsLoading(true);
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("User not logged in");
 
-    fetchData();
-  }, [toast]);
+      const { data: clothingData, error: clothingError } = await supabase
+        .from("userclothing_items")
+        .select("*")
+        .eq("user_id", user.id);
+
+      const { data: outfitData, error: outfitError } = await supabase
+        .from("outfits")
+        .select("*")
+        .eq("user_id", user.id);
+
+      if (clothingError) throw clothingError;
+      if (outfitError) throw outfitError;
+
+      setItems(clothingData);
+      setOutfits(outfitData);
+    } catch (error) {
+      console.error("Failed to fetch data:", error);
+      toast({
+        title: "Error",
+        description: "Failed to load your wardrobe and outfits",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  fetchData();
+}, []);
+
   
   const itemsByType = (type: ClothingItemType) => {
     return items.filter(item => item.type === type);
@@ -86,89 +100,90 @@ export default function Outfits() {
     setSelectedItems(prev => ({...prev, [type]: null}));
   };
   
-  // Save outfit to MongoDB
-  const saveOutfit = async () => {
-    if (!newOutfitName.trim()) {
-      toast({
-        title: "Name required",
-        description: "Please give your outfit a name",
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    // Filter out null values
-    const outfitItems = Object.values(selectedItems).filter(Boolean) as UserClothingItem[];
-    
-    if (outfitItems.length === 0) {
-      toast({
-        title: "Empty outfit",
-        description: "Please select at least one item for your outfit",
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    try {
-      const newOutfit: Outfit = {
-        id: `outfit-${Date.now()}`,
-        name: newOutfitName,
-        items: outfitItems,
-        createdAt: new Date().toISOString(),
-      };
-      
-      // Save to MongoDB
-      await insert(COLLECTIONS.OUTFITS, newOutfit);
-      
-      // Update state
-      setOutfits(prev => [...prev, newOutfit]);
-      
-      // Reset state
-      setNewOutfitName("");
-      setSaveDialogOpen(false);
-      setSelectedItems({
-        tops: null,
-        bottoms: null,
-        dresses: null,
-        outerwear: null,
-        accessories: null,
-        jewelry: null
-      });
-      
-      toast({
-        title: "Outfit saved",
-        description: "Your outfit has been saved to your collection",
-      });
-    } catch (error) {
-      console.error("Error saving outfit:", error);
-      toast({
-        title: "Save failed",
-        description: "There was an error saving your outfit",
-        variant: "destructive",
-      });
-    }
-  };
-  
-  // Delete outfit from MongoDB
-  const deleteOutfit = async (id: string) => {
-    try {
-      await deleteOne(COLLECTIONS.OUTFITS, id);
-      const updatedOutfits = outfits.filter(outfit => outfit.id !== id);
-      setOutfits(updatedOutfits);
-      
-      toast({
-        title: "Outfit deleted",
-        description: "Your outfit has been removed from your collection",
-      });
-    } catch (error) {
-      console.error("Error deleting outfit:", error);
-      toast({
-        title: "Delete failed", 
-        description: "There was an error deleting your outfit",
-        variant: "destructive",
-      });
-    }
-  };
+const saveOutfit = async () => {
+  if (!newOutfitName.trim()) {
+    toast({
+      title: "Name required",
+      description: "Please give your outfit a name",
+      variant: "destructive",
+    });
+    return;
+  }
+
+  const outfitItems = Object.values(selectedItems).filter(Boolean) as UserClothingItem[];
+  if (outfitItems.length === 0) {
+    toast({
+      title: "Empty outfit",
+      description: "Please select at least one item",
+      variant: "destructive",
+    });
+    return;
+  }
+
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error("Not authenticated");
+
+    const { data: newOutfit, error } = await supabase
+      .from("outfits")
+      .insert({
+        user_id: user.id,
+        name: newOutfitName.trim(),
+        items: Object.values(selectedItems).filter(Boolean) as UserClothingItem[],
+        created_at: new Date().toISOString()
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    setOutfits(prev => [...prev, newOutfit]);
+    setSelectedItems({
+      tops: null,
+      bottoms: null,
+      dresses: null,
+      outerwear: null,
+      accessories: null,
+      jewelry: null
+    });
+    setNewOutfitName("");
+    setSaveDialogOpen(false);
+
+    toast({
+      title: "Outfit saved",
+      description: "Your outfit has been saved",
+    });
+  } catch (error: any) {
+    console.error("Error saving outfit:", error);
+    toast({
+      title: "Save failed",
+      description: error.message || "There was an error saving the outfit",
+      variant: "destructive",
+    });
+  }
+};
+
+// Delete outfit from MongoDB
+const deleteOutfit = async (id: string) => {
+  try {
+    const { error } = await supabase.from("outfits").delete().eq("id", id);
+    if (error) throw error;
+
+    setOutfits(prev => prev.filter(o => o.id !== id));
+    toast({
+      title: "Outfit deleted",
+      description: "Your outfit has been removed",
+    });
+  } catch (error) {
+    console.error("Error deleting outfit:", error);
+    toast({
+      title: "Delete failed",
+      description: "There was an error deleting your outfit",
+      variant: "destructive",
+    });
+  }
+};
+
   
   // Calculate if the outfit has any items
   const hasOutfitItems = Object.values(selectedItems).some(item => item !== null);
@@ -221,7 +236,7 @@ export default function Outfits() {
                 >
                   <div className="aspect-square bg-white">
                     <img 
-                      src={item.image} 
+                      src={item.image_url} 
                       alt={item.name} 
                       className="w-full h-full object-contain" 
                     />
@@ -352,7 +367,7 @@ export default function Outfits() {
                               <li key={item!.id} className="flex items-center gap-2">
                                 <div className="h-10 w-10">
                                   <img 
-                                    src={item!.image} 
+                                    src={item!.image_url} 
                                     alt={item!.name} 
                                     className="w-full h-full object-cover rounded"
                                   />
@@ -419,7 +434,7 @@ export default function Outfits() {
                           {outfit.items.slice(0, 6).map((item) => (
                             <div key={item.id} className="aspect-square bg-white border rounded">
                               <img 
-                                src={item.image} 
+                                src={item.image_url} 
                                 alt={item.name} 
                                 className="w-full h-full object-contain"
                               />
@@ -480,7 +495,7 @@ export default function Outfits() {
                             <div key={item.id} className="border rounded-lg overflow-hidden">
                               <div className="aspect-square bg-white">
                                 <img 
-                                  src={item.image} 
+                                  src={item.image_url} 
                                   alt={item.name} 
                                   className="w-full h-full object-contain" 
                                 />
@@ -505,7 +520,7 @@ export default function Outfits() {
                             <div key={item.id} className="border rounded-lg overflow-hidden">
                               <div className="aspect-square bg-white">
                                 <img 
-                                  src={item.image} 
+                                  src={item.image_url} 
                                   alt={item.name} 
                                   className="w-full h-full object-contain" 
                                 />
@@ -532,7 +547,7 @@ export default function Outfits() {
                               <div key={item.id} className="border rounded-lg overflow-hidden">
                                 <div className="aspect-square bg-white">
                                   <img 
-                                    src={item.image} 
+                                    src={item.image_url} 
                                     alt={item.name} 
                                     className="w-full h-full object-contain" 
                                   />
@@ -557,7 +572,7 @@ export default function Outfits() {
                               <div key={item.id} className="border rounded-lg overflow-hidden">
                                 <div className="aspect-square bg-white">
                                   <img 
-                                    src={item.image} 
+                                    src={item.image_url} 
                                     alt={item.name} 
                                     className="w-full h-full object-contain" 
                                   />
@@ -583,7 +598,7 @@ export default function Outfits() {
                             <div key={item.id} className="border rounded-lg overflow-hidden">
                               <div className="aspect-square bg-white">
                                 <img 
-                                  src={item.image} 
+                                  src={item.image_url} 
                                   alt={item.name} 
                                   className="w-full h-full object-contain" 
                                 />
@@ -608,7 +623,7 @@ export default function Outfits() {
                             <div key={item.id} className="border rounded-lg overflow-hidden">
                               <div className="aspect-square bg-white">
                                 <img 
-                                  src={item.image} 
+                                  src={item.image_url} 
                                   alt={item.name} 
                                   className="w-full h-full object-contain" 
                                 />
