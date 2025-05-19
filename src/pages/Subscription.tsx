@@ -28,6 +28,7 @@ import {
   DialogTitle
 } from "@/components/ui/dialog";
 import { seasons } from "@/lib/data";
+import { supabase } from "@/lib/supabaseClient";
 
 const Subscription = () => {
   const navigate = useNavigate();
@@ -71,110 +72,114 @@ const Subscription = () => {
     { id: 3, name: "Sophia Rodriguez", specialty: "Personal Shopper", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60", availability: "Wed, Fri, Sun" }
   ];
   
-  const handleSelectPlan = (planId: string) => {
-    if (currentPlan === planId) return;
-    
-    setIsProcessing(true);
-    
-    // Simulate processing
-    setTimeout(() => {
-      setIsProcessing(false);
-      setCurrentPlan(planId);
-      
-      // Get user email for per-user storage
-      const currentUserData = localStorage.getItem("chromatique-user");
-      let currentUserEmail = "";
-      
-      if (currentUserData) {
-        try {
-          const userData = JSON.parse(currentUserData);
-          currentUserEmail = userData.email || "";
-        } catch (error) {
-          console.error("Error parsing user data", error);
-        }
-      }
-      
-      // Use user-specific subscription key
-      const subscriptionKey = currentUserEmail 
-        ? `chromatique-subscription-${currentUserEmail}`
-        : "chromatique-subscription";
-      
-      if (planId === "free") {
-        setIsPremiumUser(false);
-        localStorage.setItem(
-          subscriptionKey,
-          JSON.stringify({ planId, status: "active" })
-        );
-        
-        toast({
-          title: "You're on the Basic Plan",
-          description: "You can upgrade anytime to access premium features.",
+  const handleSelectPlan = async (planId: string) => {
+  if (!user) {
+    toast({
+      title: "Not signed in",
+      description: "Please sign in to subscribe.",
+      variant: "destructive",
+    });
+    return;
+  }
+
+  setIsProcessing(true);
+
+  try {
+    const { data: existing, error: fetchError } = await supabase
+      .from("subscriptions")
+      .select("*")
+      .eq("user_id", user.id)
+      .single();
+
+    if (fetchError && fetchError.code !== "PGRST116") {
+      throw fetchError;
+    }
+
+    const now = new Date().toISOString();
+
+    let result;
+    if (existing) {
+      result = await supabase
+        .from("subscriptions")
+        .update({ plan_id: planId, status: "active", updated_at: now })
+        .eq("user_id", user.id);
+    } else {
+      result = await supabase
+        .from("subscriptions")
+        .insert({
+          user_id: user.id,
+          plan_id: planId,
+          status: "active",
+          created_at: now,
+          updated_at: now,
         });
-      } else {
-        // Update premium status
-        setIsPremiumUser(true);
-        
-        // In a real app, this would integrate with a payment processor
-        localStorage.setItem(
-          subscriptionKey,
-          JSON.stringify({ planId, status: "active" })
-        );
-        
-        toast({
-          title: `Subscription Activated!`,
-          description: `Thank you for subscribing to Chromatique ${planId === "premium" ? "Premium" : "VIP"}.`,
-        });
-      }
-      
-      // Stay on the subscription page instead of redirecting to results
-      window.location.reload();
-    }, 1500);
-  };
-  
-  const handleCancelPlan = () => {
-    setIsProcessing(true);
-    
-    // Simulate processing
-    setTimeout(() => {
-      setIsProcessing(false);
-      
-      // Get user email for per-user storage
-      const currentUserData = localStorage.getItem("chromatique-user");
-      let currentUserEmail = "";
-      
-      if (currentUserData) {
-        try {
-          const userData = JSON.parse(currentUserData);
-          currentUserEmail = userData.email || "";
-        } catch (error) {
-          console.error("Error parsing user data", error);
-        }
-      }
-      
-      // Use user-specific subscription key
-      const subscriptionKey = currentUserEmail 
-        ? `chromatique-subscription-${currentUserEmail}`
-        : "chromatique-subscription";
-      
-      // Reset to free plan
-      setCurrentPlan("free");
-      setIsPremiumUser(false);
-      
-      localStorage.setItem(
-        subscriptionKey,
-        JSON.stringify({ planId: "free", status: "active" })
-      );
-      
-      toast({
-        title: "Subscription Cancelled",
-        description: "You've been downgraded to the Basic Plan.",
-      });
-      
-      // Reload the page to show updated plan
-      window.location.reload();
-    }, 1000);
-  };
-  
+    }
+
+    if (result.error) throw result.error;
+
+    setCurrentPlan(planId);
+    setIsPremiumUser(planId === "premium" || planId === "vip");
+
+    toast({
+      title: `Subscribed to ${planId.charAt(0).toUpperCase() + planId.slice(1)} Plan`,
+      description: `Enjoy the ${planId} features!`,
+    });
+  } catch (error: any) {
+    console.error("Subscription update error:", error);
+    toast({
+      title: "Subscription failed",
+      description: error.message || "Could not update subscription.",
+      variant: "destructive",
+    });
+  } finally {
+    setIsProcessing(false);
+  }
+};
+
+  const handleCancelPlan = async () => {
+  if (!user) {
+    toast({
+      title: "Not signed in",
+      description: "Please sign in to cancel your subscription.",
+      variant: "destructive",
+    });
+    return;
+  }
+
+  setIsProcessing(true);
+
+  try {
+    const now = new Date().toISOString();
+    const { error } = await supabase
+      .from("subscriptions")
+      .update({
+        plan_id: "free",
+        status: "active",
+        updated_at: now,
+      })
+      .eq("user_id", user.id);
+
+    if (error) throw error;
+
+    setCurrentPlan("free");
+    setIsPremiumUser(false);
+
+    toast({
+      title: "Subscription cancelled",
+      description: "You've been moved to the Basic plan.",
+    });
+  } catch (error: any) {
+    console.error("Cancel error:", error);
+    toast({
+      title: "Cancel failed",
+      description: error.message || "Could not cancel subscription.",
+      variant: "destructive",
+    });
+  } finally {
+    setIsProcessing(false);
+  }
+};
+
   const handleBookConsultation = () => {
     if (selectedStylist !== null) {
       setIsConsultationOpen(false);

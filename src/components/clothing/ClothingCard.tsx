@@ -1,11 +1,10 @@
-
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
-import { useChromatique } from "@/lib/context";
+import { supabase } from "@/lib/supabaseClient";
 
 type ClothingCardProps = {
   id: string;
@@ -17,64 +16,106 @@ type ClothingCardProps = {
   className?: string;
 };
 
-export function ClothingCard({ 
-  id, 
-  name, 
-  image, 
-  colors, 
+export function ClothingCard({
+  id,
+  name,
+  image,
+  colors,
   keywords,
   onOpenDetails,
-  className 
+  className,
 }: ClothingCardProps) {
-  const { savedItems, addToSavedItems, removeFromSavedItems } = useChromatique();
-  const [isSaved, setIsSaved] = useState(false);
   const { toast } = useToast();
-  
-  // Check if this item is in savedItems
+  const [isSaved, setIsSaved] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
+
+  // Fetch current user
   useEffect(() => {
-    setIsSaved(savedItems.some(item => item.id === id));
-  }, [savedItems, id]);
-  
-  // Fallback image if the provided one fails to load
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    const target = e.target as HTMLImageElement;
-    target.onerror = null; // Prevent infinite loop
-    const category = keywords.find(k => ['tops', 'bottoms', 'dresses', 'accessories', 'outerwear'].includes(k)) || 'clothing';
-    target.src = `https://source.unsplash.com/featured/?${category}&sig=${id}`;
-  };
-  
-  const toggleSaved = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    
-    const item = {
-      id,
-      name,
-      image,
-      colors,
-      keywords,
-      category: "Unknown", // Default category
-      description: "", // Default description
-      styleCategories: [],
-      seasons: [],
+    const fetchUser = async () => {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      if (error || !user) return;
+      setUserId(user.id);
     };
-    
+    fetchUser();
+  }, []);
+
+  // Check if item is saved in Supabase
+  useEffect(() => {
+    if (!userId) return;
+
+    const checkSavedStatus = async () => {
+      const { data, error } = await supabase
+        .from("saved_items")
+        .select("id")
+        .eq("user_id", userId)
+        .eq("item_id", id)
+        .single();
+
+      setIsSaved(!!data && !error);
+    };
+
+    checkSavedStatus();
+  }, [userId, id]);
+
+  const toggleSaved = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!userId) return;
+
     if (isSaved) {
-      removeFromSavedItems(id);
-      toast({
-        title: "Removed from wishlist",
-        description: `${name} has been removed`,
-      });
+      // Remove from Supabase
+      const { error } = await supabase
+        .from("saved_items")
+        .delete()
+        .eq("user_id", userId)
+        .eq("item_id", id);
+
+      if (error) {
+        toast({ title: "Error", description: "Failed to remove from wishlist", variant: "destructive" });
+      } else {
+        setIsSaved(false);
+        toast({ title: "Removed", description: `${name} removed from wishlist` });
+      }
     } else {
-      addToSavedItems(item);
-      toast({
-        title: "Added to wishlist",
-        description: `${name} has been added`,
+      // Save to Supabase
+      const newItem = {
+        id,
+        name,
+        image,
+        colors,
+        keywords,
+        category: "Unknown",
+        description: "",
+        styleCategories: [],
+        seasons: [],
+      };
+
+      const { error } = await supabase.from("saved_items").insert({
+        user_id: userId,
+        item_id: id,
+        item_data: newItem,
+        saved_at: new Date().toISOString(),
       });
+
+      if (error) {
+        toast({ title: "Error", description: "Failed to save to wishlist", variant: "destructive" });
+      } else {
+        setIsSaved(true);
+        toast({ title: "Saved", description: `${name} added to wishlist` });
+      }
     }
   };
-  
+
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const target = e.target as HTMLImageElement;
+    target.onerror = null;
+    const category = keywords.find(k =>
+      ["tops", "bottoms", "dresses", "accessories", "outerwear"].includes(k)
+    ) || "clothing";
+    target.src = `https://source.unsplash.com/featured/?${category}&sig=${id}`;
+  };
+
   return (
-    <Card 
+    <Card
       className={cn(
         "overflow-hidden cursor-pointer transition-all hover:shadow-lg relative group",
         className
@@ -82,9 +123,9 @@ export function ClothingCard({
       onClick={onOpenDetails}
     >
       <div className="aspect-[3/4] relative">
-        <img 
-          src={image} 
-          alt={name} 
+        <img
+          src={image}
+          alt={name}
           className="w-full h-full object-cover"
           onError={handleImageError}
         />
@@ -104,7 +145,7 @@ export function ClothingCard({
           <h3 className="font-medium text-sm truncate">{name}</h3>
           <div className="flex mt-2 gap-1">
             {colors.map((color, i) => (
-              <div 
+              <div
                 key={i}
                 className="w-4 h-4 rounded-full border border-gray-200"
                 style={{ backgroundColor: color }}

@@ -25,17 +25,17 @@ interface ChromatiqueContextProps {
     eyeColor: UserProfile["eyeColor"];
     hairColor?: UserProfile["hairColor"];
   };
+  contextReady: boolean;
 }
 
-const ChromatiqueContext = createContext<ChromatiqueContextProps | undefined>(
-  undefined
-);
+const ChromatiqueContext = createContext<ChromatiqueContextProps | undefined>(undefined);
 
 export function ChromatiqueProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [savedItems, setSavedItems] = useState<ClothingItem[]>([]);
   const [isPremiumUser, setIsPremiumUser] = useState(false);
+  const [contextReady, setContextReady] = useState(false);
 
   const loadUserData = () => {
     const currentUserData = localStorage.getItem("chromatique-user");
@@ -58,8 +58,13 @@ export function ChromatiqueProvider({ children }: { children: ReactNode }) {
       ? `chromatique-saved-items-${currentUserEmail}`
       : "chromatique-saved-items";
 
+    const subscriptionKey = currentUserEmail
+      ? `chromatique-subscription-${currentUserEmail}`
+      : "chromatique-subscription";
+
     const storedUserData = localStorage.getItem(userProfileKey);
     const storedSavedItems = localStorage.getItem(savedItemsKey);
+    const storedSubscription = localStorage.getItem(subscriptionKey);
 
     if (storedUserData) {
       setUser(JSON.parse(storedUserData));
@@ -73,11 +78,6 @@ export function ChromatiqueProvider({ children }: { children: ReactNode }) {
       setSavedItems([]);
     }
 
-    const subscriptionKey = currentUserEmail
-      ? `chromatique-subscription-${currentUserEmail}`
-      : "chromatique-subscription";
-
-    const storedSubscription = localStorage.getItem(subscriptionKey);
     if (storedSubscription) {
       const subscription = JSON.parse(storedSubscription);
       setIsPremiumUser(subscription?.planId !== "free");
@@ -90,11 +90,13 @@ export function ChromatiqueProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     loadUserData();
+    setContextReady(true);
   }, []);
 
   const refreshUserData = () => {
     setIsLoading(true);
     loadUserData();
+    setContextReady(true);
   };
 
   useEffect(() => {
@@ -218,6 +220,7 @@ export function ChromatiqueProvider({ children }: { children: ReactNode }) {
         setIsPremiumUser,
         refreshUserData,
         quizData,
+        contextReady,
       }}
     >
       {children}
