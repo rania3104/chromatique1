@@ -373,48 +373,47 @@ export const categories: Category[] = [
   {
     id: "modest",
     name: "Modest",
-    image: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    image: "https://images.unsplash.com/photo-1683356476027-d81df5ccc048?q=80&w=1528&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     styles: ["modest"]
   },
   {
     id: "formal",
     name: "Formal",
-    image: "https://images.unsplash.com/photo-1578632292335-df3abbb0d586?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    image: "https://images.unsplash.com/photo-1616325629936-99a9013c29c6?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     styles: ["formal"]
   },
   {
     id: "casual",
     name: "Casual",
-    image: "https://images.unsplash.com/photo-1564859228273-274232fdb516?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    image: "https://images.unsplash.com/photo-1581796547229-4b7a4a1d1d27?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     styles: ["casual"]
   },
   {
     id: "party",
     name: "Party",
-    image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    image: "https://images.unsplash.com/photo-1699729589505-d1791e32d925?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     styles: ["party"]
   },
   {
     id: "ethnic",
     name: "Ethnic",
-    image: "https://images.unsplash.com/photo-1522661067900-ab829854a57f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    image: "https://images.unsplash.com/photo-1705920824583-0e783235394d?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     styles: ["ethnic"]
   },
-  {
-    id: "activewear",
-    name: "Activewear",
-    image: "https://images.unsplash.com/photo-1518459031867-a89b944bffe4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-    styles: ["activewear"]
-  },
+  // {
+  //   id: "activewear",
+  //   name: "Activewear",
+  //   image: "https://images.unsplash.com/photo-1518459031867-a89b944bffe4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+  //   styles: ["activewear"]
+  // },
   {
     id: "streetwear",
     name: "Streetwear",
-    image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    image: "https://images.unsplash.com/photo-1574889455435-7dc7e14ccf60?q=80&w=1432&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     styles: ["streetwear"]
   }
 ];
 
-// We'll populate this array with sample clothing items in a real app
 export const clothingItems: ClothingItem[] = [
     {
     "id": "item-301",

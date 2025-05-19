@@ -74,7 +74,7 @@ export function ItemDetailDialog({ item, isOpen, onClose }: ItemDetailDialogProp
         toast({ title: "Error", description: "Failed to remove from wishlist", variant: "destructive" });
       } else {
         setIsSaved(false);
-        toast({ title: "Removed", description: ${item.name} removed from wishlist });
+        toast({ title: "Removed", description: `${item.name} removed from wishlist` });
       }
     } else {
       const clothingItem = {
@@ -100,7 +100,7 @@ export function ItemDetailDialog({ item, isOpen, onClose }: ItemDetailDialogProp
         toast({ title: "Error", description: "Failed to save to wishlist", variant: "destructive" });
       } else {
         setIsSaved(true);
-        toast({ title: "Saved", description: ${item.name} added to wishlist });
+        toast({ title: "Saved", description: `${item.name} added to wishlist` });
       }
     }
   };
@@ -163,7 +163,7 @@ export function ItemDetailDialog({ item, isOpen, onClose }: ItemDetailDialogProp
                   className={isSaved ? "bg-red-500 hover:bg-red-600" : ""}
                   onClick={toggleSaved}
                 >
-                  <Heart className={h-4 w-4 mr-2 ${isSaved ? "fill-white" : ""}} />
+                  <Heart className={`h-4 w-4 mr-2 ${isSaved ? "fill-white" : ""}`} />
                   {isSaved ? "Saved" : "Save to Wishlist"}
                 </Button>
               </div>

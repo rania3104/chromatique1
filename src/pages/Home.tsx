@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCategories } from "@/lib/api";
@@ -13,10 +12,9 @@ const Home = () => {
   const { user, isQuizComplete, refreshUserData } = useChromatique();
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
   const [seasonalRecommendations] = useState(() => {
-    // Generate recommendations based on user's season
-    const seasonType = user?.season?.split('-')[1] || 'spring'; // default to spring if no season
-    
+    const seasonType = user?.season?.split("-")[1] || "spring";
     const recommendations = {
       spring: [
         { title: "Light pastels", description: "Incorporate light pastel colors in your outfits for a fresh spring look" },
@@ -39,18 +37,19 @@ const Home = () => {
         { title: "Statement pieces", description: "Incorporate one bold piece that draws attention" }
       ]
     };
-    
+
     return recommendations[seasonType as keyof typeof recommendations];
   });
-  
+
+  // 1. Fetch user data once on mount
   useEffect(() => {
-    // Make sure we have the most up-to-date user data
     refreshUserData();
-    
-    // If quiz isn't complete, redirect to start
+  }, []);
+
+  // 2. Handle quiz redirection when user/isQuizComplete changes
+  useEffect(() => {
     if (!isQuizComplete) {
       if (user) {
-        // If user exists but quiz incomplete, go to the first missing step
         if (!user.skinTone) {
           navigate("/quiz/skin-tone");
         } else if (!user.undertone) {
@@ -59,26 +58,28 @@ const Home = () => {
           navigate("/quiz/eye-color");
         }
       } else {
-        // No user at all
         navigate("/");
       }
-      return;
     }
-    
-    // Fetch categories
+  }, [isQuizComplete, user, navigate]);
+
+  // 3. Fetch categories when quiz is complete
+  useEffect(() => {
+    if (!isQuizComplete || !user) return;
+
     getCategories()
       .then((data) => {
-        // Filter out activewear
-        const filteredCategories = data.filter(category => category.id !== "activewear");
-        setCategories(filteredCategories);
-        setIsLoading(false);
+        const filtered = data.filter((category) => category.id !== "activewear");
+        setCategories(filtered);
       })
       .catch((error) => {
         console.error("Error fetching categories:", error);
+      })
+      .finally(() => {
         setIsLoading(false);
       });
-  }, [isQuizComplete, user, navigate, refreshUserData]);
-  
+  }, [isQuizComplete, user]);
+
   if (isLoading) {
     return (
       <>
@@ -91,7 +92,7 @@ const Home = () => {
       </>
     );
   }
-  
+
   return (
     <>
       <Header />
@@ -105,20 +106,20 @@ const Home = () => {
               Browse categories that complement your {user?.season?.split("-").join(" ")} color palette
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {categories.map((category) => (
-              <CategoryCard 
-                key={category.id} 
-                id={category.id} 
-                name={category.name} 
-                image={category.image} 
+              <CategoryCard
+                key={category.id}
+                id={category.id}
+                name={category.name}
+                image={category.image}
               />
             ))}
           </div>
         </section>
-        
-        {/* New Feature: Personalized Style Tips */}
+
+        {/* Personalized Style Tips */}
         <section className="mb-12">
           <div className="max-w-3xl mx-auto text-center mb-6">
             <h2 className="text-2xl md:text-3xl font-serif font-medium mb-2">
@@ -128,10 +129,10 @@ const Home = () => {
               Personalized recommendations for your {user?.season?.split("-").join(" ")} coloring
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {seasonalRecommendations.map((tip, index) => (
-              <div 
+              <div
                 key={index}
                 className="bg-white shadow-sm rounded-lg p-6 hover:shadow-md transition-shadow border border-chromatique-cream"
               >
@@ -144,13 +145,13 @@ const Home = () => {
             ))}
           </div>
         </section>
-        
+
         <section className="max-w-3xl mx-auto bg-chromatique-cream/30 rounded-xl p-6 text-center">
           <h2 className="text-xl font-serif mb-2">Need to review your color analysis?</h2>
           <p className="text-chromatique-taupe mb-4">
             Visit your results page to see your seasonal palette and color recommendations
           </p>
-          <Button 
+          <Button
             onClick={() => navigate("/results")}
             className="bg-chromatique-rose hover:bg-chromatique-shallow"
           >
