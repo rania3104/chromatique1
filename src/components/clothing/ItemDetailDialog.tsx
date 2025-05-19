@@ -1,11 +1,16 @@
-
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Heart } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
-import { useChromatique } from "@/lib/context";
+import { supabase } from "@/lib/supabaseClient";
 
 type ItemDetailDialogProps = {
   item: {
@@ -22,65 +27,107 @@ type ItemDetailDialogProps = {
 };
 
 export function ItemDetailDialog({ item, isOpen, onClose }: ItemDetailDialogProps) {
-  const { savedItems, addToSavedItems, removeFromSavedItems } = useChromatique();
-  const [isSaved, setIsSaved] = useState(false);
   const { toast } = useToast();
-  
+  const [isSaved, setIsSaved] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
+
+  // Fetch current user
   useEffect(() => {
-    if (item) {
-      setIsSaved(savedItems.some(savedItem => savedItem.id === item.id));
-    }
-  }, [item, savedItems]);
-  
-  if (!item) return null;
-  
-  const toggleSaved = () => {
+    const fetchUser = async () => {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      if (error || !user) return;
+      setUserId(user.id);
+    };
+    fetchUser();
+  }, []);
+
+  // Check saved status from Supabase
+  useEffect(() => {
+    if (!item || !userId) return;
+
+    const checkSaved = async () => {
+      const { data, error } = await supabase
+        .from("saved_items")
+        .select("id")
+        .eq("user_id", userId)
+        .eq("item_id", item.id)
+        .single();
+
+      setIsSaved(!!data && !error);
+    };
+
+    checkSaved();
+  }, [item, userId]);
+
+  // Toggle wishlist save/remove
+  const toggleSaved = async () => {
+    if (!item || !userId) return;
+
     if (isSaved) {
-      removeFromSavedItems(item.id);
-      toast({
-        title: "Removed from wishlist",
-        description: `${item.name} has been removed`,
-      });
+      const { error } = await supabase
+        .from("saved_items")
+        .delete()
+        .eq("user_id", userId)
+        .eq("item_id", item.id);
+
+      if (error) {
+        toast({ title: "Error", description: "Failed to remove from wishlist", variant: "destructive" });
+      } else {
+        setIsSaved(false);
+        toast({ title: "Removed", description: ${item.name} removed from wishlist });
+      }
     } else {
-      // Create a full ClothingItem object from the dialog item
       const clothingItem = {
-        ...item,
+        id: item.id,
+        name: item.name,
+        image: item.image,
+        colors: item.colors,
+        keywords: item.keywords,
+        category: item.category,
+        description: item.description || "",
         styleCategories: [item.category],
-        seasons: [], // Default empty seasons
+        seasons: [],
       };
-      addToSavedItems(clothingItem);
-      toast({
-        title: "Added to wishlist",
-        description: `${item.name} has been added`,
+
+      const { error } = await supabase.from("saved_items").insert({
+        user_id: userId,
+        item_id: item.id,
+        item_data: clothingItem,
+        saved_at: new Date().toISOString(),
       });
+
+      if (error) {
+        toast({ title: "Error", description: "Failed to save to wishlist", variant: "destructive" });
+      } else {
+        setIsSaved(true);
+        toast({ title: "Saved", description: ${item.name} added to wishlist });
+      }
     }
-    
-    // No need to setIsSaved here as it will be updated by the useEffect
   };
-  
+
+  if (!item) return null;
+
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-[500px] p-0">
         <div className="grid grid-cols-2">
           <div className="aspect-[3/4] relative">
-            <img 
-              src={item.image} 
-              alt={item.name} 
+            <img
+              src={item.image}
+              alt={item.name}
               className="w-full h-full object-cover"
             />
           </div>
-          
+
           <div className="p-6">
             <DialogHeader>
               <DialogTitle className="text-xl pr-8">{item.name}</DialogTitle>
-              <DialogDescription className="text-sm">
-                {item.category}
-              </DialogDescription>
+              <DialogDescription className="text-sm">{item.category}</DialogDescription>
             </DialogHeader>
-            
+
             <div className="mt-4">
               <p className="text-sm">{item.description}</p>
-              
+
               <div className="mt-4">
                 <h4 className="text-sm font-medium mb-2">Colors:</h4>
                 <div className="flex gap-2">
@@ -93,18 +140,22 @@ export function ItemDetailDialog({ item, isOpen, onClose }: ItemDetailDialogProp
                   ))}
                 </div>
               </div>
-              
+
               <div className="mt-4">
                 <h4 className="text-sm font-medium mb-2">Keywords for Shopping:</h4>
                 <div className="flex flex-wrap gap-1">
                   {item.keywords.map((keyword, i) => (
-                    <Badge key={i} variant="secondary" className="bg-chromatique-cream text-xs">
+                    <Badge
+                      key={i}
+                      variant="secondary"
+                      className="bg-chromatique-cream text-xs"
+                    >
                       {keyword}
                     </Badge>
                   ))}
                 </div>
               </div>
-              
+
               <div className="mt-6 flex gap-3">
                 <Button
                   variant={isSaved ? "default" : "outline"}
@@ -112,7 +163,7 @@ export function ItemDetailDialog({ item, isOpen, onClose }: ItemDetailDialogProp
                   className={isSaved ? "bg-red-500 hover:bg-red-600" : ""}
                   onClick={toggleSaved}
                 >
-                  <Heart className={`h-4 w-4 mr-2 ${isSaved ? "fill-white" : ""}`} />
+                  <Heart className={h-4 w-4 mr-2 ${isSaved ? "fill-white" : ""}} />
                   {isSaved ? "Saved" : "Save to Wishlist"}
                 </Button>
               </div>
