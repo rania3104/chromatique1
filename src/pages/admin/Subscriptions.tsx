@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -11,13 +10,13 @@ import {
 } from "@/components/ui/sheet";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
 import { AdminHeader } from "@/components/admin/AdminHeader";
-import { 
-  Card, 
-  CardContent, 
-  CardDescription, 
-  CardFooter, 
-  CardHeader, 
-  CardTitle 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import {
   Tabs,
@@ -27,72 +26,107 @@ import {
 } from "@/components/ui/tabs";
 import { CreditCard, User, CheckCircle, XCircle } from "lucide-react";
 import { SubscriptionCharts } from "@/components/admin/SubscriptionCharts";
-import { getRealUserData, getSubscriptionStats } from "@/lib/imageUtils";
-import { 
+import {
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
-  TableRow
+  TableRow,
 } from "@/components/ui/table";
+import { supabase } from "@/lib/supabaseClient";
+
+const planAmounts: Record<string, number> = {
+  free: 0,
+  premium: 9.99,
+  vip: 24.99,
+};
 
 const AdminSubscriptions = () => {
   const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [subscriptionData, setSubscriptionData] = useState([]);
+  const [subscriptionData, setSubscriptionData] = useState<any[]>([]);
   const [stats, setStats] = useState({
     totalRevenue: "0.00",
     activeSubscribers: 0,
-    conversionRate: "0.0"
+    conversionRate: "0.0",
+    freeUsers: 0,
+    premiumUsers: 0,
+    vipUsers: 0,
   });
-  
+
   useEffect(() => {
-    // Check if user is admin
-    const adminData = localStorage.getItem("chromatique-admin");
-    if (!adminData) {
-      navigate("/admin/login");
-      return;
-    }
-    
-    try {
-      const { isAdmin } = JSON.parse(adminData);
-      setIsAdmin(isAdmin);
-      
-      // Get real subscription data
-      const users = getRealUserData();
-      const subscriptionStats = getSubscriptionStats();
-      
-      // Filter users with subscriptions
-      const subscriberData = users.map(user => ({
-        id: user.id,
-        user: user.name || user.email.split('@')[0],
-        email: user.email,
-        plan: user.subscription,
-        amount: user.subscription === "premium" ? 9.99 : user.subscription === "vip" ? 24.99 : 0,
-        status: user.status,
-        startDate: new Date().toISOString().split('T')[0],
-        endDate: user.subscription === "free" ? "N/A" : new Date(
-          new Date().setFullYear(new Date().getFullYear() + 1)
-        ).toISOString().split('T')[0],
-      }));
-      
-      // Use real data if available, otherwise use sample data
-      setSubscriptionData(subscriberData.length > 0 ? subscriberData : []);
-      setStats({
-        totalRevenue: subscriptionStats.totalRevenue,
-        activeSubscribers: subscriptionStats.premiumUsers + subscriptionStats.vipUsers,
-        conversionRate: subscriptionStats.conversionRate
-      });
-      
-    } catch (error) {
-      navigate("/admin/login");
-    }
-    
-    setIsLoading(false);
+    const fetchData = async () => {
+      const adminData = localStorage.getItem("chromatique-admin");
+      if (!adminData) return navigate("/admin/login");
+
+      try {
+        const { isAdmin } = JSON.parse(adminData);
+        if (!isAdmin) return navigate("/admin/login");
+        setIsAdmin(true);
+
+        // Fetch user_profiles and subscriptions
+        const { data: profiles, error: profilesError } = await supabase
+          .from("user_profiles")
+          .select("id, email, name");
+
+        const { data: subs, error: subsError } = await supabase
+          .from("subscriptions")
+          .select("*");
+
+        if (profilesError || subsError) throw profilesError || subsError;
+
+        const userMap = new Map(profiles.map((u: any) => [u.id, u]));
+
+        const subscribers = subs.map((sub: any) => {
+          const user = userMap.get(sub.user_id);
+          return {
+            id: sub.id,
+            user: user?.name || user?.email?.split("@")[0] || "Unknown",
+            email: user?.email || "Unknown",
+            plan: sub.plan_id || "free",
+            amount: planAmounts[sub.plan_id] || 0,
+            status: sub.status,
+            startDate: sub.created_at,
+            endDate:
+              sub.plan_id === "free"
+                ? "N/A"
+                : new Date(
+                    new Date(sub.created_at).setFullYear(
+                      new Date(sub.created_at).getFullYear() + 1
+                    )
+                  ).toISOString(),
+          };
+        });
+
+        const freeUsers = subscribers.filter((s) => s.plan === "free").length;
+        const premiumUsers = subscribers.filter((s) => s.plan === "premium").length;
+        const vipUsers = subscribers.filter((s) => s.plan === "vip").length;
+        const paidCount = premiumUsers + vipUsers;
+        const totalRevenue = subscribers.reduce((sum, s) => sum + s.amount, 0);
+        const conversionRate = ((paidCount / subscribers.length) * 100).toFixed(1);
+
+        setSubscriptionData(subscribers);
+        setStats({
+          totalRevenue: totalRevenue.toFixed(2),
+          activeSubscribers: paidCount,
+          conversionRate: isNaN(+conversionRate) ? "0.0" : conversionRate,
+          freeUsers,
+          premiumUsers,
+          vipUsers,
+        });
+      } catch (err) {
+        console.error("Admin auth error:", err);
+        navigate("/admin/login");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
   }, [navigate]);
-  
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -102,22 +136,16 @@ const AdminSubscriptions = () => {
       </div>
     );
   }
-  
-  if (!isAdmin) {
-    return null; // Will redirect in the useEffect
-  }
-  
+
+  if (!isAdmin) return null;
+
   return (
     <div className="min-h-screen flex flex-col">
       <AdminHeader />
-      
       <div className="flex flex-1">
-        {/* Sidebar for larger screens */}
         <div className="hidden md:block w-64 border-r bg-background">
           <AdminSidebar />
         </div>
-        
-        {/* Mobile sidebar */}
         <Sheet>
           <SheetTrigger asChild className="md:hidden absolute top-4 left-4">
             <Button variant="outline" size="icon" className="rounded-full">
@@ -146,14 +174,10 @@ const AdminSubscriptions = () => {
             <AdminSidebar />
           </SheetContent>
         </Sheet>
-        
-        {/* Main content */}
         <main className="flex-1 p-6">
           <div className="max-w-7xl mx-auto">
             <h1 className="text-3xl font-serif mb-6">Subscriptions</h1>
-            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-              {/* Total Revenue Card */}
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
@@ -166,8 +190,6 @@ const AdminSubscriptions = () => {
                   </p>
                 </CardContent>
               </Card>
-              
-              {/* Active Subscribers Card */}
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Active Subscribers</CardTitle>
@@ -180,8 +202,6 @@ const AdminSubscriptions = () => {
                   </p>
                 </CardContent>
               </Card>
-              
-              {/* Conversion Rate Card */}
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Conversion Rate</CardTitle>
@@ -195,19 +215,15 @@ const AdminSubscriptions = () => {
                 </CardContent>
               </Card>
             </div>
-            
             <Tabs defaultValue="overview" className="w-full">
               <TabsList className="mb-4">
                 <TabsTrigger value="overview">Overview</TabsTrigger>
                 <TabsTrigger value="subscribers">Subscribers</TabsTrigger>
                 <TabsTrigger value="plans">Plans</TabsTrigger>
               </TabsList>
-              
               <TabsContent value="overview">
-                {/* Subscription Charts Component */}
                 <SubscriptionCharts />
               </TabsContent>
-              
               <TabsContent value="subscribers">
                 <Card>
                   <CardHeader>
@@ -255,8 +271,8 @@ const AdminSubscriptions = () => {
                                   {new Date(subscription.startDate).toLocaleDateString()}
                                 </TableCell>
                                 <TableCell className="hidden md:table-cell">
-                                  {subscription.endDate === "N/A" 
-                                    ? "N/A" 
+                                  {subscription.endDate === "N/A"
+                                    ? "N/A"
                                     : new Date(subscription.endDate).toLocaleDateString()}
                                 </TableCell>
                                 <TableCell>
@@ -267,7 +283,7 @@ const AdminSubscriptions = () => {
                           ) : (
                             <TableRow>
                               <TableCell colSpan={6} className="text-center py-8">
-                                No subscribers found. Create an account and complete the quiz to see subscribers here.
+                                No subscribers found.
                               </TableCell>
                             </TableRow>
                           )}
@@ -286,7 +302,6 @@ const AdminSubscriptions = () => {
                   </CardFooter>
                 </Card>
               </TabsContent>
-              
               <TabsContent value="plans">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {/* Free Plan Card */}
@@ -324,12 +339,11 @@ const AdminSubscriptions = () => {
                     </CardContent>
                     <CardFooter>
                       <div className="w-full">
-                        <p className="text-sm font-medium mb-2">Current users: {getSubscriptionStats().freeUsers || 325}</p>
-                        <p className="text-xs text-muted-foreground">Conversion rate to premium: 24.3%</p>
+                        <p className="text-sm font-medium mb-2">Current users: {stats.freeUsers}</p>
+                        <p className="text-xs text-muted-foreground">Conversion rate to premium: {stats.activeSubscribers > 0 ? ((stats.premiumUsers / (stats.freeUsers + stats.premiumUsers + stats.vipUsers)) * 100).toFixed(1) : "0.0"}%</p>
                       </div>
                     </CardFooter>
                   </Card>
-                  
                   {/* Premium Plan Card */}
                   <Card className="border-2 border-chromatique-rose/30">
                     <CardHeader>
@@ -365,12 +379,11 @@ const AdminSubscriptions = () => {
                     </CardContent>
                     <CardFooter>
                       <div className="w-full">
-                        <p className="text-sm font-medium mb-2">Current users: {getSubscriptionStats().premiumUsers || 210}</p>
-                        <p className="text-xs text-muted-foreground">Monthly revenue: ${(getSubscriptionStats().premiumUsers * 9.99).toFixed(2)}</p>
+                        <p className="text-sm font-medium mb-2">Current users: {stats.premiumUsers}</p>
+                        <p className="text-xs text-muted-foreground">Monthly revenue: ${(stats.premiumUsers * 9.99).toFixed(2)}</p>
                       </div>
                     </CardFooter>
                   </Card>
-                  
                   {/* VIP Plan Card */}
                   <Card>
                     <CardHeader>
@@ -406,8 +419,8 @@ const AdminSubscriptions = () => {
                     </CardContent>
                     <CardFooter>
                       <div className="w-full">
-                        <p className="text-sm font-medium mb-2">Current users: {getSubscriptionStats().vipUsers || 65}</p>
-                        <p className="text-xs text-muted-foreground">Monthly revenue: ${(getSubscriptionStats().vipUsers * 24.99).toFixed(2)}</p>
+                        <p className="text-sm font-medium mb-2">Current users: {stats.vipUsers}</p>
+                        <p className="text-xs text-muted-foreground">Monthly revenue: ${(stats.vipUsers * 24.99).toFixed(2)}</p>
                       </div>
                     </CardFooter>
                   </Card>

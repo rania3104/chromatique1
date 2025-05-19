@@ -29,6 +29,8 @@ import {
 } from "@/components/ui/dialog";
 import { seasons } from "@/lib/data";
 import { supabase } from "@/lib/supabaseClient";
+import { useEffect } from "react";
+
 
 const Subscription = () => {
   const navigate = useNavigate();
@@ -38,32 +40,8 @@ const Subscription = () => {
   const [activeTab, setActiveTab] = useState("features");
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const [selectedStylist, setSelectedStylist] = useState<number | null>(null);
-  const [currentPlan, setCurrentPlan] = useState(() => {
-    // Get user email for per-user subscription data
-    const currentUserData = localStorage.getItem("chromatique-user");
-    let currentUserEmail = "";
-    
-    if (currentUserData) {
-      try {
-        const userData = JSON.parse(currentUserData);
-        currentUserEmail = userData.email || "";
-      } catch (error) {
-        console.error("Error parsing user data", error);
-      }
-    }
-    
-    // Use user-specific subscription key
-    const subscriptionKey = currentUserEmail 
-      ? `chromatique-subscription-${currentUserEmail}`
-      : "chromatique-subscription";
-    
-    const storedSubscription = localStorage.getItem(subscriptionKey);
-    if (storedSubscription) {
-      const subscription = JSON.parse(storedSubscription);
-      return subscription?.planId || "free";
-    }
-    return "free";
-  });
+const [currentPlan, setCurrentPlan] = useState<"free" | "premium" | "vip">("free");
+
   
   // Dummy stylists data
   const stylists = [
@@ -117,7 +95,7 @@ const Subscription = () => {
 
     if (result.error) throw result.error;
 
-    setCurrentPlan(planId);
+    setCurrentPlan(planId as "free" | "premium" | "vip");
     setIsPremiumUser(planId === "premium" || planId === "vip");
 
     toast({
@@ -179,7 +157,24 @@ const Subscription = () => {
     setIsProcessing(false);
   }
 };
+useEffect(() => {
+  async function loadUserSubscription() {
+    if (!user) return;
 
+    const { data: sub, error } = await supabase
+      .from("subscriptions")
+      .select("plan_id")
+      .eq("user_id", user.id)
+      .single();
+
+    if (sub && !error) {
+      setCurrentPlan(sub.plan_id as "free" | "premium" | "vip");
+      setIsPremiumUser(sub.plan_id === "premium" || sub.plan_id === "vip");
+    }
+  }
+
+  loadUserSubscription();
+}, [user]);
   const handleBookConsultation = () => {
     if (selectedStylist !== null) {
       setIsConsultationOpen(false);
@@ -389,19 +384,19 @@ const Subscription = () => {
                     icon={<Palette className="h-6 w-6" />}
                     title="Makeup Recommendations"
                     description="Get personalized makeup suggestions that complement your seasonal color palette."
-                    premium={true}
+                    premium={false}
                   />
                   <SubscriptionFeature
                     icon={<Scissors className="h-6 w-6" />}
                     title="Hair Color & Style Advice"
                     description="Discover the most flattering hair colors and styles for your features."
-                    premium={true}
+                    premium={false}
                   />
                   <SubscriptionFeature
                     icon={<Gift className="h-6 w-6" />}
                     title="Jewelry Selection"
                     description="Find the perfect metals and gemstones that enhance your natural beauty."
-                    premium={true}
+                    premium={false}
                   />
                 </div>
                 
