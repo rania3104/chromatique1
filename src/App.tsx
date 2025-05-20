@@ -19,6 +19,7 @@ import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
 import Wardrobe from "./pages/Wardrobe";
 import Outfits from "./pages/Outfits";
+import Profile from "./pages/Profile";
 
 // Admin Pages
 import AdminLogin from "./pages/admin/Login";
@@ -48,6 +49,7 @@ const App = () => (
             <Route path="/subscription" element={<Subscription />} />
             <Route path="/wardrobe" element={<Wardrobe />} />
             <Route path="/outfits" element={<Outfits />} />
+            <Route path="/profile" element={<Profile />} />
             
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLogin />} />

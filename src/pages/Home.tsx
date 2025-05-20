@@ -117,6 +117,7 @@ const Home = () => {
               />
             ))}
           </div>
+        {/* Personalized Style Tips */}
         </section>
 
         {/* Personalized Style Tips */}
@@ -159,56 +160,51 @@ const Home = () => {
           </Button>
         </section>
       </main>
+<footer className="mt-16 border-t border-chromatique-cream pt-10 pb-8 text-sm text-chromatique-taupe bg-chromatique-rose/10">
+  <div className="container mx-auto px-4">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+      {/* Column 1: Navigation */}
+      <div className="space-y-2">
+        <p className="font-semibold text-chromatique-shallow uppercase text-xs tracking-wide">Navigate</p>
+        <a href="/about" className="block hover:underline">About</a>
+        <a href="/contact" className="block hover:underline">Contact Us</a>
+        <a href="/privacy" className="block hover:underline">Privacy Policy</a>
+        <a href="/terms" className="block hover:underline">Terms of Use</a>
+      </div>
 
-      <footer className="mt-12 bg-chromatique-rose/10 rounded-t-2xl py-8 px-4">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row md:justify-between items-center gap-6">
-          {/* App Name & Email */}
-          <div className="text-center md:text-left">
-            <h3 className="font-serif text-2xl text-chromatique-rose font-semibold mb-1">Chromatique</h3>
-            <p className="text-chromatique-taupe text-sm">
-              <a href="mailto:chromatique2025@gmail.com" className="hover:underline">
-                hello@chromatique.com
-              </a>
-            </p>
-          </div>
-          
-          {/* Socials & Copyright */}
-            <div className="flex flex-col items-end gap-2 ml-auto">
-            <div className="flex justify-end gap-4 mb-1">
-              <a
-              href="https://www.instagram.com/chromatique._/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              className="text-chromatique-shallow hover:text-chromatique-rose transition-colors"
-              >
-              {/* Instagram SVG */}
-              <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
-                <rect width="20" height="20" x="2" y="2" rx="6" stroke="currentColor" strokeWidth="2"/>
-                <circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="2"/>
-                <circle cx="17" cy="7" r="1.2" fill="currentColor"/>
-              </svg>
-              </a>
-              <a
-              href="https://open.spotify.com/show/4SsjYAnYvOBfpVyPzclb6F"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Spotify Podcast"
-              className="text-chromatique-shallow hover:text-chromatique-rose transition-colors"
-              >
-              {/* Spotify SVG (fixed, more accurate) */}
-              <svg width="28" height="28" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="24" cy="24" r="21.5" fill="none" stroke="currentColor" strokeWidth="4"/>
-                <path d="M12.3332 30.6695c8.1899-1.8711 15.215-1.0655 20.8822 2.3979m-21.6486-8.7867c7.8081-2.3692 17.5151-1.2216 24.1517 2.8567m-25.3671-9.8174c7.5945-2.3055 20.2195-1.8601 28.1974 2.876" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              </a>
-            </div>
-            <div className="text-xs text-chromatique-taupe/70 text-right">
-              &copy; {new Date().getFullYear()} Chromatique. All rights reserved.
-            </div>
-            </div>
+      {/* Column 2: Features */}
+      <div className="space-y-2">
+        <p className="font-semibold text-chromatique-shallow uppercase text-xs tracking-wide">Features</p>
+        <a href="/quiz/start" className="block hover:underline">Color Quiz</a>
+        <a href="/wardrobe" className="block hover:underline">Saved Wardrobe</a>
+        <a href="/outfits" className="block hover:underline">Outfit Planner</a>
+        <a href="/results" className="block hover:underline">My Color Palette</a>
+      </div>
+
+      {/* Column 3: Social & CTA */}
+      <div className="space-y-4 text-center md:text-right">
+        <p className="font-semibold text-chromatique-shallow uppercase text-xs tracking-wide">Stay Connected</p>
+        <div className="flex justify-center md:justify-end space-x-4">
+          <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-chromatique-rose transition-colors">
+            {/* Instagram Icon */}
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm4.75-.88a.88.88 0 1 1 0 1.76.88.88 0 0 1 0-1.76z"/></svg>
+          </a>
+          <a href="https://spotify.com/yourplaylist" target="_blank" rel="noopener noreferrer" aria-label="Spotify" className="hover:text-green-600 transition-colors">
+            {/* Spotify Icon */}
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm4.63 14.55a.78.78 0 0 1-1.07.24c-2.93-1.78-6.63-2.18-11.01-1.2a.78.78 0 1 1-.32-1.52c4.77-1.03 8.92-.58 12.2 1.4a.78.78 0 0 1 .2 1.08zm1.5-3.07a.97.97 0 0 1-1.33.3c-3.36-2.03-8.47-2.63-12.43-1.45a.97.97 0 1 1-.56-1.86c4.43-1.33 10.13-.68 14 1.68.46.28.6.89.32 1.33zm.16-3.24C15.65 8.1 8.82 7.93 5.68 9.07a1.17 1.17 0 1 1-.7-2.22c3.66-1.15 11.24-.94 15.54 1.84a1.17 1.17 0 0 1-1.23 2.05z"/></svg>
+          </a>
         </div>
-      </footer>
+        <p className="text-xs mt-2">Wear your true colours — Elevate your style</p>
+      </div>
+    </div>
+
+    <div className="mt-8 text-center text-xs text-muted-foreground">
+      &copy; {new Date().getFullYear()} Chromatique. Crafted with care.
+    </div>
+  </div>
+</footer>
+
+
     </>
   );
 };
