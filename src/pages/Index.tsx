@@ -1,10 +1,23 @@
 
-import { useState } from "react";
+// import { useState } from "react";
 import { AuthForm } from "@/components/auth/AuthForm";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useChromatique } from "@/lib/context";
 
 const Index = () => {
+  const { user } = useChromatique();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+  const storedUser = localStorage.getItem("chromatique-user");
+  if (user && storedUser) {
+    navigate("/home");
+  }
+}, [user, navigate]);
+
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-1 flex flex-col md:flex-row">
