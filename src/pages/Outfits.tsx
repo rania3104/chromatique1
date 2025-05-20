@@ -8,7 +8,8 @@ import {
   CarouselContent,
   CarouselItem,
   CarouselPrevious,
-  CarouselNext
+  CarouselNext,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import {
   Dialog,
@@ -25,8 +26,25 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Plus, Shirt, Scissors, Tag } from "lucide-react";
 import { useMobile } from "@/hooks/use-mobile";
 import { supabase } from "@/lib/supabaseClient";
+import { useRef } from "react";
 
-
+<style>
+{`
+  .scrollbar-chromatique-rose {
+    scrollbar-color: #e49ca3 #f8e9e3; /* thumb, track */
+    scrollbar-width: thin;
+  }
+  .scrollbar-chromatique-rose::-webkit-scrollbar {
+    width: 8px;
+    background: #f8e9e3;
+    border-radius: 8px;
+  }
+  .scrollbar-chromatique-rose::-webkit-scrollbar-thumb {
+    background: #e49ca3;
+    border-radius: 8px;
+  }
+`}
+</style>
 export default function Outfits() {
   const { toast } = useToast();
   const isMobile = useMobile();
@@ -42,224 +60,258 @@ export default function Outfits() {
     accessories: null,
     jewelry: null
   });
+  const [carouselIndices, setCarouselIndices] = useState<Record<ClothingItemType, number>>({
+    tops: 0,
+    bottoms: 0,
+    dresses: 0,
+    outerwear: 0,
+    accessories: 0,
+    jewelry: 0
+  });
   const [newOutfitName, setNewOutfitName] = useState("");
   const [saveDialogOpen, setSaveDialogOpen] = useState(false);
   const [selectedOutfit, setSelectedOutfit] = useState<Outfit | null>(null);
   const [outfitDialogOpen, setOutfitDialogOpen] = useState(false);
-  
-  // Load items and outfits from MongoDB
-useEffect(() => {
-  async function fetchData() {
-    try {
-      setIsLoading(true);
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error("User not logged in");
 
-      const { data: clothingData, error: clothingError } = await supabase
-        .from("userclothing_items")
-        .select("*")
-        .eq("user_id", user.id);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setIsLoading(true);
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) throw new Error("User not logged in");
 
-      const { data: outfitData, error: outfitError } = await supabase
-        .from("outfits")
-        .select("*")
-        .eq("user_id", user.id);
+        const { data: clothingData, error: clothingError } = await supabase
+          .from("userclothing_items")
+          .select("*")
+          .eq("user_id", user.id);
 
-      if (clothingError) throw clothingError;
-      if (outfitError) throw outfitError;
+        const { data: outfitData, error: outfitError } = await supabase
+          .from("outfits")
+          .select("*")
+          .eq("user_id", user.id);
 
-      setItems(clothingData);
-      setOutfits(outfitData);
-    } catch (error) {
-      console.error("Failed to fetch data:", error);
-      toast({
-        title: "Error",
-        description: "Failed to load your wardrobe and outfits",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
+        if (clothingError) throw clothingError;
+        if (outfitError) throw outfitError;
+
+        setItems(clothingData);
+        setOutfits(outfitData);
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+        toast({
+          title: "Error",
+          description: "Failed to load your wardrobe and outfits",
+          variant: "destructive",
+        });
+      } finally {
+        setIsLoading(false);
+      }
     }
-  }
 
-  fetchData();
-}, []);
+    fetchData();
+  }, []);
 
-  
   const itemsByType = (type: ClothingItemType) => {
     return items.filter(item => item.type === type);
   };
-  
-  // Select an item for the outfit
+
   const selectItem = (type: ClothingItemType, item: UserClothingItem) => {
-    setSelectedItems(prev => ({...prev, [type]: item}));
+    setSelectedItems(prev => ({ ...prev, [type]: item }));
+    const typeItems = itemsByType(type);
+    const itemIndex = typeItems.findIndex(i => i.id === item.id);
+    if (itemIndex !== -1) {
+      setCarouselIndices(prev => ({ ...prev, [type]: itemIndex }));
+    }
   };
   
-  // Remove an item from the outfit
+
+
   const removeItem = (type: ClothingItemType) => {
-    setSelectedItems(prev => ({...prev, [type]: null}));
+    setSelectedItems(prev => ({ ...prev, [type]: null }));
+    setCarouselIndices(prev => ({ ...prev, [type]: 0 }));
   };
-  
-const saveOutfit = async () => {
-  if (!newOutfitName.trim()) {
-    toast({
-      title: "Name required",
-      description: "Please give your outfit a name",
-      variant: "destructive",
-    });
-    return;
-  }
 
-  const outfitItems = Object.values(selectedItems).filter(Boolean) as UserClothingItem[];
-  if (outfitItems.length === 0) {
-    toast({
-      title: "Empty outfit",
-      description: "Please select at least one item",
-      variant: "destructive",
-    });
-    return;
-  }
+  const saveOutfit = async () => {
+    if (!newOutfitName.trim()) {
+      toast({
+        title: "Name required",
+        description: "Please give your outfit a name",
+        variant: "destructive",
+      });
+      return;
+    }
 
-  try {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    const outfitItems = Object.values(selectedItems).filter(Boolean) as UserClothingItem[];
+    if (outfitItems.length === 0) {
+      toast({
+        title: "Empty outfit",
+        description: "Please select at least one item",
+        variant: "destructive",
+      });
+      return;
+    }
 
-    const { data: newOutfit, error } = await supabase
-      .from("outfits")
-      .insert({
-        user_id: user.id,
-        name: newOutfitName.trim(),
-        items: Object.values(selectedItems).filter(Boolean) as UserClothingItem[],
-        created_at: new Date().toISOString()
-      })
-      .select()
-      .single();
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("Not authenticated");
 
-    if (error) throw error;
+      const { data: newOutfit, error } = await supabase
+        .from("outfits")
+        .insert({
+          user_id: user.id,
+          name: newOutfitName.trim(),
+          items: outfitItems,
+          created_at: new Date().toISOString()
+        })
+        .select()
+        .single();
 
-    setOutfits(prev => [...prev, newOutfit]);
-    setSelectedItems({
-      tops: null,
-      bottoms: null,
-      dresses: null,
-      outerwear: null,
-      accessories: null,
-      jewelry: null
-    });
-    setNewOutfitName("");
-    setSaveDialogOpen(false);
+      if (error) throw error;
 
-    toast({
-      title: "Outfit saved",
-      description: "Your outfit has been saved",
-    });
-  } catch (error: any) {
-    console.error("Error saving outfit:", error);
-    toast({
-      title: "Save failed",
-      description: error.message || "There was an error saving the outfit",
-      variant: "destructive",
-    });
-  }
-};
+      setOutfits(prev => [...prev, newOutfit]);
+      setSelectedItems({
+        tops: null,
+        bottoms: null,
+        dresses: null,
+        outerwear: null,
+        accessories: null,
+        jewelry: null
+      });
+      setCarouselIndices({
+        tops: 0,
+        bottoms: 0,
+        dresses: 0,
+        outerwear: 0,
+        accessories: 0,
+        jewelry: 0
+      });
+      setNewOutfitName("");
+      setSaveDialogOpen(false);
 
-// Delete outfit from MongoDB
-const deleteOutfit = async (id: string) => {
-  try {
-    const { error } = await supabase.from("outfits").delete().eq("id", id);
-    if (error) throw error;
+      toast({
+        title: "Outfit saved",
+        description: "Your outfit has been saved",
+      });
+    } catch (error: any) {
+      console.error("Error saving outfit:", error);
+      toast({
+        title: "Save failed",
+        description: error.message || "There was an error saving the outfit",
+        variant: "destructive",
+      });
+    }
+  };
 
-    setOutfits(prev => prev.filter(o => o.id !== id));
-    toast({
-      title: "Outfit deleted",
-      description: "Your outfit has been removed",
-    });
-  } catch (error) {
-    console.error("Error deleting outfit:", error);
-    toast({
-      title: "Delete failed",
-      description: "There was an error deleting your outfit",
-      variant: "destructive",
-    });
-  }
-};
+  const deleteOutfit = async (id: string) => {
+    try {
+      const { error } = await supabase.from("outfits").delete().eq("id", id);
+      if (error) throw error;
 
-  
-  // Calculate if the outfit has any items
+      setOutfits(prev => prev.filter(o => o.id !== id));
+      toast({
+        title: "Outfit deleted",
+        description: "Your outfit has been removed",
+      });
+    } catch (error) {
+      console.error("Error deleting outfit:", error);
+      toast({
+        title: "Delete failed",
+        description: "There was an error deleting your outfit",
+        variant: "destructive",
+      });
+    }
+  };
+
   const hasOutfitItems = Object.values(selectedItems).some(item => item !== null);
-  
-  // Open outfit dialog
+
   const openOutfitDialog = (outfit: Outfit) => {
     setSelectedOutfit(outfit);
     setOutfitDialogOpen(true);
   };
-  
-  // Carousel component for a specific clothing type
-  const ItemCarousel = ({ type, className }: { type: ClothingItemType, className?: string }) => {
-    const typeItems = itemsByType(type);
-    
-    if (typeItems.length === 0) {
-      return (
-        <div className={`text-center py-4 border-2 border-dashed rounded-lg ${className}`}>
-          <p className="text-sm text-muted-foreground">
-            No {type} found. <a href="/wardrobe" className="text-primary underline">Add some</a>
-          </p>
-        </div>
-      );
+
+  const ItemCarousel = ({ type, className }: { type: ClothingItemType; className?: string }) => {
+  const typeItems = itemsByType(type);
+  const currentIndex = carouselIndices[type] || 0;
+  const [api, setApi] = useState<CarouselApi | null>(null);
+
+  useEffect(() => {
+    if (api) {
+      api.scrollTo(currentIndex);
     }
-    
+  }, [api, currentIndex]); 
+
+
+  if (typeItems.length === 0) {
     return (
-      <div className={`${className}`}>
-        <div className="flex items-center justify-between mb-2">
-          <h3 className="text-sm font-medium capitalize">{type}</h3>
-          {selectedItems[type] && (
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={() => removeItem(type)}
-              className="h-6 text-xs"
-            >
-              Remove
-            </Button>
-          )}
-        </div>
-        
-        <Carousel className="w-full max-w-xs mx-auto relative">
-          <CarouselContent>
-            {typeItems.map((item) => (
-              <CarouselItem key={item.id}>
-                <div 
-                  className={`border rounded-lg overflow-hidden cursor-pointer transition-all
-                    ${selectedItems[type]?.id === item.id ? 'ring-2 ring-primary' : ''}
-                  `}
-                  onClick={() => selectItem(type, item)}
-                >
-                  <div className="aspect-square bg-white">
-                    <img 
-                      src={item.image_url} 
-                      alt={item.name} 
-                      className="w-full h-full object-contain" 
-                    />
-                  </div>
-                  
-                  <div className="p-2 bg-white">
-                    <h4 className="font-medium text-sm truncate">{item.name}</h4>
-                  </div>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="absolute left-0" />
-          <CarouselNext className="absolute right-0" />
-        </Carousel>
+      <div className={`text-center py-4 border-2 border-dashed rounded-lg ${className}`}>
+        <p className="text-sm text-muted-foreground">
+          No {type} found. <a href="/wardrobe" className="text-primary underline">Add some</a>
+        </p>
       </div>
     );
-  };
-  
+  }
+
+    return (
+     <div className={`${className}`}>
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="text-sm font-medium capitalize">{type}</h3>
+        {selectedItems[type] && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => removeItem(type)}
+            className="h-6 text-xs"
+          >
+            Remove
+          </Button>
+        )}
+      </div>
+
+      <Carousel
+        className="w-full max-w-xs mx-auto relative"
+        opts={{ align: "start", loop: false }}
+        setApi={setApi}
+      >
+        <CarouselContent>
+          {typeItems.map((item, index) => (
+            <CarouselItem key={item.id}>
+              <div
+                className={`border rounded-lg overflow-hidden cursor-pointer transition-all ${
+                  selectedItems[type]?.id === item.id
+                    ? "border-4 border-chromatique-rose"
+                    : "border border-transparent"
+                }`}
+                style={
+                  selectedItems[type]?.id === item.id
+                    ? { borderWidth: "1px", borderColor: "var(--chromatique-rose, #e49ca3)", borderRadius: "12px" }
+                    : { borderRadius: "12px" }
+                }
+                onClick={() => selectItem(type, item)}
+              >
+                <div className="aspect-square bg-white">
+                  <img
+                    src={item.image_url}
+                    alt={item.name}
+                    className="w-full h-full object-contain rounded-[10px]"
+                  />
+                </div>
+                <div className="p-2 bg-white">
+                  <h4 className="font-medium text-sm truncate">{item.name}</h4>
+                </div>
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className="absolute left-0" />
+        <CarouselNext className="absolute right-0" />
+      </Carousel>
+    </div>
+  );
+};
+
   return (
     <>
       <Header />
-      <div className="container py-8">
+      <div className="container py-8 min-h-screen flex flex-col">
         <header className="mb-8">
           <h1 className="text-3xl font-bold mb-2">Outfit Builder</h1>
           <p className="text-muted-foreground">
@@ -391,7 +443,7 @@ const deleteOutfit = async (id: string) => {
           </div>
           
           <div className="lg:col-span-4">
-            <div className="border rounded-lg p-6 bg-white h-full">
+            <div className="border rounded-lg p-6 bg-white h-full flex flex-col">
               <h2 className="text-xl font-semibold mb-6">Saved Outfits</h2>
               
               {isLoading ? (
@@ -407,48 +459,52 @@ const deleteOutfit = async (id: string) => {
                   </p>
                 </div>
               ) : (
-                <div className="space-y-4">
-                  {outfits.map(outfit => (
-                    <Card key={outfit.id} className="overflow-hidden cursor-pointer" onClick={() => openOutfitDialog(outfit)}>
-                      <CardContent className="p-0">
-                        <div className="p-4">
-                          <div className="flex justify-between items-center">
-                            <h3 className="font-medium">{outfit.name}</h3>
-                            <Button 
-                              variant="ghost" 
-                              size="sm" 
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                deleteOutfit(outfit.id);
-                              }}
-                            >
-                              Delete
-                            </Button>
-                          </div>
-                          <p className="text-sm text-muted-foreground">
-                            {new Date(outfit.createdAt).toLocaleDateString()}
-                          </p>
-                        </div>
-                        
-                        <div className="grid grid-cols-3 gap-1 p-2 bg-muted/20">
-                          {outfit.items.slice(0, 6).map((item) => (
-                            <div key={item.id} className="aspect-square bg-white border rounded">
-                              <img 
-                                src={item.image_url} 
-                                alt={item.name} 
-                                className="w-full h-full object-contain"
-                              />
+                <div className="flex-1 min-h-0">
+                  <ScrollArea className="h-[600px] pr-2 scrollbar-chromatique-rose">
+                    <div className="space-y-4">
+                      {outfits.map(outfit => (
+                        <Card key={outfit.id} className="overflow-hidden cursor-pointer" onClick={() => openOutfitDialog(outfit)}>
+                          <CardContent className="p-0">
+                            <div className="p-4">
+                              <div className="flex justify-between items-center">
+                                <h3 className="font-medium">{outfit.name}</h3>
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm" 
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    deleteOutfit(outfit.id);
+                                  }}
+                                >
+                                  Delete
+                                </Button>
+                              </div>
+                              <p className="text-sm text-muted-foreground">
+                                {new Date(outfit.createdAt).toLocaleDateString()}
+                              </p>
                             </div>
-                          ))}
-                          {outfit.items.length > 6 && (
-                            <div className="aspect-square bg-white border rounded flex items-center justify-center text-sm font-medium">
-                              +{outfit.items.length - 6} more
+                            
+                            <div className="grid grid-cols-3 gap-1 p-2 bg-muted/20">
+                              {outfit.items.slice(0, 6).map((item) => (
+                                <div key={item.id} className="aspect-square bg-white border rounded">
+                                  <img 
+                                    src={item.image_url} 
+                                    alt={item.name} 
+                                    className="w-full h-full object-contain"
+                                  />
+                                </div>
+                              ))}
+                              {outfit.items.length > 6 && (
+                                <div className="aspect-square bg-white border rounded flex items-center justify-center text-sm font-medium">
+                                  +{outfit.items.length - 6} more
+                                </div>
+                              )}
                             </div>
-                          )}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </ScrollArea>
                 </div>
               )}
               
