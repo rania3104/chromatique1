@@ -107,70 +107,77 @@ export function ItemDetailDialog({ item, isOpen, onClose }: ItemDetailDialogProp
 
   if (!item) return null;
 
-  return (
-    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-[500px] p-0">
-        <div className="grid grid-cols-2">
-          <div className="aspect-[3/4] relative">
-            <img
-              src={item.image}
-              alt={item.name}
-              className="w-full h-full object-cover"
-            />
-          </div>
+return (
+  <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+  <DialogContent className="p-0 sm:max-w-[700px] max-w-[95vw] max-h-[90vh] overflow-y-auto">
+    <div className="grid grid-cols-1 sm:grid-cols-2">
+      <div className="aspect-[3/4] relative w-full h-full">
+        <img
+          src={item.image}
+          alt={item.name}
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-          <div className="p-6">
-            <DialogHeader>
-              <DialogTitle className="text-xl pr-8">{item.name}</DialogTitle>
-              <DialogDescription className="text-sm">{item.category}</DialogDescription>
-            </DialogHeader>
+      <div className="p-4 sm:p-6 overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="text-lg sm:text-xl pr-6 sm:pr-8">
+            {item.name}
+          </DialogTitle>
+          <DialogDescription className="text-sm">
+            {item.category}
+          </DialogDescription>
+        </DialogHeader>
 
-            <div className="mt-4">
-              <p className="text-sm">{item.description}</p>
+        <div className="mt-4 text-sm space-y-4">
+          <p className="whitespace-pre-line">{item.description}</p>
 
-              <div className="mt-4">
-                <h4 className="text-sm font-medium mb-2">Colors:</h4>
-                <div className="flex gap-2">
-                  {item.colors.map((color, i) => (
-                    <div
-                      key={i}
-                      className="w-6 h-6 rounded-full border border-gray-200"
-                      style={{ backgroundColor: color }}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              <div className="mt-4">
-                <h4 className="text-sm font-medium mb-2">Keywords for Shopping:</h4>
-                <div className="flex flex-wrap gap-1">
-                  {item.keywords.map((keyword, i) => (
-                    <Badge
-                      key={i}
-                      variant="secondary"
-                      className="bg-chromatique-cream text-xs"
-                    >
-                      {keyword}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mt-6 flex gap-3">
-                <Button
-                  variant={isSaved ? "default" : "outline"}
-                  size="sm"
-                  className={isSaved ? "bg-red-500 hover:bg-red-600" : ""}
-                  onClick={toggleSaved}
-                >
-                  <Heart className={`h-4 w-4 mr-2 ${isSaved ? "fill-white" : ""}`} />
-                  {isSaved ? "Saved" : "Save to Wishlist"}
-                </Button>
-              </div>
+          <div>
+            <h4 className="font-medium mb-2">Colors:</h4>
+            <div className="flex gap-2">
+              {item.colors.map((color, i) => (
+                <div
+                  key={i}
+                  className="w-6 h-6 rounded-full border border-gray-200"
+                  style={{ backgroundColor: color }}
+                />
+              ))}
             </div>
           </div>
+
+          <div>
+            <h4 className="font-medium mb-2">Keywords for Shopping:</h4>
+            <div className="flex flex-wrap gap-1">
+              {item.keywords.map((keyword, i) => (
+                <Badge
+                  key={i}
+                  variant="secondary"
+                  className="bg-chromatique-cream text-xs"
+                >
+                  {keyword}
+                </Badge>
+              ))}
+            </div>
+          </div>
+
+          <div className="pt-2 flex flex-wrap gap-3">
+            <Button
+              variant={isSaved ? "default" : "outline"}
+              size="sm"
+              className={isSaved ? "bg-red-500 hover:bg-red-600" : ""}
+              onClick={toggleSaved}
+            >
+              <Heart
+                className={`h-4 w-4 mr-2 ${isSaved ? "fill-white" : ""}`}
+              />
+              {isSaved ? "Saved" : "Save to Wishlist"}
+            </Button>
+          </div>
         </div>
-      </DialogContent>
-    </Dialog>
-  );
+      </div>
+    </div>
+  </DialogContent>
+</Dialog>
+
+);
 }
