@@ -414,6 +414,7 @@ export const categories: Category[] = [
   }
 ];
 
+// We'll populate this array with sample clothing items in a real app
 export const clothingItems: ClothingItem[] = [
     {
     "id": "item-301",
@@ -8517,6 +8518,846 @@ export const clothingItems: ClothingItem[] = [
     ],
     "seasons": [
       "deep-winter"
+    ]
+  },
+    {
+    "id": "item-239",
+    "name": "Crop top",
+    "description": "Cotton crop top with jeans pant designed with flower. It can be styled with accessories.",
+    "image": "/Deep Winter/Party/10.jpeg",
+    "colors": [
+      "#e5e5e5",
+      "#bc4965",
+      "#da6989",
+      "#913b4e",
+      "#8eaacd",
+      "#cdb2ba"
+    ],
+    "keywords": [
+      "party","cute","Hangout"
+    ],
+    "category": "Crop top",
+    "styleCategories": [
+      "party","casual"
+    ],
+    "seasons": [
+      "deep-winter"
+    ]
+  },
+  {
+    "id": "item-240",
+    "name": "Long baby pink Dress",
+    "description": "Long baby pink dress styled with heels, bag and accessories.",
+    "image": "/Deep Winter/Party/11.jpeg",
+    "colors": [
+      "#f5f2ef",
+      "#f38998",
+      "#e7bfc7",
+      "#bfa193",
+      "#ffffff",
+      "#ffffff"
+    ],
+    "keywords": [
+      "party","long dress","frock","aesthetic"
+    ],
+    "category": "Long dress",
+    "styleCategories": [
+      "party"
+    ],
+    "seasons": [
+      "deep-winter"
+    ]
+  },
+  {
+    "id": "item-241",
+    "name": "Cotton shirt styling",
+    "description": "Cotton slim-fit button up shirt paired with bue jeans and colored hijab/scarf. Outfit can be styled with bag adn accessories.",
+    "image": "/Deep Winter/Party/2.jpg",
+    "colors": [
+      "#f4f1ee",
+      "#354e57",
+      "#6f5a3b",
+      "#c2b699",
+      "#5c7068",
+      "#dad1c6"
+    ],
+    "keywords": [
+      "party","Classy","cotton","slim"
+    ],
+    "category": "slim-fit button-up",
+    "styleCategories": [
+      "party","casual","streetwear"
+    ],
+    "seasons": [
+      "deep-winter"
+    ]
+  },
+  {
+    "id": "item-242",
+    "name": "Black crop top",
+    "description": "Black crop top paired with jeans skirt and styled with black bag and shoes. Accessories can also be worn.",
+    "image": "/Deep Winter/Party/3.jpeg",
+    "colors": [
+      "#e7e7e7",
+      "#1f1f1f",
+      "#403f38",
+      "#6d6b5a",
+      "#a5a4a5",
+      "#758791"
+    ],
+    "keywords": [
+      "party","casual","aesthetic","skin showing"
+    ],
+    "category": "Jeans skirt",
+    "styleCategories": [
+      "party","casual","Streetwear"
+    ],
+    "seasons": [
+      "deep-winter"
+    ]
+  },
+  {
+    "id": "item-243",
+    "name": "Leather jacket and Pants",
+    "description": "Leather blazer and pants, paired with blacck fitted undershirt and styled with accessories.",
+    "image": "/Deep Winter/Party/4.jpeg",
+    "colors": [
+      "#dedede",
+      "#1f1f1f",
+      "#3b3a41",
+      "#616362",
+      "#ffffff",
+      "#ffffff"
+    ],
+    "keywords": [
+      "party","aeshtetic","emo"
+    ],
+    "category": "Leather Blazer",
+    "styleCategories": [
+      "party","casual","streetwear","formal"
+    ],
+    "seasons": [
+      "deep-winter"
+    ]
+  },
+  {
+    "id": "item-244",
+    "name": "White v neck shirt",
+    "description": "White v neck shirt paired with Blue bell bottom jeans and styled with bag and shoes.",
+    "image": "/Deep Winter/Party/5.jpg",
+    "colors": [
+      "#f1ece8",
+      "#566979",
+      "#5981ac",
+      "#693937",
+      "#a18e87",
+      "#865c55"
+    ],
+    "keywords": [
+      "party","aesthetic","fitted"
+    ],
+    "category": "V neck",
+    "styleCategories": [
+      "party","casual","streetwear"
+    ],
+    "seasons": [
+      "deep-winter"
+    ]
+  },
+  {
+    "id": "item-245",
+    "name": "White sweater with pink bows.",
+    "description": "White sweater with pink bows paired with jeans and styled with different accessories.",
+    "image": "/Deep Winter/Party/6.jpg",
+    "colors": [
+      "#e5e5e5",
+      "#acadb5",
+      "#a1828b",
+      "#d4b485",
+      "#111016",
+      "#e5bec5"
+    ],
+    "keywords": [
+      "party","cute","bows","pretty","winter"
+    ],
+    "category": "Sweater with bows.",
+    "styleCategories": [
+      "party","casual","streetwear"
+    ],
+    "seasons": [
+      "deep-winter"
+    ]
+  },
+  {
+    "id": "item-246",
+    "name": "Sweater with embroided collar",
+    "description": "Sweater with embroided collar and red design paired with red skirt and styled with bag and accessories.",
+    "image": "/Deep Winter/Party/7.jpg",
+    "colors": [
+      "#a98c90",
+      "#f1ece3",
+      "#5a0d16",
+      "#eac4a8",
+      "#6f3039",
+      "#ffffff"
+    ],
+    "keywords": [
+      "party","Winter outfit","Sweater"
+    ],
+    "category": "Sweater",
+    "styleCategories": [
+      "party","casual","streetwear"
+    ],
+    "seasons": [
+      "deep-winter"
+    ]
+  },
+  {
+    "id": "item-249",
+    "name": "Button-up with oversized sleeves.",
+    "description": "Button with oversized sleeves paired with straight pants and styled with bag and hijab.",
+    "image": "/Deep Winter/Streetwear/1.jpg",
+    "colors": [
+      "#e5e5e5",
+      "#2e2d32",
+      "#dfd1b7",
+      "#53514b",
+      "#ffffff",
+      "#ffffff"
+    ],
+    "keywords": [
+      "streetwear","Oversized sleeves","aesthetic"
+    ],
+    "category": "Oversized sleeves",
+    "styleCategories": [
+      "streetwear","casual"
+    ],
+    "seasons": [
+      "deep-winter"
+    ]
+  },
+  {
+    "id": "item-250",
+    "name": "Printed Blouse",
+    "description": "BLue printed blouse with jeans and hijab, styled with tote bag, shoes and accessoried",
+    "image": "/Deep Winter/Streetwear/10.jpg",
+    "colors": [
+      "#e5e5e5",
+      "#485a6a",
+      "#6a7f8b",
+      "#2e3949",
+      "#c6bfb7",
+      "#a99c8a"
+    ],
+    "keywords": [
+      "streetwear","printed"
+    ],
+    "category": "Printed shirt",
+    "styleCategories": [
+      "streetwear","casual","ethnic"
+    ],
+    "seasons": [
+      "deep-winter"
+    ]
+  },
+  {
+    "id": "item-251",
+    "name": "Black kameez with white print",
+    "description": "Black kameez with white prominent print paired with jeans and styled with accessories.",
+    "image": "/Deep Winter/Streetwear/11.jpg",
+    "colors": [
+      "#efefef",
+      "#828282",
+      "#5b5a59",
+      "#debec2",
+      "#1c2020",
+      "#afaba9"
+    ],
+    "keywords": [
+      "streetwear","college","comfortable"
+    ],
+    "category": "Kameez",
+    "styleCategories": [
+      "streetwear","ethnic","casual"
+    ],
+    "seasons": [
+      "deep-winter"
+    ]
+  },
+  {
+    "id": "item-252",
+    "name": "All black outfit",
+    "description": "",
+    "image": "/Deep Winter/Streetwear/12.jpg",
+    "colors": [
+      "#e5e5e5",
+      "#434343",
+      "#636362",
+      "#202020",
+      "#7d0a1e",
+      "#aa9698"
+    ],
+    "keywords": [
+      "streetwear","casual"
+    ],
+    "category": "Black",
+    "styleCategories": [
+      "streetwear","casual"
+    ],
+    "seasons": [
+      "deep-winter"
+    ]
+  },
+  {
+    "id": "item-253",
+    "name": "Prink and white",
+    "description": "Pink and white kameez styled with accessories.",
+    "image": "/Deep Winter/Streetwear/13.jpg",
+    "colors": [
+      "#e5e5e5",
+      "#c2cdba",
+      "#b39381",
+      "#eb8ba1",
+      "#88605f",
+      "#932a39"
+    ],
+    "keywords": [
+      "streetwear","college"
+    ],
+    "category": "kameez",
+    "styleCategories": [
+      "streetwear","casual","ethnic"
+    ],
+    "seasons": [
+      "deep-winter"
+    ]
+  },
+  {
+    "id": "item-254",
+    "name": "Light pink kameez embroided with shocking pink",
+    "description": "",
+    "image": "/Deep Winter/Streetwear/14.jpg",
+    "colors": [
+      "#f3eeeb",
+      "#cfb09c",
+      "#ba8673",
+      "#7e5f48",
+      "#504235",
+      "#dfd0c4"
+    ],
+    "keywords": [
+      "streetwear","Kameez"
+    ],
+    "category": "Kameez",
+    "styleCategories": [
+      "streetwear","ethnic"
+    ],
+    "seasons": [
+      "deep-winter"
+    ]
+  },
+  {
+    "id": "item-258",
+    "name": "Red printed Kameez",
+    "description": "Red printed Kameez paired with jeans and styled with accessories.",
+    "image": "/Deep Winter/Streetwear/18.jpg",
+    "colors": [
+      "#f7e8e3",
+      "#af6161",
+      "#dec99f",
+      "#939494",
+      "#b3b0af",
+      "#aa3c39"
+    ],
+    "keywords": [
+      "streetwear","ethnic","casual"
+    ],
+    "category": "Kameez",
+    "styleCategories": [
+      "streetwear","ethnic","casual"
+    ],
+    "seasons": [
+      "deep-winter"
+    ]
+  },
+  {
+    "id": "item-259",
+    "name": "",
+    "description": "",
+    "image": "/Deep Winter/Streetwear/2.jpg",
+    "colors": [
+      "#f3eddf",
+      "#9c867e",
+      "#806555",
+      "#4e4a4f",
+      "#deadb9",
+      "#2a3029"
+    ],
+    "keywords": [
+      "streetwear"
+    ],
+    "category": "",
+    "styleCategories": [
+      "streetwear"
+    ],
+    "seasons": [
+      "deep-winter"
+    ]
+  },
+  {
+    "id": "item-267",
+    "name": "White sweatshirt with green printed skirt",
+    "description": "White sweatshirt with green printed skirt styled with tote bag and shoes.",
+    "image": "/Light Spring/Casual/1.jpeg",
+    "colors": [
+      "#f0f0f0",
+      "#d3cfc9",
+      "#e3c28c",
+      "#a2ae80",
+      "#ffffff",
+      "#ffffff"
+    ],
+    "keywords": [
+      "casual","winter"
+    ],
+    "category": "Skirt",
+    "styleCategories": [
+      "casual","streetwear"
+    ],
+    "seasons": [
+      "light-spring"
+    ]
+  },
+  {
+    "id": "item-268",
+    "name": "Brown leather styled",
+    "description": "Brown leather jacket paired with white fitted shirt and bell-bottom jeans.",
+    "image": "/Light Spring/Casual/10.jpg",
+    "colors": [
+      "#f5f0e8",
+      "#dbccb2",
+      "#aa7e64",
+      "#61412f",
+      "#b3a6a0",
+      "#819eb9"
+    ],
+    "keywords": [
+      "casual","streetwear","Winter"
+    ],
+    "category": "Leather",
+    "styleCategories": [
+      "casual","streetwear"
+    ],
+    "seasons": [
+      "light-spring"
+    ]
+  },
+  {
+    "id": "item-269",
+    "name": "Long button up shirt styled",
+    "description": "Long skin-colored button up shirt paired with fitted shirt and jeans, stlyed with bag hijab and accessories",
+    "image": "/Light Spring/Casual/11.jpg",
+    "colors": [
+      "#f0efe9",
+      "#7f89a3",
+      "#5a6684",
+      "#313b51",
+      "#bbb4a1",
+      "#9d9376"
+    ],
+    "keywords": [
+      "casual","modest","aesthetic","hijab"
+    ],
+    "category": "long shirt",
+    "styleCategories": [
+      "casual","modest","streetwear"
+    ],
+    "seasons": [
+      "light-spring"
+    ]
+  },
+  {
+    "id": "item-270",
+    "name": "White formal blazer coat",
+    "description": "White formal blazer coat paired with jeans and accessories.",
+    "image": "/Light Spring/Casual/12.jpg",
+    "colors": [
+      "#f0f0f0",
+      "#d4cdc7",
+      "#9da7b2",
+      "#2e2d32",
+      "#ffffff",
+      "#ffffff"
+    ],
+    "keywords": [
+      "casual","blazer"
+    ],
+    "category": "blazer",
+    "styleCategories": [
+      "casual","streetwear","formal"
+    ],
+    "seasons": [
+      "light-spring"
+    ]
+  },
+  {
+    "id": "item-271",
+    "name": "Long coat",
+    "description": "Long coat styled with white t-shirt or button-up and jeans, styled with bags, shoes and scarf",
+    "image": "/Light Spring/Casual/13.jpg",
+    "colors": [
+      "#fef3d5",
+      "#dfc4a6",
+      "#b89877",
+      "#8a6f52",
+      "#a7c8e0",
+      "#8398aa"
+    ],
+    "keywords": [
+      "casual","winter"
+    ],
+    "category": "Long coat",
+    "styleCategories": [
+      "casual","streetwear","formal"
+    ],
+    "seasons": [
+      "light-spring"
+    ]
+  },
+  {
+    "id": "item-273",
+    "name": "Pink sweater",
+    "description": "Pink sweater styled with jeans and accessories.",
+    "image": "/Light Spring/Casual/15.jpeg",
+    "colors": [
+      "#f0f0f0",
+      "#757e88",
+      "#c9c8c2",
+      "#f59ca8",
+      "#406087",
+      "#293e57"
+    ],
+    "keywords": [
+      "casual","streetwear","modest"
+    ],
+    "category": "sweater",
+    "styleCategories": [
+      "casual","streetwear","modest"
+    ],
+    "seasons": [
+      "light-spring"
+    ]
+  },
+  {
+    "id": "item-274",
+    "name": "V-neck Sweater",
+    "description": "Sweater vest over white button-up shirt and skirt. styled with bag, heels and accessories.",
+    "image": "/Light Spring/Casual/16.jpeg",
+    "colors": [
+      "#e7e7e5",
+      "#b99f81",
+      "#987c65",
+      "#d5c9b7",
+      "#483936",
+      "#1c1513"
+    ],
+    "keywords": [
+      "casual","winter"
+    ],
+    "category": "V-neck sweater",
+    "styleCategories": [
+      "casual","streetwear"
+    ],
+    "seasons": [
+      "light-spring"
+    ]
+  },
+  {
+    "id": "item-276",
+    "name": "White blouse styled",
+    "description": "White blouse paired with jeans skirt and styled with bag, shoes and accessories.",
+    "image": "/Light Spring/Casual/18.jpeg",
+    "colors": [
+      "#e4e4e4",
+      "#757172",
+      "#404c5c",
+      "#949599",
+      "#2b3036",
+      "#77252b"
+    ],
+    "keywords": [
+      "casual"
+    ],
+    "category": "Blouse",
+    "styleCategories": [
+      "casual","streetwear","Formal"
+    ],
+    "seasons": [
+      "light-spring"
+    ]
+  },
+  {
+    "id": "item-288",
+    "name": "White frock with light print",
+    "description": "White long frock with light pink print styled with bag, heels and accessories.",
+    "image": "/Light Spring/Ethnic/1.jpg",
+    "colors": [
+      "#ece7e4",
+      "#a095bf",
+      "#d2b2d4",
+      "#b47f67",
+      "#d5ab9a",
+      "#954c42"
+    ],
+    "keywords": [
+      "ethnic","party","aesthetic"
+    ],
+    "category": "Long Frock",
+    "styleCategories": [
+      "ethnic","party"
+    ],
+    "seasons": [
+      "light-spring"
+    ]
+  },
+  {
+    "id": "item-289",
+    "name": "Saari for wedding or event",
+    "description": "Saari styled with jhumke, heels, bag/clutch and other accessories.",
+    "image": "/Light Spring/Ethnic/2.jpg",
+    "colors": [
+      "#e8e8e8",
+      "#d8a193",
+      "#9c7b67",
+      "#a9e1c1",
+      "#ffffff",
+      "#ffffff"
+    ],
+    "keywords": [
+      "ethnic","party"
+    ],
+    "category": "Saari",
+    "styleCategories": [
+      "ethnic","party"
+    ],
+    "seasons": [
+      "light-spring"
+    ]
+  },
+  {
+    "id": "item-290",
+    "name": "Classy Saari",
+    "description": "Light SKin colored elegant saari styled with accessories, perfect for events.",
+    "image": "/Light Spring/Ethnic/3.jpg",
+    "colors": [
+      "#efe9e4",
+      "#b7ab93",
+      "#d1cbbc",
+      "#8f8471",
+      "#705d4c",
+      "#e9b98f"
+    ],
+    "keywords": [
+      "ethnic","event","aesthetic","heavy"
+    ],
+    "category": "Saari",
+    "styleCategories": [
+      "ethnic","party"
+    ],
+    "seasons": [
+      "light-spring"
+    ]
+  },
+  {
+    "id": "item-291",
+    "name": "Long dress",
+    "description": "Long embroided Kameez with 3quarter sleeves styled with bag, heels and accessoried.",
+    "image": "/Light Spring/Ethnic/4.jpg",
+    "colors": [
+      "#f5f1e8",
+      "#b68d7d",
+      "#d7c5ae",
+      "#39383c",
+      "#8e4846",
+      "#1c1c1c"
+    ],
+    "keywords": [
+      "ethnic","Aesthetic","event"
+    ],
+    "category": "Long Kameez",
+    "styleCategories": [
+      "ethnic","party"
+    ],
+    "seasons": [
+      "light-spring"
+    ]
+  },
+  {
+    "id": "item-292",
+    "name": "Full length Frock",
+    "description": "Full-leght light pink dress/frock styled with dupatta and other accessories.",
+    "image": "/Light Spring/Ethnic/5.jpg",
+    "colors": [
+      "#efcfd2",
+      "#b2a996",
+      "#2b2e37",
+      "#595d61",
+      "#ae7b7d",
+      "#e0a8ae"
+    ],
+    "keywords": [
+      "ethnic","aesthetic","pretty"
+    ],
+    "category": "Long frock",
+    "styleCategories": [
+      "ethnic","party"
+    ],
+    "seasons": [
+      "light-spring"
+    ]
+  },
+  {
+    "id": "item-293",
+    "name": "Long Dress",
+    "description": "Long pink embroided dress styled with dupatta, clutch, heels and other accessories.",
+    "image": "/Light Spring/Ethnic/6.jpg",
+    "colors": [
+      "#e9e9e9",
+      "#675f52",
+      "#3e372e",
+      "#dcd4bc",
+      "#b4a396",
+      "#a16f5d"
+    ],
+    "keywords": [
+      "ethnic"
+    ],
+    "category": "Long Dress",
+    "styleCategories": [
+      "ethnic","party"
+    ],
+    "seasons": [
+      "light-spring"
+    ]
+  },
+  {
+    "id": "item-294",
+    "name": "Long white frock and Green heavy dupatta",
+    "description": "Long white frock and Green heavy dupatta styled with accessories.",
+    "image": "/Light Spring/Ethnic/7.jpg",
+    "colors": [
+      "#f1eeec",
+      "#c38e68",
+      "#deb593",
+      "#866d52",
+      "#644f2d",
+      "#dfcec0"
+    ],
+    "keywords": [
+      "ethnic"
+    ],
+    "category": "Long Dress",
+    "styleCategories": [
+      "ethnic","party"
+    ],
+    "seasons": [
+      "light-spring"
+    ]
+  },
+  {
+    "id": "item-295",
+    "name": "Long coat",
+    "description": "Long coat paired with white fitted shirt and jaans. Styled with bag, shoes and accessories.",
+    "image": "/Light Spring/Formal/1.jpeg",
+    "colors": [
+      "#f3f0ee",
+      "#cda89a",
+      "#cfd0d1",
+      "#b78779",
+      "#7d8a95",
+      "#4c6074"
+    ],
+    "keywords": [
+      "formal","casual","aesthetic"
+    ],
+    "category": "Long coat",
+    "styleCategories": [
+      "formal","casual"
+    ],
+    "seasons": [
+      "light-spring"
+    ]
+  },
+  {
+    "id": "item-296",
+    "name": "Dress coat",
+    "description": "Dress coat paired with fitted shirt and pants. Perfect for business meeting",
+    "image": "/Light Spring/Formal/2.jpeg",
+    "colors": [
+      "#e4e4e4",
+      "#be9b7d",
+      "#957d66",
+      "#6d514a",
+      "#1e1e1e",
+      "#ffffff"
+    ],
+    "keywords": [
+      "formal","casual"
+    ],
+    "category": "Dress Coat",
+    "styleCategories": [
+      "formal"
+    ],
+    "seasons": [
+      "light-spring"
+    ]
+  },
+  {
+    "id": "item-297",
+    "name": "Long printed dress",
+    "description": "Long printed dress styled with bag, heels and accessories.",
+    "image": "/Light Spring/Modest/1.jpeg",
+    "colors": [
+      "#f5eee9",
+      "#ae847d",
+      "#cfa8ab",
+      "#e5d0c0",
+      "#847164",
+      "#ffffff"
+    ],
+    "keywords": [
+      "modest","formal","party"
+    ],
+    "category": "Long Dress",
+    "styleCategories": [
+      "modest","formal","party"
+    ],
+    "seasons": [
+      "light-spring"
+    ]
+  },
+  {
+    "id": "item-298",
+    "name": "Long white Dress",
+    "description": "Long white dress styled with bag and accessories.",
+    "image": "/Light Spring/Modest/10.jpeg",
+    "colors": [
+      "#f7f6f0",
+      "#d3cbb7",
+      "#9ebec3",
+      "#999e81",
+      "#ffffff",
+      "#ffffff"
+    ],
+    "keywords": [
+      "modest"
+    ],
+    "category": "Long",
+    "styleCategories": [
+      "modest","formal","party"
+    ],
+    "seasons": [
+      "light-spring"
     ]
   },
 
