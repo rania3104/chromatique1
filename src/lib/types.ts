@@ -111,6 +111,6 @@ export type Outfit = {
   id: string;
   name: string;
   items: UserClothingItem[];
-  createdAt: string;
+  created_at: string;
   userId?: string;
 };

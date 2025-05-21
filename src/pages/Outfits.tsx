@@ -45,6 +45,14 @@ import { useRef } from "react";
   }
 `}
 </style>
+
+const parseSupabaseDate = (raw: string): string => {
+  const fixed = raw.includes("T") ? raw : raw.replace(" ", "T") + "Z";
+  const date = new Date(fixed);
+  return isNaN(date.getTime()) ? "Invalid Date" : date.toLocaleDateString();
+};
+
+
 export default function Outfits() {
   const { toast } = useToast();
   const isMobile = useMobile();
@@ -479,9 +487,10 @@ export default function Outfits() {
                                   Delete
                                 </Button>
                               </div>
-                              <p className="text-sm text-muted-foreground">
-                                {new Date(outfit.createdAt).toLocaleDateString()}
-                              </p>
+                                <p className="text-sm text-muted-foreground">
+                                  {parseSupabaseDate(outfit.created_at)}
+                                </p>
+
                             </div>
                             
                             <div className="grid grid-cols-3 gap-1 p-2 bg-muted/20">
@@ -531,7 +540,9 @@ export default function Outfits() {
           <DialogHeader>
             <DialogTitle>{selectedOutfit?.name}</DialogTitle>
             <DialogDescription>
-              Created on {selectedOutfit && new Date(selectedOutfit.createdAt).toLocaleDateString()}
+              Created on {selectedOutfit && parseSupabaseDate(selectedOutfit.created_at)}
+
+
             </DialogDescription>
           </DialogHeader>
           
