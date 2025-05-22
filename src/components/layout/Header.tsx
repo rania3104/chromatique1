@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -16,71 +15,79 @@ export function Header() {
   const [user, setUser] = useState<any>(null);
   const location = useLocation();
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const storedUser = localStorage.getItem("chromatique-user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
   }, []);
-  
-  const isAuthPage = location.pathname === "/" || location.pathname === "/login" || location.pathname === "/signup";
+
+  const isAuthPage =
+    location.pathname === "/" ||
+    location.pathname === "/login" ||
+    location.pathname === "/signup";
   const isAdminPage = location.pathname.startsWith("/admin");
-  
+
   const handleLogout = () => {
     localStorage.removeItem("chromatique-user");
     setUser(null);
     navigate("/");
   };
-  
+
+  const getButtonClass = (path: string) =>
+    location.pathname === path ? "text-chromatique-rose" : "";
+
   if (isAuthPage || isAdminPage) return null;
-  
+
   return (
     <header className="border-b sticky top-0 z-40 bg-background/80 backdrop-blur-sm">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
-          <h1 
+          <h1
             className="text-2xl font-serif cursor-pointer"
             onClick={() => navigate("/home")}
           >
             Chromatique
           </h1>
         </div>
-        
+
         <nav className="hidden md:flex items-center space-x-4">
-          <Button variant="ghost" size="sm" onClick={() => navigate("/home")}>
-            Home
-          </Button>
-          <Button variant="ghost" size="sm" onClick={() => navigate("/results")}>
-            My Colors
-          </Button>
-          <Button variant="ghost" size="sm" onClick={() => navigate("/wishlist")}>
-            Wishlist
-          </Button>
-          <Button variant="ghost" size="sm" onClick={() => navigate("/wardrobe")}>
-            Wardrobe
-          </Button>
-          <Button variant="ghost" size="sm" onClick={() => navigate("/outfits")}>
-            Outfits
-          </Button>
-          <Button variant="ghost" size="sm" onClick={() => navigate("/subscription")}>
-            Premium
-          </Button>
+          {[
+            { path: "/home", label: "Home", tooltip: "Your personalized dashboard" },
+            { path: "/results", label: "My Colors", tooltip: "View your analyzed color palette" },
+            { path: "/wishlist", label: "Wishlist", tooltip: "Your favorite styles and colors" },
+            { path: "/wardrobe", label: "Wardrobe", tooltip: "Your saved wardrobe items" },
+            { path: "/outfits", label: "Outfits", tooltip: "Mix and match your outfits" },
+            { path: "/subscription", label: "Premium", tooltip: "Upgrade for premium features" },
+          ].map(({ path, label, tooltip }) => (
+            <Button
+              key={path}
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate(path)}
+              title={tooltip}
+              className={getButtonClass(path)}
+            >
+              {label}
+            </Button>
+          ))}
         </nav>
-        
+
         <div className="flex items-center gap-4">
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             size="icon"
             className="relative"
             onClick={() => navigate("/wishlist")}
+            title="Go to your Wishlist"
           >
             <Heart className="h-5 w-5" />
           </Button>
-          
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-full">
+              <Button variant="ghost" size="icon" className="rounded-full" title="Account menu">
                 <User className="h-5 w-5" />
               </Button>
             </DropdownMenuTrigger>
