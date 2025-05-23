@@ -9360,6 +9360,2997 @@ export const clothingItems: ClothingItem[] = [
       "light-spring"
     ]
   },
+   {
+    "id": "item-386",
+    "name": "Beige Jacket",
+    "description": "Beige jacket paired with white fitted shirt and jeans styled with scarf and other accessories.",
+    "image": "/Soft Autumn/Casual/2.jpg",
+    "colors": [
+      "#e4e3e4",
+      "#d5b892",
+      "#b59269",
+      "#90a7b8",
+      "#b0c6d8",
+      "#585455"
+    ],
+    "keywords": [
+      "casual","Scarf","winter","aesthetic"
+    ],
+    "category": "Jacket",
+    "styleCategories": [
+      "casual","modest","streetwear"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-387",
+    "name": "Brown t-shirt and Straight Pant",
+    "description": "Brown t-shirt and Straight pant styled with accessories.",
+    "image": "/Soft Autumn/Casual/3.jpg",
+    "colors": [
+      "#f6f5f0",
+      "#d3c7bb",
+      "#6a493c",
+      "#3a2517",
+      "#a8836f",
+      "#beab91"
+    ],
+    "keywords": [
+      "casual","streetwear","comfortable"
+    ],
+    "category": "T-Shirt",
+    "styleCategories": [
+      "casual","streetwear"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-388",
+    "name": "Beige",
+    "description": "Beige Padded jacket paired with white t-shirt and jeans styled with bag and accessories.",
+    "image": "/Soft Autumn/Casual/4.jpeg",
+    "colors": [
+      "#f5f3ef",
+      "#817c65",
+      "#939395",
+      "#a6b7c7",
+      "#c5a36c",
+      "#d7c09b"
+    ],
+    "keywords": [
+      "casual","padded jacket","winter","aesthetic"
+    ],
+    "category": "Jacket",
+    "styleCategories": [
+      "casual","streetwear"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-390",
+    "name": "White Corset and Skirt Set",
+    "description": "White corset paired with beige skirt and styled with accessories.",
+    "image": "/Soft Autumn/Casual/6.jpg",
+    "colors": [
+      "#d6cfc8",
+      "#a89b8d",
+      "#eeedef",
+      "#bf7943",
+      "#766f51",
+      "#f6dd92"
+    ],
+    "keywords": [
+      "casual","streetwear","comfortable"
+    ],
+    "category": "Skirt",
+    "styleCategories": [
+      "casual","streetwear"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-394",
+    "name": "Pastel sharara set",
+    "description": "Pastel sharar set paired with heavy accessories",
+    "image": "/Soft Autumn/Ethnic/1.jpg",
+    "colors": [
+      "#e7e6e1",
+      "#cf6e78",
+      "#964249",
+      "#2c2922",
+      "#a48c72",
+      "#663c23"
+    ],
+    "keywords": [
+      "ethnic"
+    ],
+    "category": "Sharara set",
+    "styleCategories": [
+      "ethnic","Party"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-395",
+    "name": "Navaratri lehenga ",
+    "description": "Mixed color lehenga paried with khussa and colorfull accessories",
+    "image": "/Soft Autumn/Ethnic/2.jpg",
+    "colors": [
+      "#e5e5e5",
+      "#f3b0c7",
+      "#644f3b",
+      "#96776d",
+      "#9e623b",
+      "#393f70"
+    ],
+    "keywords": [
+      "ethnic","Festive"
+    ],
+    "category": "lehenga",
+    "styleCategories": [
+      "ethnic","Party"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-396",
+    "name": "Brown trench coat set",
+    "description": " Brown trench coat with brown and beige dress paired with same color boots and matching accessories",
+    "image": "/Soft Autumn/Formal/1.jpg",
+    "colors": [
+      "#eddacc",
+      "#685246",
+      "#3a2922",
+      "#b0927c",
+      "#c9bfae",
+      "#8a7769"
+    ],
+    "keywords": [
+      "formal","trench coat"
+    ],
+    "category": "trench coat set",
+    "styleCategories": [
+      "formal","casual"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-397",
+    "name": "Beige and white formal set",
+    "description": "Beige coat with white shirt and white trouser paired with matching bag and accessories",
+    "image": "/Soft Autumn/Formal/2.jpeg",
+    "colors": [
+      "#d6d4cf",
+      "#9c8c80",
+      "#beac94",
+      "#f7f5f0",
+      "#ffffff",
+      "#ffffff"
+    ],
+    "keywords": [
+      "formal","coat"
+    ],
+    "category": "formal set",
+    "styleCategories": [
+      "formal","casual"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-398",
+    "name": "Beige coat and jean pant shirt",
+    "description": "beige caot paired with  white shirt and jean with matching accessories",
+    "image": "/Soft Autumn/Formal/3.jpg",
+    "colors": [
+      "#c2bdb8",
+      "#7c7366",
+      "#f1ede8",
+      "#353439",
+      "#708295",
+      "#ffffff"
+    ],
+    "keywords": [
+      "formal"
+    ],
+    "category": "formal set",
+    "styleCategories": [
+      "formal","beige coat "
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-399",
+    "name": "Light pink cropped jacket",
+    "description": "Light pink cropped jacket with light green platted skirt styled with green hijab and accessories",
+    "image": "/Soft Autumn/Modest/1.jpg",
+    "colors": [
+      "#dfdfd4",
+      "#5d5d3b",
+      "#7c7b58",
+      "#bfb9a8",
+      "#a1a181",
+      "#3d3d22"
+    ],
+    "keywords": [
+      "modest","Jacket","Aesthetic"
+    ],
+    "category": "Jacket",
+    "styleCategories": [
+      "modest","casual","streetwear"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-400",
+    "name": "open Abaya",
+    "description": "Grey open abaya with white t-shirt and skirt styled with bags and other accessories.",
+    "image": "/Soft Autumn/Modest/2.jpg",
+    "colors": [
+      "#e8e8e8",
+      "#637067",
+      "#e7ca97",
+      "#47504c",
+      "#afbeaf",
+      "#caa080"
+    ],
+    "keywords": [
+      "modest","abaya","sleek"
+    ],
+    "category": "Abaya",
+    "styleCategories": [
+      "modest","formal","party"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-401",
+    "name": "Pink layered abaya",
+    "description": "Pink layered abaya with burgundy scarf styled with accessories.",
+    "image": "/Soft Autumn/Modest/3.jpg",
+    "colors": [
+      "#e8e8e8",
+      "#6b2d14",
+      "#86554e",
+      "#ac7c74",
+      "#cdb082",
+      "#e5d1bb"
+    ],
+    "keywords": [
+      "modest","abaya","aesthetic"
+    ],
+    "category": "Abaya",
+    "styleCategories": [
+      "modest","party"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-402",
+    "name": "White Button up",
+    "description": "White button up with baggy sleeves and green skirt, can also be worn with sleeves and styled with accessories",
+    "image": "/Soft Autumn/Modest/4.jpg",
+    "colors": [
+      "#e9e9e9",
+      "#8b9c92",
+      "#677266",
+      "#b0bdbe",
+      "#d2a39c",
+      "#485744"
+    ],
+    "keywords": [
+      "modest","aesthetic","hangout","college"
+    ],
+    "category": "Skirt",
+    "styleCategories": [
+      "modest","casual","streetwear"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-403",
+    "name": "Pistachio Sweater",
+    "description": "Pistachio green sweater with white and green printed skirt styled with converse, bag and accessories.",
+    "image": "/Soft Autumn/Party/1.jpeg",
+    "colors": [
+      "#eef0ed",
+      "#588a67",
+      "#74a785",
+      "#d0b987",
+      "#a8b9ae",
+      "#ced5c8"
+    ],
+    "keywords": [
+      "party","full coverage"
+    ],
+    "category": "Skirt",
+    "styleCategories": [
+      "party","casual","streetwear"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-404",
+    "name": "Green sharara",
+    "description": "Green sharara set styled with hijab, heels and accesories",
+    "image": "/Soft Autumn/Party/2.jpg",
+    "colors": [
+      "#f1eae4",
+      "#ad976f",
+      "#d1b9a4",
+      "#494a4f",
+      "#80755f",
+      "#29282e"
+    ],
+    "keywords": [
+      "party","event","aesthetic"
+    ],
+    "category": "Sharara",
+    "styleCategories": [
+      "party","ethnic"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-405",
+    "name": "Knitted Sweater",
+    "description": "Beige knitted sweater paired with jeans and tote bag.",
+    "image": "/Soft Autumn/Party/3.jpeg",
+    "colors": [
+      "#e5e5e5",
+      "#a07b5c",
+      "#d6ccbb",
+      "#805c44",
+      "#c09979",
+      "#a7bcc9"
+    ],
+    "keywords": [
+      "party","casual","streetwear"
+    ],
+    "category": "Sweater",
+    "styleCategories": [
+      "party","casual","streetwear"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-406",
+    "name": "Open Shirt and Plazo",
+    "description": "Parrot green open shirt and light plazo styled with hijab and accessories.",
+    "image": "/Soft Autumn/Streetwear/1.jpg",
+    "colors": [
+      "#f0f0f0",
+      "#e2dfc2",
+      "#bcb47c",
+      "#998a2c",
+      "#b49056",
+      "#db768c"
+    ],
+    "keywords": [
+      "streetwear","Stylish"
+    ],
+    "category": "Plazo",
+    "styleCategories": [
+      "streetwear","Ethnic"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-407",
+    "name": "Green Printed Kameez",
+    "description": "Green printed kameez paired with jeans and styled with bag and other accessories.",
+    "image": "/Soft Autumn/Streetwear/2.jpg",
+    "colors": [
+      "#e5e5e5",
+      "#ab8059",
+      "#747a76",
+      "#717d3f",
+      "#a29d98",
+      "#465247"
+    ],
+    "keywords": [
+      "streetwear","college","aesthetic"
+    ],
+    "category": "Printed Kameez",
+    "styleCategories": [
+      "streetwear","ethnic"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-408",
+    "name": "Brown t-shirt",
+    "description": "Brown t-Shirt paired with jeans and accessories.",
+    "image": "/Soft Autumn/Streetwear/3.jpg",
+    "colors": [
+      "#ededee",
+      "#85909c",
+      "#a6b1c6",
+      "#362116",
+      "#5b6572",
+      "#bd9b4f"
+    ],
+    "keywords": [
+      "streetwear","minimal"
+    ],
+    "category": "t-shirt",
+    "styleCategories": [
+      "streetwear","casual"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-409",
+    "name": "Sweater",
+    "description": "Green sweater with fitted white shirt and jeans styled with bag and other accessories.",
+    "image": "/Soft Autumn/Streetwear/4.jpg",
+    "colors": [
+      "#e9e9e9",
+      "#ba8a63",
+      "#a14104",
+      "#251509",
+      "#b9cbdc",
+      "#99acc0"
+    ],
+    "keywords": [
+      "streetwear","Jeans","aesthetic","comfortable"
+    ],
+    "category": "Sweater",
+    "styleCategories": [
+      "streetwear","casual"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-410",
+    "name": "Kameez",
+    "description": "Printed Kameez styled with jeans and traditional bag and accessories.",
+    "image": "/Soft Autumn/Streetwear/5.jpg",
+    "colors": [
+      "#fefeda",
+      "#9c815c",
+      "#d2a153",
+      "#bca48c",
+      "#8e5428",
+      "#5e7994"
+    ],
+    "keywords": [
+      "streetwear","traditional","desi"
+    ],
+    "category": "Kameez",
+    "styleCategories": [
+      "streetwear","ethnic"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-346",
+    "name": "Soft Pink Floral Print Kurta",
+    "description": "A soft pink kurta with intricate floral patterns in cream and green paired with leggings of the same pattern. Accessories include a cream dupatta in red and green accents, pink dangle earrings, gold-tone rings, silver-tone bracelet, light pink handbag, embroidered cream flats, and beauty products in floral designs.",
+    "image": "/Light Summer/Ethnic/1.jpg",
+    "colors": [
+      "#969293",
+      "#d3b89e",
+      "#d4d2d2",
+      "#4e454c",
+      "#866c50",
+      "#b77a5d"
+    ],
+    "keywords": [
+      "ethnic", "floral", "pink", "green", "red", "gold", "kurta", "pastel"
+    ],
+    "category": "Kurta",
+    "styleCategories": [
+      "ethnic"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-347",
+    "name": "Pink Embroidered Floral Kurta",
+    "description": "A pink embroidered kurta with floral patterns paired with a long, flowing white skirt with textured details. Accessories include pink teardrop-shaped earrings, white floral ring, silver bangles, white cloth pouch, and pink woven moccasins.",
+    "image": "/Light Summer/Ethnic/2.jpg",
+    "colors": [
+      "#e5e5e5",
+      "#c2cdba",
+      "#b39381",
+      "#eb8ba1",
+      "#88605f",
+      "#932a39"
+    ],
+    "keywords": [
+      "ethnic", "floral", "kurta", "pink", "white"
+    ],
+    "category": "Embroidered Kurta",
+    "styleCategories": [
+      "ethnic"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-348",
+    "name": "Pink and White Floral Print Embroidered Blouse",
+    "description": "A pink and white blouse embroidered with floral patterns and a v-neckline paired with blue high-waisted jeans. Accessories include a tan crossbody bag and white canvas sneakers.",
+    "image": "/Light Summer/Ethnic/3.jpg",
+    "colors": [
+      "#e5d8d0",
+      "#ddaeaf",
+      "#b88998",
+      "#6685a7",
+      "#4c6587",
+      "#9b674a"
+    ],
+    "keywords": [
+      "ethnic", "casual", "blouse", "white", "pink", "tan"
+    ],
+    "category": "Embroidered Blouse",
+    "styleCategories": [
+      "ethnic"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-349",
+    "name": "Light Blue Embroidered Kurta",
+    "description": "A light blue kurta with gold and dark blue embroidery paired with blue high-waisted, wide-leg jeans. Accessories include silver jhumkas, white ribbon hair clip, beige canvas shoulder bag, and white slip-on sandals.",
+    "image": "/Light Summer/Ethnic/4.jpg",
+    "colors": [
+      "#ffcccb",
+      "#f3f5f0",
+      "#e096b0",
+      "#7ea79c",
+      "#a7bbb5",
+      "#797c79"
+    ],
+    "keywords": [
+      "ethnic", "light blue", "white", "beige", "gold", "blue"
+    ],
+    "category": "Embroidered Kurta",
+    "styleCategories": [
+      "ethnic"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-350",
+    "name": "Light Blue Embroidered Anarkali",
+    "description": "A light blue anarkali heavily embroidered in white patterns. Accessories include white and blue chandelier earrings, light blue silver bangles, light blue clutch, light blue high-heeled sandals, and blue-themed perfume.",
+    "image": "/Light Summer/Ethnic/5.jpg",
+    "colors": [
+      "#e7e6e2",
+      "#928a79",
+      "#3b696f",
+      "#afaeb1",
+      "#764e43",
+      "#3a373d"
+    ],
+    "keywords": [
+      "ethnic", "light blue", "blue", "white", "anarkali"
+    ],
+    "category": "Embroidered Anarkali",
+    "styleCategories": [
+      "ethnic"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-351",
+    "name": "Peach Embroidered Anarkali",
+    "description": "A peach-colored anarkali embroidered intricately in gold. Accessories include gold and pearl jhumkas, rose gold bangles, gold and pearl choker-style necklace, gold and pink nose pendant, and embroidered peach-colored juttis.",
+    "image": "/Light Summer/Ethnic/6.jpg",
+    "colors": [
+      "#f2ece6",
+      "#d3a48d",
+      "#b9845c",
+      "#e7c6ae",
+      "#7e603f",
+      "#582e1f"
+    ],
+    "keywords": [
+      "ethnic", "pink", "gold", "anarkali", "pearl"
+    ],
+    "category": "Embroidered Anarkali",
+    "styleCategories": [
+      "ethnic"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-352",
+    "name": "Light Pastel Green Double-Breasted Blazer",
+    "description": "A white long-sleeve fitted top underneath a light pastel green double-breasted blazer paired with light-washed, wide-leg jeans. Accessories include gold hoop earrings, gold pendant necklace, small white handbag, and white pointed-toe slingback heels.",
+    "image": "/Light Summer/Formal/1.jpeg",
+    "colors": [
+      "#e3e3e3",
+      "#abb6a9",
+      "#2f2921",
+      "#524f4b",
+      "#819baf",
+      "#b7ccd8"
+    ],
+    "keywords": [
+      "formal", "white", "green", "blazer", "pastel"
+    ],
+    "category": "Double-Breasted Blazer",
+    "styleCategories": [
+      "formal"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-353",
+    "name": "White Button-up Cardigan",
+    "description": "A white button-up cardigan and a gray knit sweater paired with gray wide-leg trousers. Accessories include gold hoop earrings, gold-rimmed glasses, brown leather watch, brown leather handbag, and brown sneakers.",
+    "image": "/Light Summer/Formal/2.jpeg",
+    "colors": [
+      "#908c89",
+      "#eaeaea",
+      "#bab6b1",
+      "#726d69",
+      "#423031",
+      "#684f40"
+    ],
+    "keywords": [
+      "formal", "white", "cardigan", "sweater", "gray", "gold", "brown"
+    ],
+    "category": "Button-up Cardigan",
+    "styleCategories": [
+      "formal"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-354",
+    "name": "Light Pink Long-Sleeved Crop Top",
+    "description": "A light pink long-sleeved crop top underneath a light mint green blazer paired with light pink wide-leg trousers. Accessories include gold hoop earrings, gold pendant necklace, white shoulder bag, white gold-buckled belt, white pointed-toe heels with ankle straps, and light pink beauty products.",
+    "image": "/Light Summer/Formal/3.jpeg",
+    "colors": [
+      "#f6eded",
+      "#b0b8ab",
+      "#e5a7ae",
+      "#cd878d",
+      "#87907f",
+      "#ffffff"
+    ],
+    "keywords": [
+      "formal", "pink", "white", "gold", "light pink", "pastel"
+    ],
+    "category": "Long-Sleeved Crop Top",
+    "styleCategories": [
+      "formal"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-355",
+    "name": "Black Pleated Blouse",
+    "description": "A black pleated and flowy blouse paired with beige tailored wide-leg trousers. Accessories include pearl drop earrings, gold black-strapped watch, black quilted handbag, and cream pointed-toe heels with ankle straps.",
+    "image": "/Light Summer/Formal/4.jpg",
+    "colors": [
+      "#e2d7c1",
+      "#faf6eb",
+      "#363842",
+      "#12151c",
+      "#b29270",
+      "#5b5a60"
+    ],
+    "keywords": [
+      "formal", "blouse", "black", "beige", "cream", "gold"
+    ],
+    "category": "Pleated Blouse",
+    "styleCategories": [
+      "formal"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-356",
+    "name": "Camel Brown Long Overcoat",
+    "description": "A cream oversized sweater underneath a camel brown long overcoat paired with a cream satin maxi skirt. Accessories include a brown satin scarf, brown structured handbag, brown-tinted sunglasses, and brown ankle-high heeled boots.",
+    "image": "/Light Summer/Formal/5.jpg",
+    "colors": [
+      "#ffe5c2",
+      "#9f6750",
+      "#653b2a",
+      "#d1c2af",
+      "#ffffff",
+      "#ffffff"
+    ],
+    "keywords": [
+      "formal", "overcoat", "brown", "cream", 
+    ],
+    "category": "Long Overcoat",
+    "styleCategories": [
+      "formal"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-357",
+    "name": "Light Blue and White Pinstripe Button-up Shirt",
+    "description": "A light blue and white pinstripe button-up shirt with rolled sleeves paired with cream high-waisted, wide-leg trousers. Accessories include gold teardrop earrings, gold pendant necklace, gold wristwatch, white structured tote bag, and white high-heeled sandles with ankle straps.",
+    "image": "/Light Summer/Formal/6.jpeg",
+    "colors": [
+      "#eff0f6",
+      "#adb4c8",
+      "#d8c5a9",
+      "#cbd2e4",
+      "#a19387",
+      "#ffffff"
+    ],
+    "keywords": [
+      "formal", "light blue", "white", "gold", "cream"
+    ],
+    "category": "Button-up Shirt",
+    "styleCategories": [
+      "formal"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-358",
+    "name": "Light Blue and White Striped Cropped Button-up Shirt",
+    "description": "A light blue and white striped cropped button-up shirt paired with cream high-waisted, wide-leg trousers. Accessories include a gold bracelet, soft bluish pink structured handbag, and white sneakers.",
+    "image": "/Light Summer/Modest/1.jpg",
+    "colors": [
+      "#c6d1e3",
+      "#9da5b9",
+      "#a87f7b",
+      "#c1a494",
+      "#d9c1b5",
+      "#845e4c"
+    ],
+    "keywords": [
+      "modest", "light blue", "white", "pink", "gold"
+    ],
+    "category": "Cropped Button-up Shirt",
+    "styleCategories": [
+      "modest"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-359",
+    "name": "Long Ivory Maxi Dress",
+    "description": "A long ivory maxi dress underneath a cream robe-style jacket. Accessories include small gold hoop earrings, gold layered necklace, white structured shoulder bag, and white high-heeled slingback pumps.",
+    "image": "/Light Summer/Modest/10.jpeg",
+    "colors": [
+      "#f3f2ee",
+      "#e1d7c4",
+      "#ffffff",
+      "#ffffff",
+      "#ffffff",
+      "#ffffff"
+    ],
+    "keywords": [
+      "modest", "white", "ivory", "cream", "gold", "maxi dress"
+    ],
+    "category": "Maxi Dress",
+    "styleCategories": [
+      "modest"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-360",
+    "name": "Taupe Floor-Length Gown",
+    "description": "A taupe floor-length gown underneath a matching taupe cape. Accessories include silver bracelets, black structured handbag, taupe hair scarf, and pink beauty products.",
+    "image": "/Light Summer/Modest/2.jpg",
+    "colors": [
+      "#d5d5d5",
+      "#795e4e",
+      "#9c816c",
+      "#533f33",
+      "#aea69f",
+      "#171717"
+    ],
+    "keywords": [
+      "modest", "taupe", "beige", "black", "silver", "pink"
+    ],
+    "category": "Floor-Length Gown",
+    "styleCategories": [
+      "modest"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-361",
+    "name": "White and Blue Floral Print Midi Dress",
+    "description": "A light ivory long-sleeve top underneath a white and blue floral print midi dress paired with light-washed, wide-leg jeans. Accessories include gold hoop earrings, silver headphones, light blue tote bag, and white sneakers.",
+    "image": "/Light Summer/Modest/3.jpeg",
+    "colors": [
+      "#ededed",
+      "#c8c8c8",
+      "#9a9a9a",
+      "#62859c",
+      "#93b5c8",
+      "#ffffff"
+    ],
+    "keywords": [
+      "modest", "midi dress", "white", "ivory", "blue", "floral", "silver"
+    ],
+    "category": "Midi Dress",
+    "styleCategories": [
+      "modest"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-362",
+    "name": "Beige Oversized Plaid Button-up Shirt",
+    "description": "A white tank top underneath a beige oversized plaid button-up shirt paired with a long black maxi skirt. Accessories include a black hijab, beige tote bag, and white sneakers.",
+    "image": "/Light Summer/Modest/4.jpg",
+    "colors": [
+      "#d0d0d0",
+      "#929292",
+      "#333333",
+      "#826757",
+      "#c9aea3",
+      "#f7f0f1"
+    ],
+    "keywords": [
+      "modest", "white", "beige", "black", "tote bag", "hijab"
+    ],
+    "category": "Oversized Button-up Shirt",
+    "styleCategories": [
+      "modest"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-363",
+    "name": "Red, Pink, and White Tweed Cropped Jacket",
+    "description": "A red, pink, and white tweed cropped jacket paired with a white maxi skirt. Accessories include a burgundy headscarf, white pearl necklace, gold watch, gold rings, burgundy leather handbag, burgundy pointed flat shoes, white frame sunglasses, and light-colored perfume.",
+    "image": "/Light Summer/Modest/5.jpg",
+    "colors": [
+      "#f4f0ee",
+      "#782733",
+      "#b2999c",
+      "#a57675",
+      "#8d5647",
+      "#510e18"
+    ],
+    "keywords": [
+      "modest", "red", "pink", "beige", "white", "burgundy", "gold"
+    ],
+    "category": "Tweed Cropped Jacket",
+    "styleCategories": [
+      "modest"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-364",
+    "name": "Long Ivory Maxi Dress",
+    "description": "A long, flowing ivory maxi dress. Accessories include small gold hoop earrings, gold layered necklaces, gold-toned watch, light pink structured handbag, and pink pointed toe heels with ankle straps.",
+    "image": "/Light Summer/Modest/6.jpeg",
+    "colors": [
+      "#f1efec",
+      "#d6cdc0",
+      "#e77d8a",
+      "#ffffff",
+      "#ffffff",
+      "#ffffff"
+    ],
+    "keywords": [
+      "modest", "ivory", "gold", "light pink", "pink", "maxi dress"
+    ],
+    "category": "Long Maxi Dress",
+    "styleCategories": [
+      "modest"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-365",
+    "name": "Long Soft Cream Wrap Dress",
+    "description": "A long, flowy soft cream wrap dress. Accessories include gold hoop earrings, thin gold necklace, metallic silver shoulder bag, white sneakers, and light pink lip gloss.",
+    "image": "/Light Summer/Modest/7.jpeg",
+    "colors": [
+      "#f3f3ef",
+      "#cbccc7",
+      "#a3a6ac",
+      "#ffffff",
+      "#ffffff",
+      "#ffffff"
+    ],
+    "keywords": [
+      "modest", "cream", "gold", "silver", "wrap dress", "white", "light pink"
+    ],
+    "category": "Long Wrap Dress",
+    "styleCategories": [
+      "modest"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-366",
+    "name": "Light Blue Oversized Button-up Shirt",
+    "description": "A light blue oversized button-up shirt paired with a long beige satin maxi skirt. Accessories include gold watch and bracelet, navy blue silk headscarf, cream quilted shoulder bag, and navy blue suede high-heeled pumps.",
+    "image": "/Light Summer/Modest/8.jpg",
+    "colors": [
+      "#e5e5e5",
+      "#252439",
+      "#b5c7f2",
+      "#a79990",
+      "#c6b7ac",
+      "#8a786c"
+    ],
+    "keywords": [
+      "modest", "navy blue", "light blue", "beige", "gold", "cream"
+    ],
+    "category": "Oversized Button-up Shirt",
+    "styleCategories": [
+      "modest"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-367",
+    "name": "Light Blue Knit Cardigan",
+    "description": "A light blue knit cardigan paired with a long cream maxi skirt. Accessories include light blue satin headscarf, pearl necklace, gold watch, cream shoulder bag, and light blue canvas sneakers.",
+    "image": "/Light Summer/Modest/9.jpg",
+    "colors": [
+      "#e6e6e2",
+      "#929eb4",
+      "#687a8f",
+      "#bcbab0",
+      "#ffffff",
+      "#ffffff"
+    ],
+    "keywords": [
+      "modest", "light blue", "cardigan", "cream", "gold", "pearl"
+    ],
+    "category": "Knit Cardigan",
+    "styleCategories": [
+      "modest"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-368",
+    "name": "Light Blush Pink Belted Coat",
+    "description": "A light blush pink belted coat paired with classic light blue high-waisted, straight-leg jeans. Accessories include navy blue satin scarf, pearl necklace, navy blue handbag, and light pink pointed-toe kitten heels.",
+    "image": "/Light Summer/Party/1.jpg",
+    "colors": [
+      "#e7cdc2",
+      "#414e7a",
+      "#283151",
+      "#73829e",
+      "#aa867b",
+      "#cdada2"
+    ],
+    "keywords": [
+      "party", "light pink", "light blue", "navy blue", "satin"
+    ],
+    "category": "Belted Coat",
+    "styleCategories": [
+      "party"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-369",
+    "name": "White Satin Wrap Dress",
+    "description": "A white satin wrap dress with gold layered necklaces, gold hoop earrings, gold-toned watch, beige woven handbag, and taupe pointed-toe high heels.",
+    "image": "/Light Summer/Party/2.jpeg",
+    "colors": [
+      "#eeebe6",
+      "#ddccae",
+      "#c2a384",
+      "#ffffff",
+      "#ffffff",
+      "#ffffff"
+    ],
+    "keywords": [
+      "party", "white", "gold", "beige", "taupe", "wrap dress", "satin"
+    ],
+    "category": "Satin Wrap Dress",
+    "styleCategories": [
+      "party"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-370",
+    "name": "Powder Blue Embroidered Anarkali",
+    "description": "A powder blue embroidered anarkali with a silver gemstone ring, pearl chandelier earrings, floral hairpiece, light blue high-heeled sandals, and light blue perfume.",
+    "image": "/Light Summer/Party/3.jpg",
+    "colors": [
+      "#d8e5e5",
+      "#b68565",
+      "#ef9c81",
+      "#362519",
+      "#97a9b0",
+      "#736e66"
+    ],
+    "keywords": [
+      "party", "light blue", "floral", "anarkali", "powder blue"
+    ],
+    "category": "Embroidered Anarkali",
+    "styleCategories": [
+      "party"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-371",
+    "name": "White and Blue Floral Puff-Sleeve Crop Top",
+    "description": "A white and blue floral puff-sleeve crop top paired with light washed, high-waisted, wide-leg jeans. Accessories include gold hoop earrings, gold layered pendant necklaces, white bow hair clip, light blue textured handbag, and gray chunky sneakers.",
+    "image": "/Light Summer/Party/4.jpeg",
+    "colors": [
+      "#d4d4d3",
+      "#f2f2f0",
+      "#8e9da6",
+      "#5a6c7e",
+      "#a7bbc6",
+      "#ffffff"
+    ],
+    "keywords": [
+      "party", "white", "blue", "gold", "light blue", "blouse"
+    ],
+    "category": "Puff-Sleeve Crop Top",
+    "styleCategories": [
+      "party"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-372",
+    "name": "Beige Peplum Blouse",
+    "description": "A beige peplum blouse paired with dark-washed, high-waisted, wide-leg jeans. Accessories include a gold wristwatch, brown curved shoulder bag, brown pointed-toe slingback heels, and nude lipstick.",
+    "image": "/Light Summer/Party/5.jpg",
+    "colors": [
+      "#e9e9e9",
+      "#d2c5ae",
+      "#bda88a",
+      "#a4876a",
+      "#2e3d54",
+      "#515a6b"
+    ],
+    "keywords": [
+      "party", "beige", "peplum blouse", "gold", "brown"
+    ],
+    "category": "Peplum Blouse",
+    "styleCategories": [
+      "party"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-373",
+    "name": "Chocolate Oversized Wide-Sleeved Coat",
+    "description": "A chocolate-colored oversized coat with wide-sleeves. Accessories include gold hoop earrings, gold statement necklace, gold statement handbag, and brown hair that is brown, soft, with loose waves.",
+    "image": "/Light Summer/Party/6.jpg",
+    "colors": [
+      "#e9e9e9",
+      "#311e16",
+      "#503d38",
+      "#735e55",
+      "#d8c9b7",
+      "#c9b08c"
+    ],
+    "keywords": [
+      "party", "chocolate", "brown", "gold", "hair"
+    ],
+    "category": "Oversized Wide-Sleeved Coat",
+    "styleCategories": [
+      "party"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-374",
+    "name": "Cream Floral Long Puff-Sleeved Midi Dress",
+    "description": "A cream long puffed-sleeved midi dress with floral print. Accessories include gold hoop earrings, gold pendant necklace, cream structured handbag, light blue pointed-toe heels, light blue floral hair clip, and pink red beauty products.",
+    "image": "/Light Summer/Party/7.jpeg",
+    "colors": [
+      "#e8eee2",
+      "#c9c9bb",
+      "#88a4cb",
+      "#acc7e9",
+      "#a86367",
+      "#a39387"
+    ],
+    "keywords": [
+      "party", "cream", "light blue", "pink", "red", "midi dress", "floral"
+    ],
+    "category": "Long Puff-Sleeved Midi Dress",
+    "styleCategories": [
+      "party"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-375",
+    "name": "Ivory Floral Embroidered Dress",
+    "description": "An ivory dress embroidered with floral patterns paired with light-washed, wide-leg denim jeans. Accessories include gold hoop earrings, layered gold necklaces, light blue structured shoulder bag, and white sneakers.",
+    "image": "/Light Summer/Streetwear/1.jpeg",
+    "colors": [
+      "#ecf1f2",
+      "#e2dac4",
+      "#9fb3c2",
+      "#799da0",
+      "#a6a27f",
+      "#ffffff"
+    ],
+    "keywords": [
+      "streetwear", "ivory", "cream", "light blue", "floral", "gold", "white"
+    ],
+    "category": "",
+    "styleCategories": [
+      "streetwear"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-376",
+    "name": "White Button-down Shirt",
+    "description": "A white button-down shirt paired with dark-washed, wide-leg denim jeans and brown paisely midi skirt. Accessories include a navy blue fabric handbag, and tan slip-on sandals.",
+    "image": "/Light Summer/Streetwear/10.jpg",
+    "colors": [
+      "#e5e5e5",
+      "#9c7c5c",
+      "#7c5e44",
+      "#3e4555",
+      "#70777f",
+      "#543a24"
+    ],
+    "keywords": [
+      "streetwear", "white", "button-down shirt", "brown", "navy blue", "tan"
+    ],
+    "category": "Button-down Shirt",
+    "styleCategories": [
+      "streetwear"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-377",
+    "name": "White and Blue Embroidered Textured Blouse",
+    "description": "A white textured blouse with blue embroidery paired with light-washed, high-waisted, straight-leg jeans. Accessories include gold hoop earrings, gold pendant necklace, multicolored crocheted bracelet, small cream shoulder bag, blue and white floral phone case, light blue sneakers, and mint green tumbler.",
+    "image": "/Light Summer/Streetwear/2.jpg",
+    "colors": [
+      "#eee7e0",
+      "#bfc8d4",
+      "#6486a6",
+      "#99a4b7",
+      "#8a817f",
+      "#ffffff"
+    ],
+    "keywords": [
+      "streetwear", "white", "blue", "multicolored", "gold", "light blue", "mint green", "blouse", "floral"
+    ],
+    "category": "Textured Blouse",
+    "styleCategories": [
+      "streetwear"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-378",
+    "name": "Pink and White Floral Long Puffed-Sleeved Crop Top",
+    "description": "A pink and white floral-patterned crop top with long puffed-sleeves paired with light-washed, high-waisted, wide-leg jeans. Accessories include gold drop earrings, gold beaded necklace, white hair ribbon, cream structured handbag, and white pointed-toe heels with ankle straps.",
+    "image": "/Light Summer/Streetwear/3.jpeg",
+    "colors": [
+      "#eaedef",
+      "#d2c9c9",
+      "#e0d091",
+      "#a1abb2",
+      "#628196",
+      "#ffffff"
+    ],
+    "keywords": [
+      "streetwear", "crop top", "cream", "white", "pink", "floral"
+    ],
+    "category": "Long Puffed-Sleeved Crop Top",
+    "styleCategories": [
+      "streetwear"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-379",
+    "name": "White Oversized Graphic T-Shirt",
+    "description": "A white oversized graphic T-shirt paired with light-washed, high-waisted, wide-leg jeans. Accessories include gold layered necklace, cream woven crochet tote bag, and white high-top sneakers.",
+    "image": "/Light Summer/Streetwear/4.jpg",
+    "colors": [
+      "#ececea",
+      "#bccedc",
+      "#8da0ac",
+      "#668493",
+      "#ffffff",
+      "#ffffff"
+    ],
+    "keywords": [
+      "streetwear", "white", "cream", "t-shirt"
+    ],
+    "category": "Oversized T-Shirt",
+    "styleCategories": [
+      "streetwear"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-380",
+    "name": "White Loose Embroidered Blouse",
+    "description": "A white loose blouse with embroidery paired with light-washed, high-waisted, wide-leg jeans. Accessories include gold bow earrings, gold layered pendant necklaces, brown slouchy shoulder bag, and white sneakers.",
+    "image": "/Light Summer/Streetwear/5.jpeg",
+    "colors": [
+      "#c3d3da",
+      "#f7f3ec",
+      "#6b4028",
+      "#94a8b2",
+      "#57768a",
+      "#ffffff"
+    ],
+    "keywords": [
+      "streetwear", "white", "blouse","loose blouse", "brown", "gold"
+    ],
+    "category": "Loose Blouse",
+    "styleCategories": [
+      "streetwear"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-381",
+    "name": "Pink and White Striped Button-up Shirt",
+    "description": "A white fitted crop top underneath a pink and white striped button-up shirt paired with light pink wide-leg trousers. Accessories include gold hoop earrings, gold layered necklaces, white rectangular sunglasses, blue floral hair clip, light pink shoulder bag, and white chunky sneakers.",
+    "image": "/Light Summer/Streetwear/6.jpeg",
+    "colors": [
+      "#f2e9ec",
+      "#f0bdcf",
+      "#d799ac",
+      "#96b3d3",
+      "#ffffff",
+      "#ffffff"
+    ],
+    "keywords": [
+      "streetwear", "white", "crop top", "button-up shirt", "pink", "light pink"
+    ],
+    "category": "Button-up Shirt",
+    "styleCategories": [
+      "streetwear"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-382",
+    "name": "Teal Embroidered Tunic",
+    "description": "A teal embroidered tunic paired with light-washed, wide-leg jeans. Accessories include silver jhumkas, floral scrunchie in shades of green, beige, and white, cream handbag, and multicolored floral flats.",
+    "image": "/Light Summer/Streetwear/7.jpg",
+    "colors": [
+      "#f0f0f0",
+      "#89a19b",
+      "#777e77",
+      "#665b4f",
+      "#ceaa91",
+      "#aec8dc"
+    ],
+    "keywords": [
+      "streetwear", "floral", "teal", "jhumkas", "tunic", "white", "multicolored"
+    ],
+    "category": "Embroidered Tunic",
+    "styleCategories": [
+      "streetwear"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-383",
+    "name": "White Oversized Graphic T-Shirt",
+    "description": "A white oversized graphic T-shirt paired with light-washed, high-waisted, wide-leg jeans. Accessories include gold hoop earrings, white-rimmed sunglasses, cream woven crochet tote bag, and white high-top sneakers.",
+    "image": "/Light Summer/Streetwear/8.jpeg",
+    "colors": [
+      "#eeeee8",
+      "#c3c5cb",
+      "#949eb3",
+      "#b9a78a",
+      "#988862",
+      "#4c6c80"
+    ],
+    "keywords": [
+      "streetwear", "white", "cream", "t-shirt", "graphic"
+    ],
+    "category": "",
+    "styleCategories": [
+      "streetwear"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-384",
+    "name": "Brown Oversized Cardigan",
+    "description": "A white T-shirt underneath a brown oversized cardigan paired with light blue high-waisted, straight-leg jeans. Accessories include black sunglasses, brown curved shoulder bag, and brown sneakers with white stripes.",
+    "image": "/Light Summer/Streetwear/9.jpeg",
+    "colors": [
+      "#e5e5e5",
+      "#c2bdb5",
+      "#746b65",
+      "#91aece",
+      "#998b7d",
+      "#554743"
+    ],
+    "keywords": [
+      "streetwear", "brown", "cardigan", "t-shirt", "white", "light blue"
+    ],
+    "category": "",
+    "styleCategories": [
+      "streetwear"
+    ],
+    "seasons": [
+      "light-summer"
+    ]
+  },
+  {
+    "id": "item-385",
+    "name": "Beige Double-Breasted Blazer",
+    "description": "A beige double-breasted blazer paired with black, high-waisted, wide-leg jeans. Accessories include dark lensed sunglasses, black structured tote bag, brown and black oxford shoes, and light-colored perfume.",
+    "image": "/Soft Autumn/Casual/1.jpeg",
+    "colors": [
+      "#f6f3ee",
+      "#dac9ac",
+      "#a4b2ba",
+      "#868587",
+      "#474748",
+      "#1b1c1d"
+    ],
+    "keywords": [
+      "casual", "beige", "blazer", "black", "brown"
+    ],
+    "category": "Double-Breasted Blazer",
+    "styleCategories": [
+      "casual"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-386",
+    "name": "Beige or Tan Trench Coat",
+    "description": "A white long-sleeved fitted top underneath a beige trench coat paired with light-washed, high-waisted, wide-leg jeans. Accessories include gold jewellery, cream knit scarf, black oval sunglasses, black monogram shoulder bag, and white sneakers.",
+    "image": "/Soft Autumn/Casual/2.jpg",
+    "colors": [
+      "#e4e3e4",
+      "#d5b892",
+      "#b59269",
+      "#90a7b8",
+      "#b0c6d8",
+      "#585455"
+    ],
+    "keywords": [
+      "casual", "trench coat", "cream", "black", "white"
+    ],
+    "category": "Trench Coat",
+    "styleCategories": [
+      "casual"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-387",
+    "name": "Dark Brown Graphic T-Shirt",
+    "description": "A dark brown graphic T-shirt paired with cream wide-leg trousers. Accessories include a white phone case with a brown bear design, light beige canvas tote bag, and cream chunky sneakers.",
+    "image": "/Soft Autumn/Casual/3.jpg",
+    "colors": [
+      "#f6f5f0",
+      "#d3c7bb",
+      "#6a493c",
+      "#3a2517",
+      "#a8836f",
+      "#beab91"
+    ],
+    "keywords": [
+      "casual", "graphic T-shirt", "brown", "white", "cream", "beige"
+    ],
+    "category": "Graphic T-Shirt",
+    "styleCategories": [
+      "casual"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-388",
+    "name": "Olive Green Quilted Bomber Jacket",
+    "description": "A basic white T-shirt underneath an olive green quilted bomber jacket paired with light blue high-waisted, straight-leg jeans. Accessories include gold statement earrings, cream textured handbag, brown-tinted sunglasses, cream sneakers, and light beige skincare products.",
+    "image": "/Soft Autumn/Casual/4.jpeg",
+    "colors": [
+      "#f5f3ef",
+      "#817c65",
+      "#939395",
+      "#a6b7c7",
+      "#c5a36c",
+      "#d7c09b"
+    ],
+    "keywords": [
+      "casual", "bomber jacket", "t-shirt", "olive green", "light blue", "cream", "brown", "light-beige"
+    ],
+    "category": "",
+    "styleCategories": [
+      "casual"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-388",
+    "name": "Beige",
+    "description": "Beige Padded jacket paired with white t-shirt and jeans styled with bag and accessories.",
+    "image": "/Soft Autumn/Casual/4.jpeg",
+    "colors": [
+      "#f5f3ef",
+      "#817c65",
+      "#939395",
+      "#a6b7c7",
+      "#c5a36c",
+      "#d7c09b"
+    ],
+    "keywords": [
+      "casual","padded jacket","winter","aesthetic"
+    ],
+    "category": "Jacket",
+    "styleCategories": [
+      "casual","streetwear"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-390",
+    "name": "White Corset and Skirt Set",
+    "description": "White corset paired with beige skirt and styled with accessories.",
+    "image": "/Soft Autumn/Casual/6.jpg",
+    "colors": [
+      "#d6cfc8",
+      "#a89b8d",
+      "#eeedef",
+      "#bf7943",
+      "#766f51",
+      "#f6dd92"
+    ],
+    "keywords": [
+      "casual","streetwear","comfortable"
+    ],
+    "category": "Skirt",
+    "styleCategories": [
+      "casual","streetwear"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-394",
+    "name": "Pastel sharara set",
+    "description": "Pastel sharar set paired with heavy accessories",
+    "image": "/Soft Autumn/Ethnic/1.jpg",
+    "colors": [
+      "#e7e6e1",
+      "#cf6e78",
+      "#964249",
+      "#2c2922",
+      "#a48c72",
+      "#663c23"
+    ],
+    "keywords": [
+      "ethnic"
+    ],
+    "category": "Sharara set",
+    "styleCategories": [
+      "ethnic","Party"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-395",
+    "name": "Navaratri lehenga ",
+    "description": "Mixed color lehenga paried with khussa and colorfull accessories",
+    "image": "/Soft Autumn/Ethnic/2.jpg",
+    "colors": [
+      "#e5e5e5",
+      "#f3b0c7",
+      "#644f3b",
+      "#96776d",
+      "#9e623b",
+      "#393f70"
+    ],
+    "keywords": [
+      "ethnic","Festive"
+    ],
+    "category": "lehenga",
+    "styleCategories": [
+      "ethnic","Party"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-396",
+    "name": "Brown trench coat set",
+    "description": " Brown trench coat with brown and beige dress paired with same color boots and matching accessories",
+    "image": "/Soft Autumn/Formal/1.jpg",
+    "colors": [
+      "#eddacc",
+      "#685246",
+      "#3a2922",
+      "#b0927c",
+      "#c9bfae",
+      "#8a7769"
+    ],
+    "keywords": [
+      "formal","trench coat"
+    ],
+    "category": "trench coat set",
+    "styleCategories": [
+      "formal","casual"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-397",
+    "name": "Beige and white formal set",
+    "description": "Beige coat with white shirt and white trouser paired with matching bag and accessories",
+    "image": "/Soft Autumn/Formal/2.jpeg",
+    "colors": [
+      "#d6d4cf",
+      "#9c8c80",
+      "#beac94",
+      "#f7f5f0",
+      "#ffffff",
+      "#ffffff"
+    ],
+    "keywords": [
+      "formal","coat"
+    ],
+    "category": "formal set",
+    "styleCategories": [
+      "formal","casual"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-398",
+    "name": "Beige coat and jean pant shirt",
+    "description": "beige caot paired with  white shirt and jean with matching accessories",
+    "image": "/Soft Autumn/Formal/3.jpg",
+    "colors": [
+      "#c2bdb8",
+      "#7c7366",
+      "#f1ede8",
+      "#353439",
+      "#708295",
+      "#ffffff"
+    ],
+    "keywords": [
+      "formal"
+    ],
+    "category": "formal set",
+    "styleCategories": [
+      "formal","beige coat "
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-399",
+    "name": "Light pink cropped jacket",
+    "description": "Light pink cropped jacket with light green platted skirt styled with green hijab and accessories",
+    "image": "/Soft Autumn/Modest/1.jpg",
+    "colors": [
+      "#dfdfd4",
+      "#5d5d3b",
+      "#7c7b58",
+      "#bfb9a8",
+      "#a1a181",
+      "#3d3d22"
+    ],
+    "keywords": [
+      "modest","Jacket","Aesthetic"
+    ],
+    "category": "Jacket",
+    "styleCategories": [
+      "modest","casual","streetwear"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-400",
+    "name": "open Abaya",
+    "description": "Grey open abaya with white t-shirt and skirt styled with bags and other accessories.",
+    "image": "/Soft Autumn/Modest/2.jpg",
+    "colors": [
+      "#e8e8e8",
+      "#637067",
+      "#e7ca97",
+      "#47504c",
+      "#afbeaf",
+      "#caa080"
+    ],
+    "keywords": [
+      "modest","abaya","sleek"
+    ],
+    "category": "Abaya",
+    "styleCategories": [
+      "modest","formal","party"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-401",
+    "name": "Pink layered abaya",
+    "description": "Pink layered abaya with burgundy scarf styled with accessories.",
+    "image": "/Soft Autumn/Modest/3.jpg",
+    "colors": [
+      "#e8e8e8",
+      "#6b2d14",
+      "#86554e",
+      "#ac7c74",
+      "#cdb082",
+      "#e5d1bb"
+    ],
+    "keywords": [
+      "modest","abaya","aesthetic"
+    ],
+    "category": "Abaya",
+    "styleCategories": [
+      "modest","party"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-402",
+    "name": "White Button up",
+    "description": "White button up with baggy sleeves and green skirt, can also be worn with sleeves and styled with accessories",
+    "image": "/Soft Autumn/Modest/4.jpg",
+    "colors": [
+      "#e9e9e9",
+      "#8b9c92",
+      "#677266",
+      "#b0bdbe",
+      "#d2a39c",
+      "#485744"
+    ],
+    "keywords": [
+      "modest","aesthetic","hangout","college"
+    ],
+    "category": "Skirt",
+    "styleCategories": [
+      "modest","casual","streetwear"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-403",
+    "name": "Pistachio Sweater",
+    "description": "Pistachio green sweater with white and green printed skirt styled with converse, bag and accessories.",
+    "image": "/Soft Autumn/Party/1.jpeg",
+    "colors": [
+      "#eef0ed",
+      "#588a67",
+      "#74a785",
+      "#d0b987",
+      "#a8b9ae",
+      "#ced5c8"
+    ],
+    "keywords": [
+      "party","full coverage"
+    ],
+    "category": "Skirt",
+    "styleCategories": [
+      "party","casual","streetwear"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-404",
+    "name": "Green sharara",
+    "description": "Green sharara set styled with hijab, heels and accesories",
+    "image": "/Soft Autumn/Party/2.jpg",
+    "colors": [
+      "#f1eae4",
+      "#ad976f",
+      "#d1b9a4",
+      "#494a4f",
+      "#80755f",
+      "#29282e"
+    ],
+    "keywords": [
+      "party","event","aesthetic"
+    ],
+    "category": "Sharara",
+    "styleCategories": [
+      "party","ethnic"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-405",
+    "name": "Knitted Sweater",
+    "description": "Beige knitted sweater paired with jeans and tote bag.",
+    "image": "/Soft Autumn/Party/3.jpeg",
+    "colors": [
+      "#e5e5e5",
+      "#a07b5c",
+      "#d6ccbb",
+      "#805c44",
+      "#c09979",
+      "#a7bcc9"
+    ],
+    "keywords": [
+      "party","casual","streetwear"
+    ],
+    "category": "Sweater",
+    "styleCategories": [
+      "party","casual","streetwear"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-406",
+    "name": "Open Shirt and Plazo",
+    "description": "Parrot green open shirt and light plazo styled with hijab and accessories.",
+    "image": "/Soft Autumn/Streetwear/1.jpg",
+    "colors": [
+      "#f0f0f0",
+      "#e2dfc2",
+      "#bcb47c",
+      "#998a2c",
+      "#b49056",
+      "#db768c"
+    ],
+    "keywords": [
+      "streetwear","Stylish"
+    ],
+    "category": "Plazo",
+    "styleCategories": [
+      "streetwear","Ethnic"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-407",
+    "name": "Green Printed Kameez",
+    "description": "Green printed kameez paired with jeans and styled with bag and other accessories.",
+    "image": "/Soft Autumn/Streetwear/2.jpg",
+    "colors": [
+      "#e5e5e5",
+      "#ab8059",
+      "#747a76",
+      "#717d3f",
+      "#a29d98",
+      "#465247"
+    ],
+    "keywords": [
+      "streetwear","college","aesthetic"
+    ],
+    "category": "Printed Kameez",
+    "styleCategories": [
+      "streetwear","ethnic"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-408",
+    "name": "Brown t-shirt",
+    "description": "Brown t-Shirt paired with jeans and accessories.",
+    "image": "/Soft Autumn/Streetwear/3.jpg",
+    "colors": [
+      "#ededee",
+      "#85909c",
+      "#a6b1c6",
+      "#362116",
+      "#5b6572",
+      "#bd9b4f"
+    ],
+    "keywords": [
+      "streetwear","minimal"
+    ],
+    "category": "t-shirt",
+    "styleCategories": [
+      "streetwear","casual"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-409",
+    "name": "Sweater",
+    "description": "Green sweater with fitted white shirt and jeans styled with bag and other accessories.",
+    "image": "/Soft Autumn/Streetwear/4.jpg",
+    "colors": [
+      "#e9e9e9",
+      "#ba8a63",
+      "#a14104",
+      "#251509",
+      "#b9cbdc",
+      "#99acc0"
+    ],
+    "keywords": [
+      "streetwear","Jeans","aesthetic","comfortable"
+    ],
+    "category": "Sweater",
+    "styleCategories": [
+      "streetwear","casual"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+  {
+    "id": "item-410",
+    "name": "Kameez",
+    "description": "Printed Kameez styled with jeans and traditional bag and accessories.",
+    "image": "/Soft Autumn/Streetwear/5.jpg",
+    "colors": [
+      "#fefeda",
+      "#9c815c",
+      "#d2a153",
+      "#bca48c",
+      "#8e5428",
+      "#5e7994"
+    ],
+    "keywords": [
+      "streetwear","traditional","desi"
+    ],
+    "category": "Kameez",
+    "styleCategories": [
+      "streetwear","ethnic"
+    ],
+    "seasons": [
+      "soft-autumn"
+    ]
+  },
+    {
+    "id": "item-34",
+    "name": "Satin Pink Casual Look",
+    "description": "A light pink white striped button up, with a dark satin purple skirt and a dull pink full sleeves inner shirt.",
+    "image": "/Clear Winter/Casual/4.jpeg",
+    "colors": [
+      "#f5eee6",
+      "#e8a6bb",
+      "#ca868a",
+      "#7d3e67",
+      "#4a253f",
+      "#ffffff"
+    ],
+    "keywords": [
+      "casual",
+      "satin skirt",
+      "button-up shirt",
+      "full sleeves inner shirt",
+    ],
+    "category": "skirt",
+    "styleCategories": [
+      "casual",
+      "formal"
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+{
+    "id": "item-40",
+    "name": "Boho Monochrome Fusion",
+    "description": "Long Black Kurti with a high-low hem paired with cargo jeans and white Converse sneakers. Accessories include a black tote bag, layered necklaces, and a bohemian vibe.",
+    "image": "/Clear Winter/Ethnic/1.jpg",
+    "colors": [
+      "#c5c5c5",
+      "#686965",
+      "#8c8d8a",
+      "#444543",
+      "#19201f",
+      "#ececec"
+    ],
+    "keywords": [
+      "ethnic",
+      "black kurti", 
+      "cargo jeans", 
+      "Converse", 
+      "street fusion", 
+      "boho desi"
+    ],
+    "category": "fusion",
+    "styleCategories": [
+      "ethnic",
+      "casual"
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+  {
+    "id": "item-41",
+    "name": " Desi Chic Artisan",
+    "description": "A classy fusion look with an off-white embroidered kurti and high-waisted wide-leg denim. Styled with pearl jhumkas, colorful juttis, a tasseled clutch, and a patterned shawl for a touch of traditional charm.",
+    "image": "/Clear Winter/Ethnic/2.jpg",
+    "colors": [
+      "#e2e2e2",
+      "#5d6789",
+      "#a0a4a8",
+      "#c0c3bf",
+      "#404969",
+      "#738eab"
+    ],
+    "keywords": [
+      "ethnic", "white kurti", "jhumkas", "anklet", "shawl", 
+    ],
+    "category": "ethnic-modern fusion",
+    "styleCategories": [
+      "ethnic",
+      "casual"
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+  {
+    "id": "item-42",
+    "name": "Casual Modest Bloom",
+    "description": "A modest, everyday look with a floral kurta, wide-leg jeans, indigo scarf, white sneakers, youthful, and effortlessly elegant.",
+    "image": "/Clear Winter/Ethnic/3.jpg",
+    "colors": [
+      "#efeeed",
+      "#a58986",
+      "#835e49",
+      "#dfd7c2",
+      "#5c3f38",
+      "#beb4a3"
+    ],
+    "keywords": [
+      "ethnic",
+      "floral tunic", 
+      "modest fashion", 
+      "chunky sneakers", 
+      "daily wear"
+    ],
+    "category": "floral kurta",
+    "styleCategories": [
+      "ethnic",
+      "modest"
+
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+  {
+    "id": "item-43",
+    "name": "Formal Winter Outfit",
+    "description": "A chic formal modest outfit suitable for the Clear Winter season, featuring cool-toned neutrals and subtle contrast ideal for professional or dressy occasions.",
+    "image": "/Clear Winter/Formal/1.jpg",
+    "colors": [
+      "#ececec",
+      "#c5c4c3",
+      "#161614",
+      "#847768",
+      "#c2ad91",
+      "#3a3a3a"
+    ],
+    "keywords": [
+      "formal",
+      "clear winter",
+      "professional",
+      "cool tones"
+    ],
+    "category": "apparel",
+    "styleCategories": [
+      "formal",
+      "modest"
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+  {
+    "id": "item-44",
+    "name": "White Blazer with Flared Jeans",
+    "description": "A stylish outfit featuring a crisp white blazer layered over a fitted sweater-style long sleeve top, paired with flared blue denim jeans. Finished with a black crossbody purse, and gold jewelry for a refined touch.",
+    "image": "/Clear Winter/Formal/10.jpeg",
+    "colors": [
+      "#979897",
+      "#eae6dd",
+      "#1a1c18",
+      "#d7c7aa",
+      "#a4b7c2",
+      "#537489"
+    ],
+    "keywords": [
+      "formal",
+      "formal",
+      "denim",
+      "white blazer",
+      "gold jewelry",
+      "black accessories"
+    ],
+    "category": "blazer",
+    "styleCategories": [
+      "formal"
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+  {
+    "id": "item-45",
+    "name": "Chic Modest Layered Outfit",
+    "description": "A modest formal outfit featuring a long black dress paired with a stylish long coat with beige sleeves. The ensemble is completed with a black hijab, structured handbag, gold earrings, and black heels.",
+    "image": "/Clear Winter/Formal/11.jpg",
+    "colors": [
+      "#e8e8e8",
+      "#6b6b6a",
+      "#222224",
+      "#95887c",
+      "#c7c1bb",
+      "#374656"
+    ],
+    "keywords": [
+      "formal", 
+      "long coat",
+      "black dress",
+      "beige sleeves",
+      "black hijab",
+      "gold jewelry"
+    ],
+    "category": "long dress",
+    "styleCategories": [
+      "formal",
+      "modest"
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+  {
+    "id": "item-46",
+    "name": "Satin Serenity Ensemble",
+    "description": "A sophisticated outfit featuring a lavender satin wrap blouse paired with high-waisted black wide-leg trousers. Styled with black patent pointed heels, a sleek black handbag, and gold accessories including hoop earrings, layered necklaces, and a watch.",
+    "image": "/Clear Winter/Formal/2.jpeg",
+    "colors": [
+      "#d7d7d7",
+      "#bba8c0",
+      "#181818",
+      "#8f7c93",
+      "#f8f7f0",
+      "#3d3d3d"
+    ],
+    "keywords": [
+      "formal",
+      "elegant",
+      "chic",
+      "satin"
+    ],
+    "category": "satin",
+    "styleCategories": [
+      "formal",
+      "party"
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+    {
+    "id": "item-54",
+    "name": "Noir Grace Abaya",
+    "description": "A long black abaya featuring subtle white lines along the edges, styled with a structured handbag, white heels, and gold jewelry for a refined modest look.",
+    "image": "/Clear Winter/Modest/1.jpg",
+    "colors": [
+      "#d9d9d9",
+      "#222225",
+      "#828284",
+      "#656566",
+      "#404042",
+      "#e5cf98"
+    ],
+    "keywords": [
+      "modest",
+      "elegant"
+    ],
+    "category": "",
+    "styleCategories": [
+      "modest",
+      "party"
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+  {
+    "id": "item-55",
+    "name": "Pink Modest Ensemble",
+    "description": "Long pink abaya with a high-low hem. Styled with a white handbag, pink heels, and gold jewelry for a chic modest look.",
+    "image": "/Clear Winter/Modest/2.jpg",
+    "colors": [
+      "#e9e9e9",
+      "#9a8580",
+      "#bea9a2",
+      "#83484c",
+      "#ffffff",
+      "#ffffff"
+    ],
+    "keywords": [
+      "modest", "pink abaya", "high-low hem", "gold jewelry"
+    ],
+    "category": "abaya",
+    "styleCategories": [
+      "modest", "party"
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+  {
+    "id": "item-56",
+    "name": "Purple Glitz Look",
+    "description": "A purple buttoned sweater paired with a long denim skirt, styled with a crochet handbag and patterned scarf. Finished with white boots for a chic, modest look.",
+    "image": "/Clear Winter/Modest/3.jpg",
+    "colors": [
+      "#ebe4e9",
+      "#b5a6c7",
+      "#9e72a1",
+      "#835074",
+      "#442951",
+      "#527197"
+    ],
+    "keywords": [
+      "modest", "galaxy patterned scarf", "crochet handbag", "white boots"
+    ],
+    "category": "scarf",
+    "styleCategories": [
+      "modest"
+    
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+  {
+    "id": "item-57",
+    "name": "Black & White Modest Look",
+    "description": "Long black abaya with white embroidery, styled with a white handbag, black heels, and gold jewelry for a chic modest look.",
+    "image": "/Clear Winter/Modest/4.jpg",
+    "colors": [
+      "#e9e9e9",
+      "#636363",
+      "#d0caca",
+      "#8c8c89",
+      "#292927",
+      "#e0cb95"
+    ],
+    "keywords": [
+      "modest", "black abaya", "white embroidery", "gold jewelry", "silk scarf"
+    ],
+    "category": "abaya",
+    "styleCategories": [
+      "modest"
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+  {
+    "id": "item-60",
+    "name": "Long Red Dress",
+    "description": "A long red dress, styled with a black handbag, red heels, and gold jewelry for a chic party look.",
+    "image": "/Clear Winter/Party/1.jpeg",
+    "colors": [
+      "#a7a7a9",
+      "#f1eeef",
+      "#b23345",
+      "#e3c7cb",
+      "#971422",
+      "#583f3a"
+    ],
+    "keywords": [
+      "party", "red dress", "black handbag", "red heels", "gold jewelry"
+    ],
+    "category": "",
+    "styleCategories": [
+      "party", "modest"
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+  {
+    "id": "item-61",
+    "name": "Black & White Party Look",
+    "description": "A chic black sweater with a long black skirt, styled with a white handbag, black heels, and gold jewelry for a sophisticated party look.",
+    "image": "/Clear Winter/Party/10.jpeg",
+    "colors": [
+      "#e5e5e5",
+      "#272727",
+      "#494949",
+      "#e1d0b5",
+      "#b5a4a5",
+      "#928286"
+    ],
+    "keywords": [
+      "party", "black sweater", "long skirt", "white handbag", "black heels", "gold jewelry"
+    ],
+    "category": "sweater",
+    "styleCategories": [
+      "party"
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+  {
+    "id": "item-62",
+    "name": "Pink Party Look",
+    "description": "Pink sweater with a long black skirt, styled with a white handbag, pink heels, and gold jewelry for a chic party look.",
+    "image": "/Clear Winter/Party/11.jpeg",
+    "colors": [
+      "#bcbcbc",
+      "#efe4e3",
+      "#383838",
+      "#957961",
+      "#1a1a1a",
+      "#ffffff"
+    ],
+    "keywords": [
+      "party", "pink sweater", "long skirt", "white handbag", "pink heels", "gold jewelry"
+    ],
+    "category": "jewelry",
+    "styleCategories": [
+      "party"
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+  {
+    "id": "item-63",
+    "name": "Floral Party Look",
+    "description": "Long floral sky blue dress, styled with a sage handbag, pink heels, and gold jewelry for a chic party look.",
+    "image": "/Clear Winter/Party/12.jpeg",
+    "colors": [
+      "#e9ecee",
+      "#bccce0",
+      "#9eabbb",
+      "#cbd5b1",
+      "#afb877",
+      "#8d955d"
+    ],
+    "keywords": [
+      "party", "floral dress", "sage handbag", "pink heels", "gold jewelry"
+    ],
+    "category": "floral dress",
+    "styleCategories": [
+      "party", "modest"
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+  {
+    "id": "item-73",
+    "name": "Casual Sky Blue Look",
+    "description": "A casual sky blue button up outfit with long denim jeans and New Balance shows. Styled with a black handbag.",
+    "image": "/Clear Winter/Streetwear/1.jpg",
+    "colors": [
+      "#e8f0fb",
+      "#9ab9de",
+      "#1e212d",
+      "#bad6f9",
+      "#c4c4c4",
+      "#939185"
+    ],
+    "keywords": [
+      "streetwear", "casual", "button up shirt", "denim jeans", "New Balance shoes"
+    ],
+    "category": "denim jeans",
+    "styleCategories": [
+      "streetwear"
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+  {
+    "id": "item-74",
+    "name": "Denim Streetwear Look",
+    "description": "A casual denim outfit with a black sleeveless blouse and denim jeans, styled with a black handbag and sneakers.",
+    "image": "/Clear Winter/Streetwear/10.jpg",
+    "colors": [
+      "#efdfc6",
+      "#1b1c20",
+      "#caaf90",
+      "#8e8e8c",
+      "#617386",
+      "#502d1c"
+    ],
+    "keywords": [
+      "streetwear", "denim", "blouse", "jeans", "handbag"
+    ],
+    "category": "blouse",
+    "styleCategories": [
+      "streetwear"
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+  {
+    "id": "item-75",
+    "name": "Blouse & Denim Look",
+    "description": "Black floral full sleeve blouse with denim jeans, styled with a black handbag and sneakers.",
+    "image": "/Clear Winter/Streetwear/2.jpg",
+    "colors": [
+      "#ececec",
+      "#734d2f",
+      "#c18269",
+      "#d7b49f",
+      "#af5f45",
+      "#85795c"
+    ],
+    "keywords": [
+      "streetwear", "denim", "blouse", "jeans", "handbag"
+    ],
+    "category": "blouse",
+    "styleCategories": [
+      "streetwear"
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+  {
+    "id": "item-76",
+    "name": "Pink Chic Look",
+    "description": "A pick blouse with patterns and black high rise bootcut, styled with a tote bag and sneakers.",
+    "image": "/Clear Winter/Streetwear/3.jpg",
+    "colors": [
+      "#e5e5e5",
+      "#c07882",
+      "#926b60",
+      "#c4bfae",
+      "#9a9997",
+      "#161513"
+    ],
+    "keywords": [
+      "streetwear", "streetwear", "pink blouse", "bootcut jeans", "sneakers"
+    ],
+    "category": "bootocut jeans",
+    "styleCategories": [
+      "streetwear"
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+  {
+    "id": "item-77",
+    "name": "Knit Top Streetwear",
+    "description": "Blue and White striped knit top with baggy denim jeans, styled with a tote bag and sneakers.",
+    "image": "/Clear Winter/Streetwear/4.jpeg",
+    "colors": [
+      "#bcbdbf",
+      "#384e65",
+      "#707a86",
+      "#efeade",
+      "#97989b",
+      "#ffffff"
+    ],
+    "keywords": [
+      "streetwear", "blue striped top", "baggy jeans", "sneakers"
+    ],
+    "category": "sneakers",
+    "styleCategories": [
+      "streetwear"
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+  {
+    "id": "item-78",
+    "name": "Urban Chic Look",
+    "description": "White blouse with black patterns and denim jeans, styled with a black leather handbag and sneakers.",
+    "image": "/Clear Winter/Streetwear/5.jpg",
+    "colors": [
+      "#ededed",
+      "#babbbc",
+      "#9f9c96",
+      "#363a3d",
+      "#5b5f63",
+      "#77808b"
+    ],
+    "keywords": [
+      "streetwear", "white blouse", "denim jeans", "sneakers"
+    ],
+    "category": "blouse",
+    "styleCategories": [
+      "streetwear"
+    ],
+    "seasons": [
+      "clear-winter"
+    ]
+  },
+  {
+    "id": "item-83",
+    "name": "Blue Casual Look",
+    "description": "A casual outfit featuring a light blue shirt with a white t-shirt underneath, paired with denim jeans. Styled with a black handbag and sneakers for a relaxed look.",
+    "image": "/Cool Summer/Casual/1.jpg",
+    "colors": [
+      "#e0eaf4",
+      "#afd3f9",
+      "#77a5db",
+      "#477ec1",
+      "#454142",
+      "#242021"
+    ],
+    "keywords": [
+      "casual", "blue shirt", "white t-shirt", "denim jeans", "sneakers"
+    ],
+    "category": "button up shirt",
+    "styleCategories": [
+      "casual"
+    ],
+    "seasons": [
+      "cool-summer"
+    ]
+  },
+  {
+    "id": "item-84",
+    "name": "Crop Top Casual Look",
+    "description": "A blue and white striped crop top paired with black pants. Styled with a cherry red handbag and sneakers for a casual look.",
+    "image": "/Cool Summer/Casual/2.jpg",
+    "colors": [
+      "#eceef2",
+      "#67739d",
+      "#a7bae7",
+      "#9593a2",
+      "#706b61",
+      "#171719"
+    ],
+    "keywords": [
+      "casual", "crop top", "black pants", "cherry red handbag", "sneakers"
+    ],
+    "category": "crop top",
+    "styleCategories": [
+      "casual"
+    ],
+    "seasons": [
+      "cool-summer"
+    ]
+  },
+  {
+    "id": "item-85",
+    "name": "Sweater Casual Look",
+    "description": "A sweatshirt with a navy t-shirt underneath, paired with baggy denim jeans. Styled with a black handbag and sneakers for a casual look.",
+    "image": "/Cool Summer/Casual/3.jpeg",
+    "colors": [
+      "#c6c6c6",
+      "#292b41",
+      "#f4ede0",
+      "#6e707f",
+      "#94979f",
+      "#4d4f62"
+    ],
+    "keywords": [
+      "casual", "sweatshirt", "baggy jeans", "sneakers"
+    ],
+    "category": "sweatshirt",
+    "styleCategories": [
+      "casual"
+    ],
+    "seasons": [
+      "cool-summer"
+    ]
+  },
+  {
+    "id": "item-86",
+    "name": "Denim Button Up Look",
+    "description": "Denim button up shirt paired black denim jeans. Styled with a black handbag and New Balance for a casual look.",
+    "image": "/Cool Summer/Casual/4.jpg",
+    "colors": [
+      "#d2d6e1",
+      "#94a3c3",
+      "#8a8a8a",
+      "#514f50",
+      "#313234",
+      "#803e2d"
+    ],
+    "keywords": [
+      "casual", "denim shirt", "black jeans", "New Balance shoes"
+    ],
+    "category": "denim shirt",
+    "styleCategories": [
+      "casual"
+    ],
+    "seasons": [
+      "cool-summer"
+    ]
+  },
+  {
+    "id": "item-87",
+    "name": "Warm Casual Look",
+    "description": "Cream sweater with a long blue skirt, styled with a gold jewelry and New Balance for a casual look.",
+    "image": "/Cool Summer/Casual/5.jpeg",
+    "colors": [
+      "#fcf4e4",
+      "#ded4c0",
+      "#1e387e",
+      "#ffffff",
+      "#ffffff",
+      "#ffffff"
+    ],
+    "keywords": [
+      "casual", "sweater", "long skirt", "New Balance shoes"
+    ],
+    "category": "sweater",
+    "styleCategories": [
+      "casual"
+    ],
+    "seasons": [
+      "cool-summer"
+    ]
+  },
+  {
+    "id": "item-88",
+    "name": "Dressy Kurta Look",
+    "description": "A blue and white patterned kurta paired with loose fit denim pants. Styled with a boho denim bag and khusas",
+    "image": "/Cool Summer/Ethnic/1.jpg",
+    "colors": [
+      "#e9eaec",
+      "#c4c8c1",
+      "#a1a49b",
+      "#7c7d7f",
+      "#4a5672",
+      "#ab7468"
+    ],
+    "keywords": [
+      "ethnic", "kurta", "loose fit denim pants", "boho denim bag", "khusas"
+    ],
+    "category": "kurta",
+    "styleCategories": [
+      "ethnic"
+    ],
+    "seasons": [
+      "cool-summer"
+    ]
+  },
+  {
+    "id": "item-89",
+    "name": "Fashionable Ethnic Look",
+    "description": "A long green patterned kurta with matching shalwar high-low hem, styled with a brown leather handbag",
+    "image": "/Cool Summer/Ethnic/2.jpg",
+    "colors": [
+      "#bdbdbd",
+      "#f0f0f0",
+      "#6d6d6d",
+      "#2e2e2e",
+      "#88918e",
+      "#792525"
+    ],
+    "keywords": [
+      "ethnic", "kurta", "high-low hem", "brown leather handbag"
+    ],
+    "category": "kurta",
+    "styleCategories": [
+      "ethnic"
+    ],
+    "seasons": [
+      "cool-summer"
+    ]
+  },
+  {
+    "id": "item-90",
+    "name": "Clouded Iris Formalwear",
+    "description": "A long coat with a white inner long sleeve shirt, and baggy denim jeans. Styled with a white handbag and black plumps.",
+    "image": "/Cool Summer/Formal/1.jpeg",
+    "colors": [
+      "#f4ede5",
+      "#2d2d2f",
+      "#cccccc",
+      "#826147",
+      "#9db6c9",
+      "#9c9789"
+    ],
+    "keywords": [
+      "formal", "long coat", "white inner shirt", "baggy denim jeans", "black plumps"
+    ],
+    "category": "long coat",
+    "styleCategories": [
+      "formal"
+    ],
+    "seasons": [
+      "cool-summer"
+    ]
+  },
+  {
+    "id": "item-91",
+    "name": "Maroon Luxe Layers",
+    "description": "A maroon long coat with a white inner long sleeve winter shirt. Styled with a red handbag and red long boots.",
+    "image": "/Cool Summer/Formal/2.jpg",
+    "colors": [
+      "#e1ddde",
+      "#7c5362",
+      "#732640",
+      "#3e131f",
+      "#ffffff",
+      "#ffffff"
+    ],
+    "keywords": [
+      "formal", "long coat", "white inner shirt", "red handbag", "red long boots"
+    ],
+    "category": "long coat",
+    "styleCategories": [
+      "formal"
+    ],
+    "seasons": [
+      "cool-summer"
+    ]
+  },
+  {
+    "id": "item-92",
+    "name": "Platinum Formal",
+    "description": "Long satin full sleeved dress, with a light blue vest and light blue heels",
+    "image": "/Cool Summer/Formal/3.jpeg",
+    "colors": [
+      "#ecf1f4",
+      "#afc0ce",
+      "#ffffff",
+      "#ffffff",
+      "#ffffff",
+      "#ffffff"
+    ],
+    "keywords": [
+      "formal", "long satin dress", "vest", "heels"
+    ],
+    "category": "heels",
+    "styleCategories": [
+      "formal"
+    ],
+    "seasons": [
+      "cool-summer"
+    ]
+  },
+  {
+    "id": "item-93",
+    "name": "Modest Maroon Elegance",
+    "description": "A modest look with a long maroon dress and ribbon belt, paired with a beige hijab. Cream heels and accessories add a refined, elegant touch.",
+    "image": "/Cool Summer/Modest/1.jpg",
+    "colors": [
+      "#e9e9e9",
+      "#dbc4b7",
+      "#742b33",
+      "#441f24",
+      "#a89688",
+      "#696870"
+    ],
+    "keywords": [
+      "modest", "long maroon dress", "ribbon belt", "beige hijab", "cream heels"
+    ],
+    "category": "long dress",
+    "styleCategories": [
+      "modest", "party"
+    ],
+    "seasons": [
+      "cool-summer"
+    ]
+  },
+  {
+    "id": "item-94",
+    "name": "Soft Blue Modest Denim",
+    "description": "A soft modest outfit pairing a printed tie-front top with a flared denim skirt and cream sneakers. Finished with a powder blue hijab, navy handbag, and a statement floral brooch for a graceful, casual look.",
+    "image": "/Cool Summer/Party/1.jpg",
+    "colors": [
+      "#97a8b9",
+      "#f4f2ed",
+      "#908e85",
+      "#606365",
+      "#c4c4bc",
+      "#384357"
+    ],
+    "keywords": [
+      "party", "modest", "printed tie-front top", "flared denim skirt", "cream sneakers"
+    ],
+    "category": "denim skirt",
+    "styleCategories": [
+      "party"
+    ],
+    "seasons": [
+      "cool-summer"
+    ]
+  },
+  {
+    "id": "item-95",
+    "name": "Pastel Garden Elegance",
+    "description": " A floral pastel maxi dress dorned with soft floral prints, paired with white heels and a blue bag, finished with gold jewelry and a daisy-print phone case.",
+    "image": "/Cool Summer/Party/2.jpeg",
+    "colors": [
+      "#f0f3f3",
+      "#99afb3",
+      "#b89a7c",
+      "#c9d2cf",
+      "#748d94",
+      "#ffffff"
+    ],
+    "keywords": [
+      "party", "floral pastel maxi dress", "white heels", "blue bag", "gold jewelry"
+    ],
+    "category": "maxi dress",
+    "styleCategories": [
+      "party"
+    ],
+    "seasons": [
+      "cool-summer"
+    ]
+  },
+  {
+    "id": "item-96",
+    "name": "Satin Sky Ensemble",
+    "description": "A chic formal outfit featuring a white satin wrap top and soft blue A-line skirt, paired with white heels, a navy clutch, and elegant gemstone earrings.",
+    "image": "/Cool Summer/Party/3.jpg",
+    "colors": [
+      "#d3e2ff",
+      "#33384f",
+      "#ccc6c2",
+      "#9db8b7",
+      "#f4e5d7",
+      "#1b1b1c"
+    ],
+    "keywords": [
+      "party", "white satin wrap top", "soft blue A-line skirt", "white heels"
+    ],
+    "category": "skirt",
+    "styleCategories": [
+      "party"
+    ],
+    "seasons": [
+      "cool-summer"
+    ]
+  },
+  {
+    "id": "item-97",
+    "name": "Satin Wrap Glamour",
+    "description": "A graceful modest look featuring a long maroon dress cinched at the waist with a ribbon belt, paired with a beige hijab. Cream-colored heels and accessories complete the refined, elegant ensemble.",
+    "image": "/Cool Summer/Party/4.jpeg",
+    "colors": [
+      "#ebebeb",
+      "#582c3e",
+      "#b9a3a5",
+      "#9a3754",
+      "#2a2a2a",
+      "#ffffff"
+    ],
+    "keywords": [
+      "party", "long maroon dress", "ribbon belt", "beige hijab", "cream heels" 
+    ],
+    "category": "dress",
+    "styleCategories": [
+      "party", "modest"
+    ],
+    "seasons": [
+      "cool-summer"
+    ]
+  },
+  {
+    "id": "item-98",
+    "name": "Ruffle Denim Chic",
+    "description": "A red jabot ruffled blouse paired with dark blue denim jeans, Styled with vintage jewelry and a tote bag.",
+    "image": "/Cool Summer/Streetwear/1.jpg",
+    "colors": [
+      "#e7e2db",
+      "#96795c",
+      "#ba252b",
+      "#8b1619",
+      "#7d4a31",
+      "#413743"
+    ],
+    "keywords": [
+      "streetwear", "jabot ruffled blouse", "dark blue denim jeans", "vintage jewelry", "tote bag"
+    ],
+    "category": "blouse",
+    "styleCategories": [
+      "streetwear"
+    ],
+    "seasons": [
+      "cool-summer"
+    ]
+  },
+  {
+    "id": "item-99",
+    "name": "Comfortable Streetwear",
+    "description": "A cozy blue and white sweatshirt paired with baggy denim jeans and a navy blue leather tote bag. Styled with white sneakers and gold jewelry.",
+    "image": "/Cool Summer/Streetwear/2.jpeg",
+    "colors": [
+      "#ececec",
+      "#e5d6ae",
+      "#212234",
+      "#a8b4bd",
+      "#83889d",
+      "#c2d3db"
+    ],
+    "keywords": [
+      "streetwear", "sweatshirt", "baggy denim jeans", "navy blue leather tote bag", "white sneakers"
+    ],
+    "category": "sweatshirt",
+    "styleCategories": [
+      "streetwear"
+    ],
+    "seasons": [
+      "cool-summer"
+    ]
+  },
+  {
+    "id": "item-100",
+    "name": "Blue Floral Chic",
+    "description": "A charming, breezy outfit with a floral crop top, wide-leg jeans, pastel blue accessories, and gold layered jewelry for a sweet daytime vibe.",
+    "image": "/Cool Summer/Streetwear/3.jpeg",
+    "colors": [
+      "#d4d4d3",
+      "#f2f2f0",
+      "#8e9da6",
+      "#5a6c7e",
+      "#a7bbc6",
+      "#ffffff"
+    ],
+    "keywords": [
+      "streetwear", "floral crop top", "wide-leg jeans", "pastel blue accessories", "gold layered jewelry"
+    ],
+    "category": "jeans",
+    "styleCategories": [
+      "streetwear"
+    ],
+    "seasons": [
+      "cool-summer"
+    ]
+  },
 
 ];
 
