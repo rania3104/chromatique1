@@ -154,8 +154,7 @@ export function useSeasonCategoryData() {
       const categories: CategoryType[] = ["tops", "bottoms", "dresses", "accessories", "outerwear"];
       
       try {
-        // Try to dynamically import images from the /images/ directory
-        // In a real implementation, this would use the File System API or a backend endpoint
+
         const newData: Record<SeasonType, Record<CategoryType, any[]>> = {
           spring: { tops: [], bottoms: [], dresses: [], accessories: [], outerwear: [] },
           summer: { tops: [], bottoms: [], dresses: [], accessories: [], outerwear: [] },
@@ -166,8 +165,7 @@ export function useSeasonCategoryData() {
         // Generate image data for each season and category
         for (const season of seasons) {
           for (const category of categories) {
-            // In a real implementation, this would be a fetch to get actual images
-            // For now, we'll generate placeholder data based on season and category
+
             const itemCount = Math.floor(Math.random() * 3) + 3; // 3-5 items
             
             for (let i = 0; i < itemCount; i++) {
@@ -202,8 +200,6 @@ export function useSeasonCategoryData() {
 
 // Helper function to extract dominant colors from an image (simplified mock version)
 export const extractImageColors = (imageSrc: string): string[] => {
-  // This is a placeholder. In a real implementation, this would analyze the image.
-  // For now, we'll return predefined colors based on the image URL
   if (imageSrc.includes('spring')) {
     return ['#F2C94C', '#6FCF97', '#F2994A'];
   } else if (imageSrc.includes('summer')) {
@@ -263,9 +259,7 @@ export const addClothingItem = (
     description: string;
   }
 ) => {
-  // In a real implementation, this would save to a database or filesystem
-  // For now, we'll save to localStorage to persist between sessions
-  
+
   try {
     // Generate a unique ID
     const itemId = `${season}-${category}-${Date.now()}`;

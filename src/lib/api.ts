@@ -92,7 +92,7 @@ export const determineColorSeason = (
     } else {
       return Promise.resolve("soft-summer");
     }
-  } else {
+  } else if (undertone === "olive"){
     // Olive undertone
     if (["dark", "medium-dark", "very-dark"].includes(skinTone)) {
       return Promise.resolve("deep-autumn");

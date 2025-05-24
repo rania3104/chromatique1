@@ -414,7 +414,6 @@ export const categories: Category[] = [
   }
 ];
 
-// We'll populate this array with sample clothing items in a real app
 export const clothingItems: ClothingItem[] = [
     {
     "id": "item-301",
