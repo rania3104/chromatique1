@@ -1,186 +1,209 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { PlanCard } from "@/components/subscription/PlanCard";
 import { SubscriptionFeature } from "@/components/subscription/SubscriptionFeature";
-import { subscriptionPlans } from "@/lib/data";
+import { subscriptionPlans, seasons } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { 
-  Circle, 
-  Gift, 
-  Lock, 
-  Star, 
-  Unlock, 
-  Palette, 
-  Scissors, 
+import {
+  Circle,
+  Gift,
+  Lock,
+  Star,
+  Unlock,
+  Palette,
+  Scissors,
   MessageSquare,
   Calendar,
-  User
+  User,
 } from "lucide-react";
 import { useChromatique } from "@/lib/context";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
+import {
   Dialog,
-  DialogContent, 
+  DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
 } from "@/components/ui/dialog";
-import { seasons } from "@/lib/data";
 import { supabase } from "@/lib/supabaseClient";
-import { useEffect } from "react";
-
 
 const Subscription = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { isPremiumUser, setIsPremiumUser, user } = useChromatique();
+
   const [isProcessing, setIsProcessing] = useState(false);
   const [activeTab, setActiveTab] = useState("features");
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const [selectedStylist, setSelectedStylist] = useState<number | null>(null);
-const [currentPlan, setCurrentPlan] = useState<"free" | "premium" | "vip">("free");
+  const [currentPlan, setCurrentPlan] = useState<"free" | "premium" | "vip">(
+    "free"
+  );
 
-  
   // Dummy stylists data
   const stylists = [
-    { id: 1, name: "Emma Wilson", specialty: "Color Analysis Expert", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60", availability: "Mon, Wed, Fri" },
-    { id: 2, name: "Joe Henry", specialty: "Wardrobe Styling", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60", availability: "Tue, Thu, Sat" },
-    { id: 3, name: "Sophia Rodriguez", specialty: "Personal Shopper", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60", availability: "Wed, Fri, Sun" }
+    {
+      id: 1,
+      name: "Emma Wilson",
+      specialty: "Color Analysis Expert",
+      image:
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+      availability: "Mon, Wed, Fri",
+    },
+    {
+      id: 2,
+      name: "Joe Henry",
+      specialty: "Wardrobe Styling",
+      image:
+        "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+      availability: "Tue, Thu, Sat",
+    },
+    {
+      id: 3,
+      name: "Sophia Rodriguez",
+      specialty: "Personal Shopper",
+      image:
+        "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+      availability: "Wed, Fri, Sun",
+    },
   ];
-  
-  const handleSelectPlan = async (planId: string) => {
-  if (!user) {
-    toast({
-      title: "Not signed in",
-      description: "Please sign in to subscribe.",
-      variant: "destructive",
-    });
-    return;
-  }
 
-  setIsProcessing(true);
+  // Load user subscription on mount or user change
+  useEffect(() => {
+    async function loadUserSubscription() {
+      if (!user) return;
 
-  try {
-    const { data: existing, error: fetchError } = await supabase
-      .from("subscriptions")
-      .select("*")
-      .eq("user_id", user.id)
-      .single();
+      const { data: sub, error } = await supabase
+        .from("subscriptions")
+        .select("plan_id")
+        .eq("user_id", user.id)
+        .single();
 
-    if (fetchError && fetchError.code !== "PGRST116") {
-      throw fetchError;
+      if (sub && !error) {
+        setCurrentPlan(sub.plan_id as "free" | "premium" | "vip");
+        setIsPremiumUser(sub.plan_id === "premium" || sub.plan_id === "vip");
+      }
     }
 
-    const now = new Date().toISOString();
+    loadUserSubscription();
+  }, [user, setIsPremiumUser]);
 
-    let result;
-    if (existing) {
-      result = await supabase
+  const handleSelectPlan = async (planId: string) => {
+    if (!user) {
+      toast({
+        title: "Not signed in",
+        description: "Please sign in to subscribe.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsProcessing(true);
+
+    try {
+      const { data: existing, error: fetchError } = await supabase
         .from("subscriptions")
-        .update({ plan_id: planId, status: "active", updated_at: now })
-        .eq("user_id", user.id);
-    } else {
-      result = await supabase
-        .from("subscriptions")
-        .insert({
+        .select("*")
+        .eq("user_id", user.id)
+        .single();
+
+      if (fetchError && fetchError.code !== "PGRST116") {
+        throw fetchError;
+      }
+
+      const now = new Date().toISOString();
+
+      let result;
+      if (existing) {
+        result = await supabase
+          .from("subscriptions")
+          .update({ plan_id: planId, status: "active", updated_at: now })
+          .eq("user_id", user.id);
+      } else {
+        result = await supabase.from("subscriptions").insert({
           user_id: user.id,
           plan_id: planId,
           status: "active",
           created_at: now,
           updated_at: now,
         });
+      }
+
+      if (result.error) throw result.error;
+
+      setCurrentPlan(planId as "free" | "premium" | "vip");
+      setIsPremiumUser(planId === "premium" || planId === "vip");
+
+      toast({
+        title: `Subscribed to ${planId.charAt(0).toUpperCase() + planId.slice(1)} Plan`,
+        description: `Enjoy the ${planId} features!`,
+      });
+    } catch (error: any) {
+      console.error("Subscription update error:", error);
+      toast({
+        title: "Subscription failed",
+        description: error.message || "Could not update subscription.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsProcessing(false);
     }
-
-    if (result.error) throw result.error;
-
-    setCurrentPlan(planId as "free" | "premium" | "vip");
-    setIsPremiumUser(planId === "premium" || planId === "vip");
-
-    toast({
-      title: `Subscribed to ${planId.charAt(0).toUpperCase() + planId.slice(1)} Plan`,
-      description: `Enjoy the ${planId} features!`,
-    });
-  } catch (error: any) {
-    console.error("Subscription update error:", error);
-    toast({
-      title: "Subscription failed",
-      description: error.message || "Could not update subscription.",
-      variant: "destructive",
-    });
-  } finally {
-    setIsProcessing(false);
-  }
-};
+  };
 
   const handleCancelPlan = async () => {
-  if (!user) {
-    toast({
-      title: "Not signed in",
-      description: "Please sign in to cancel your subscription.",
-      variant: "destructive",
-    });
-    return;
-  }
-
-  setIsProcessing(true);
-
-  try {
-    const now = new Date().toISOString();
-    const { error } = await supabase
-      .from("subscriptions")
-      .update({
-        plan_id: "free",
-        status: "active",
-        updated_at: now,
-      })
-      .eq("user_id", user.id);
-
-    if (error) throw error;
-
-    setCurrentPlan("free");
-    setIsPremiumUser(false);
-
-    toast({
-      title: "Subscription cancelled",
-      description: "You've been moved to the Basic plan.",
-    });
-  } catch (error: any) {
-    console.error("Cancel error:", error);
-    toast({
-      title: "Cancel failed",
-      description: error.message || "Could not cancel subscription.",
-      variant: "destructive",
-    });
-  } finally {
-    setIsProcessing(false);
-  }
-};
-useEffect(() => {
-  async function loadUserSubscription() {
-    if (!user) return;
-
-    const { data: sub, error } = await supabase
-      .from("subscriptions")
-      .select("plan_id")
-      .eq("user_id", user.id)
-      .single();
-
-    if (sub && !error) {
-      setCurrentPlan(sub.plan_id as "free" | "premium" | "vip");
-      setIsPremiumUser(sub.plan_id === "premium" || sub.plan_id === "vip");
+    if (!user) {
+      toast({
+        title: "Not signed in",
+        description: "Please sign in to cancel your subscription.",
+        variant: "destructive",
+      });
+      return;
     }
-  }
 
-  loadUserSubscription();
-}, [user]);
+    setIsProcessing(true);
+
+    try {
+      const now = new Date().toISOString();
+      const { error } = await supabase
+        .from("subscriptions")
+        .update({
+          plan_id: "free",
+          status: "active",
+          updated_at: now,
+        })
+        .eq("user_id", user.id);
+
+      if (error) throw error;
+
+      setCurrentPlan("free");
+      setIsPremiumUser(false);
+
+      toast({
+        title: "Subscription cancelled",
+        description: "You've been moved to the Basic plan.",
+      });
+    } catch (error: any) {
+      console.error("Cancel error:", error);
+      toast({
+        title: "Cancel failed",
+        description: error.message || "Could not cancel subscription.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   const handleBookConsultation = () => {
     if (selectedStylist !== null) {
       setIsConsultationOpen(false);
       toast({
         title: "Consultation Booked!",
-        description: `Your consultation with ${stylists.find(s => s.id === selectedStylist)?.name} has been scheduled. Check your email for details.`,
+        description: `Your consultation with ${
+          stylists.find((s) => s.id === selectedStylist)?.name
+        } has been scheduled. Check your email for details.`,
       });
       setSelectedStylist(null);
     } else {
@@ -190,20 +213,18 @@ useEffect(() => {
       });
     }
   };
-  
+
   const isVipUser = currentPlan === "vip";
   const hasPremiumAccess = currentPlan === "premium" || currentPlan === "vip";
   const userSeason = user?.season;
-  
-  // Get the user's season data for recommendations
+
   const seasonData = userSeason ? seasons[userSeason] : null;
   const bestColors = seasonData?.bestColors || [];
-  
-  // For makeup colors, let's use season-appropriate colors
+
+  // Makeup recommendations based on season
   const getMakeupColors = () => {
     if (!seasonData) return [];
-    
-    // Create makeup recommendations based on the season type
+
     if (userSeason?.includes("winter")) {
       return [
         { name: "Berry", hexCode: "#8A2BE2" },
@@ -211,7 +232,7 @@ useEffect(() => {
         { name: "Ruby", hexCode: "#E0115F" },
         { name: "Ice Pink", hexCode: "#FFD1DC" },
         { name: "Navy", hexCode: "#000080" },
-        { name: "Silver", hexCode: "#C0C0C0" }
+        { name: "Silver", hexCode: "#C0C0C0" },
       ];
     } else if (userSeason?.includes("summer")) {
       return [
@@ -220,7 +241,7 @@ useEffect(() => {
         { name: "Powder Blue", hexCode: "#B0E0E6" },
         { name: "Periwinkle", hexCode: "#CCCCFF" },
         { name: "Dusty Rose", hexCode: "#DCAE96" },
-        { name: "Lavender", hexCode: "#E6E6FA" }
+        { name: "Lavender", hexCode: "#E6E6FA" },
       ];
     } else if (userSeason?.includes("spring")) {
       return [
@@ -229,7 +250,7 @@ useEffect(() => {
         { name: "Warm Pink", hexCode: "#FF69B4" },
         { name: "Turquoise", hexCode: "#40E0D0" },
         { name: "Mint", hexCode: "#98FB98" },
-        { name: "Light Gold", hexCode: "#FFD700" }
+        { name: "Light Gold", hexCode: "#FFD700" },
       ];
     } else if (userSeason?.includes("autumn")) {
       return [
@@ -238,57 +259,55 @@ useEffect(() => {
         { name: "Rust", hexCode: "#B7410E" },
         { name: "Olive", hexCode: "#808000" },
         { name: "Bronze", hexCode: "#CD7F32" },
-        { name: "Warm Brown", hexCode: "#964B00" }
+        { name: "Warm Brown", hexCode: "#964B00" },
       ];
     }
-    
-    // Default fallback palette if season can't be determined
+
+    // Fallback palette
     return [
       { name: "Plum", hexCode: "#8E4585" },
       { name: "Mauve", hexCode: "#E0B0FF" },
       { name: "Taupe", hexCode: "#483C32" },
       { name: "Copper", hexCode: "#B87333" },
       { name: "Bronze", hexCode: "#CD7F32" },
-      { name: "Berry", hexCode: "#8A2BE2" }
+      { name: "Berry", hexCode: "#8A2BE2" },
     ];
   };
-  
-  // Get complementary hair colors based on season
+
+  // Hair colors by season
   const getHairColors = () => {
     if (!seasonData) return { primary: "#000000", secondary: "#333333" };
-    
+
     if (userSeason?.includes("winter")) {
-      return { 
-        primary: "#1A1110", // Almost black
-        secondary: "#534B4F" // Cool charcoal
+      return {
+        primary: "#1A1110",
+        secondary: "#534B4F",
       };
     } else if (userSeason?.includes("summer")) {
-      return { 
-        primary: "#4E4E4E", // Cool medium ash brown
-        secondary: "#A59C94" // Light ash blonde
+      return {
+        primary: "#4E4E4E",
+        secondary: "#A59C94",
       };
     } else if (userSeason?.includes("spring")) {
-      return { 
-        primary: "#8B5A2B", // Golden brown
-        secondary: "#DAA520" // Golden blonde
+      return {
+        primary: "#8B5A2B",
+        secondary: "#DAA520",
       };
     } else if (userSeason?.includes("autumn")) {
-      return { 
-        primary: "#5C3317", // Warm chocolate brown
-        secondary: "#D4A76A" // Golden honey
+      return {
+        primary: "#5C3317",
+        secondary: "#D4A76A",
       };
     }
-    
-    // Default fallback
+
     return {
-      primary: "#2C1A1D", // Cool dark brown
-      secondary: "#A79E8B" // Cool ash tone
+      primary: "#2C1A1D",
+      secondary: "#A79E8B",
     };
   };
-  
+
   const makeupColors = getMakeupColors();
   const hairColors = getHairColors();
-  
   return (
     <>
       <Header />

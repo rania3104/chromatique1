@@ -7,6 +7,7 @@ import {
 } from "react";
 import { UserProfile, Season, ClothingItem } from "./types";
 import { determineColorSeason } from "@/lib/api";
+import { supabase } from "@/lib/supabaseClient";
 
 interface ChromatiqueContextProps {
   user: UserProfile | null;
@@ -30,12 +31,38 @@ interface ChromatiqueContextProps {
 
 const ChromatiqueContext = createContext<ChromatiqueContextProps | undefined>(undefined);
 
+
 export function ChromatiqueProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [savedItems, setSavedItems] = useState<ClothingItem[]>([]);
   const [isPremiumUser, setIsPremiumUser] = useState(false);
   const [contextReady, setContextReady] = useState(false);
+  const syncSupabaseUser = async () => {
+    setIsLoading(true);
+    const { data: { user: supabaseUser } } = await supabase.auth.getUser();
+    if (supabaseUser) {
+      // Here you can load additional user profile info from your DB if needed
+      // For now, create a minimal UserProfile from supabaseUser
+      setUser((prev) => {
+        if (prev && prev.id === supabaseUser.id) return prev; // no change
+        return {
+          id: supabaseUser.id,
+          email: supabaseUser.email || "",
+          skinTone: prev?.skinTone || "medium",
+          undertone: prev?.undertone || "neutral",
+          eyeColor: prev?.eyeColor || "light-brown",
+          hairColor: prev?.hairColor,
+          season: prev?.season,
+           };
+      });
+       } else {
+      setUser(null);
+      setIsPremiumUser(false);
+    }
+    setIsLoading(false);
+  };
+
 
   const loadUserData = () => {
     const currentUserData = localStorage.getItem("chromatique-user");
@@ -88,6 +115,27 @@ export function ChromatiqueProvider({ children }: { children: ReactNode }) {
     setIsLoading(false);
   };
 
+  useEffect(() => {
+    // On mount, sync user session from Supabase
+    syncSupabaseUser();
+
+    // Subscribe to auth changes
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        syncSupabaseUser();
+      } else {
+        setUser(null);
+        setIsPremiumUser(false);
+      }
+    });
+
+    setContextReady(true);
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
+  
   useEffect(() => {
     loadUserData();
     setContextReady(true);
