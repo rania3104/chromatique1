@@ -10,27 +10,63 @@ import { Header } from "@/components/layout/Header";
 import { Sparkles } from "lucide-react";
 import { supabase } from "@/lib/supabaseClient";
 
+
 const Results = () => {
   const navigate = useNavigate();
   const {
-    user,
+    user: contextUser,
     isQuizComplete,
     isPremiumUser,
     refreshUserData,
     contextReady,
   } = useChromatique();
+
   const [seasonData, setSeasonData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasSavedProfile, setHasSavedProfile] = useState(false);
 
-useEffect(() => {
-  let didRefresh = false;
+  // Store the authenticated supabase user ID and combine with context user data
+  const [user, setUser] = useState<any>(null);
 
-  if (!user && !didRefresh) {
-    refreshUserData();
-    didRefresh = true;
+  useEffect(() => {
+  const fetchSupabaseUser = async () => {
+    const {
+      data: { user: supabaseUser },
+      error,
+    } = await supabase.auth.getUser();
+    if (error || !supabaseUser) {
+      console.error("Failed to get Supabase user:", error?.message);
+      return;
+    }
+
+    if (
+      contextReady &&
+      contextUser?.skinTone &&
+      contextUser?.undertone &&
+      contextUser?.eyeColor &&
+      contextUser?.season
+    ) {
+      setUser({
+        id: supabaseUser.id,
+        skinTone: contextUser.skinTone,
+        undertone: contextUser.undertone,
+        eyeColor: contextUser.eyeColor,
+        season: contextUser.season,
+      });
+    }
+  };
+
+  if (contextReady) {
+    fetchSupabaseUser();
   }
-}, [user]);
+}, [contextReady, contextUser]);
+ // Update if contextUser changes
 
+  useEffect(() => {
+    if (!user && !contextUser) {
+      refreshUserData();
+    }
+  }, [user, contextUser, refreshUserData]);
 
   const saveUserColorProfile = async () => {
     if (
@@ -53,34 +89,49 @@ useEffect(() => {
       .eq("id", user.id);
 
     if (error) {
-      console.error("Failed to save user color profile:", error.message);
+      console.error("❌ Failed to save user color profile:", error.message);
+      return;
     }
+
+    const updatedProfile = {
+      ...user,
+      skin_tone: user.skinTone,
+      undertone: user.undertone,
+      eye_color: user.eyeColor,
+      season: user.season,
+    };
+
+    localStorage.setItem("chromatique-user", JSON.stringify(updatedProfile));
+    await refreshUserData();
+    setHasSavedProfile(true);
   };
-useEffect(() => {
-  if (!user || !isQuizComplete || seasonData) return;
 
-  if (!user.skinTone) {
-    navigate("/quiz/skin-tone");
-    return;
-  } else if (!user.undertone) {
-    navigate("/quiz/undertone");
-    return;
-  } else if (!user.eyeColor) {
-    navigate("/quiz/eye-color");
-    return;
-  }
+  useEffect(() => {
+    if (!user || !isQuizComplete || seasonData) return;
 
-  if (user.season) {
-    setIsLoading(true);
-    getSeasonInfo(user.season).then((data) => {
-      setSeasonData(data);
-      setIsLoading(false);
-    });
-    saveUserColorProfile(); // this is fine
-  }
-}, [user, isQuizComplete, navigate, seasonData]);
+    if (!user.skinTone) {
+      navigate("/quiz/skin-tone");
+      return;
+    } else if (!user.undertone) {
+      navigate("/quiz/undertone");
+      return;
+    } else if (!user.eyeColor) {
+      navigate("/quiz/eye-color");
+      return;
+    }
 
+    if (user.season) {
+      setIsLoading(true);
+      getSeasonInfo(user.season).then((data) => {
+        setSeasonData(data);
+        setIsLoading(false);
+      });
 
+      if (!hasSavedProfile) {
+        saveUserColorProfile();
+      }
+    }
+  }, [user, isQuizComplete, seasonData, hasSavedProfile, navigate]);
 
   if (!contextReady || !user?.season || isLoading || !seasonData) {
     return (
@@ -91,6 +142,14 @@ useEffect(() => {
       </div>
     );
   }
+
+  console.log("Saving user color profile with values:", {
+    id: user?.id,
+    skinTone: user?.skinTone,
+    undertone: user?.undertone,
+    eyeColor: user?.eyeColor,
+    season: user?.season,
+  });
 
   return (
     <>

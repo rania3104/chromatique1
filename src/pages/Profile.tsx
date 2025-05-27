@@ -1,14 +1,49 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useChromatique } from "@/lib/context";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/layout/Header";
+import { supabase } from "@/lib/supabaseClient";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const { user } = useChromatique();
+  const { user: contextUser } = useChromatique();
 
-  const storedProfile = localStorage.getItem("chromatique-user");
-  const profile = storedProfile ? JSON.parse(storedProfile) : null;
+  const [profile, setProfile] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      setLoading(true);
+
+      const {
+        data: { user: supabaseUser },
+        error: authError,
+      } = await supabase.auth.getUser();
+
+      if (authError || !supabaseUser) {
+        console.error("❌ Failed to fetch Supabase user:", authError?.message);
+        setLoading(false);
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from("user_profiles")
+        .select("name, email, season")
+        .eq("id", supabaseUser.id)
+        .single();
+
+      if (error) {
+        console.error("❌ Failed to fetch user profile from Supabase:", error.message);
+      } else {
+        setProfile(data);
+      }
+
+      setLoading(false);
+    };
+
+    fetchProfile();
+  }, []);
 
   const handleLogout = async () => {
     localStorage.removeItem("chromatique-user");
@@ -16,7 +51,7 @@ const Profile = () => {
     window.location.href = "/";
   };
 
-  if (!profile) {
+  if (loading || !profile) {
     return (
       <>
         <Header />
@@ -41,7 +76,7 @@ const Profile = () => {
             </div>
             <div className="flex justify-between">
               <span className="text-chromatique-taupe font-medium">Email</span>
-              <span className="font-serif">{profile.email}</span>
+              <span className="font-serif">{profile.email || "Not set"}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-chromatique-taupe font-medium">Season</span>
